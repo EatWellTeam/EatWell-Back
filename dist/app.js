@@ -9,6 +9,7 @@ const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const auth_route_1 = __importDefault(require("./routes/auth_route"));
+const post_route_1 = __importDefault(require("./routes/post_route"));
 const initApp = () => {
     const promise = new Promise((resolve) => {
         const db = mongoose_1.default.connection;
@@ -20,6 +21,7 @@ const initApp = () => {
             app.use(body_parser_1.default.json());
             app.use(body_parser_1.default.urlencoded({ extended: true }));
             app.use(auth_route_1.default);
+            app.use(post_route_1.default);
             resolve(app);
         });
     });

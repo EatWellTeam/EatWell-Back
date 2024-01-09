@@ -2,9 +2,10 @@ import { Document, Schema, Types, model } from "mongoose";
 
 export interface IPost extends Document {
   user: Types.ObjectId;
+  title: string;
   body: string;
-  comments: Types.ObjectId;
-  likes: Types.ObjectId;
+  comments: string[];
+  likes: string[];
   createdAt: Date;
 }
 
@@ -14,18 +15,22 @@ const postSchema = new Schema<IPost>({
     ref: "User",
     required: true,
   },
+  title: {
+    type: String,
+    required: true,
+    min: 4,
+  },
   body: {
     type: String,
     required: true,
   },
+
   comments: {
-    type: Schema.Types.ObjectId,
-    ref: "Comment",
+    type: [String],
     required: false,
   },
   likes: {
-    type: Schema.Types.ObjectId,
-    ref: "Like",
+    type: [String],
     required: false,
   },
   createdAt: {
