@@ -3,8 +3,8 @@ import { Document, Schema, Types, model } from "mongoose";
 export interface IPost extends Document {
   user: Types.ObjectId;
   body: string;
-  comments: string[];
-  likes: string[];
+  comments: Types.ObjectId;
+  likes: Types.ObjectId;
   createdAt: Date;
 }
 
@@ -19,11 +19,13 @@ const postSchema = new Schema<IPost>({
     required: true,
   },
   comments: {
-    type: [String],
+    type: Schema.Types.ObjectId,
+    ref: "Comment",
     required: false,
   },
   likes: {
-    type: [String],
+    type: Schema.Types.ObjectId,
+    ref: "Like",
     required: false,
   },
   createdAt: {
