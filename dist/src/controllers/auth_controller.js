@@ -15,9 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const user_model_1 = __importDefault(require("../models/user_model"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const test1 = (req, res) => {
-    return res.status(200).send("Works fine");
-};
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -143,6 +140,5 @@ exports.default = {
     login,
     logout,
     refresh,
-    test1,
 };
 //# sourceMappingURL=auth_controller.js.map
