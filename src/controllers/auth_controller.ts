@@ -3,10 +3,6 @@ import User from "../models/user_model";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
-const test1 = (req: Request, res: Response) => {
-  return res.status(200).send("Works fine");
-};
-
 const register = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -154,5 +150,4 @@ export default {
   login,
   logout,
   refresh,
-  test1,
 };
