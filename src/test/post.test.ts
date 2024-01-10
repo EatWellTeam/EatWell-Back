@@ -16,7 +16,7 @@ afterAll(async () => {
   console.log('------Post Test End------');
 });
 
-describe('Post Module', () => {
+describe('Post Module', () => { 
   const post1 = {
     user:"60d5ecb8b48738259ef1c1b6",
     title: 'Test Post',
@@ -33,4 +33,13 @@ describe('Post Module', () => {
 
       expect(responseObject.post).toMatchObject(post1);
 
-  })});
+  })
+  test("TEST 2: GET /:postId", async () => {
+    const response = await request(app).get(`/${post1.user}`);
+     expect(response.statusCode).toEqual(200);
+     
+     const responseObject = JSON.parse(response.text);
+
+      expect(responseObject).toMatchObject(post1);
+  });
+});

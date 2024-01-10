@@ -7,7 +7,7 @@ const express_1 = __importDefault(require("express"));
 const post_controller_1 = __importDefault(require("../controllers/post_controller"));
 const router = express_1.default.Router();
 //GET
-// router.get('/:postId', PostController.getOnePost);
+router.get('/:postId', post_controller_1.default.getOnePost);
 // router.get('/allPosts', PostController.getAllPosts);
 //POST
 router.post('/add-post', post_controller_1.default.createPost);

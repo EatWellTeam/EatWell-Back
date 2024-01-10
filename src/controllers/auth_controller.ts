@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import User from "../models/user_model";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import UserModel from "../models/user_model";
 
 const test1 = (req: Request, res: Response) => {
   return res.status(200).send("Works fine");

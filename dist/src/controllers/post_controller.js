@@ -16,25 +16,37 @@ const post_model_1 = __importDefault(require("../models/post_model"));
 // import Comment from "../models/comments_model";
 // import Like from "../models/likes_model";
 const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    {
-        console.log(req.body);
-        try {
-            const post = yield post_model_1.default.create({
-                user: req.body.user,
-                title: req.body.title,
-                body: req.body.body,
-                comments: req.body.comments,
-                likes: req.body.likes,
-            });
-            if (post) {
-                res.status(200).json({ post });
-            }
-        }
-        catch (error) {
-            console.log(error);
-            res.status(404).json({ message: "Post not created" });
+    console.log(req.body);
+    try {
+        const post = yield post_model_1.default.create({
+            user: req.body.user,
+            title: req.body.title,
+            body: req.body.body,
+            comments: req.body.comments,
+            likes: req.body.likes,
+        });
+        if (post) {
+            res.status(200).json({ post });
         }
     }
+    catch (error) {
+        console.log(error);
+        res.status(404).json({ message: "Post not created" });
+    }
 });
-exports.default = { createPost };
+const getOnePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const post = yield post_model_1.default.findOne({ user: req.params.postId });
+        if (!post) {
+            return res.status(500).json({ msg: "No such post with this id!" });
+        }
+        else {
+            return res.status(200).json(post);
+        }
+    }
+    catch (error) {
+        return res.status(500).json(error.message);
+    }
+});
+exports.default = { createPost, getOnePost };
 //# sourceMappingURL=post_controller.js.map

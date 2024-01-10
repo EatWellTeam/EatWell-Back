@@ -2,7 +2,7 @@ import express from 'express';
 import PostController from '../controllers/post_controller';
 const router = express.Router();
 //GET
-// router.get('/:postId', PostController.getOnePost);
+ router.get('/:postId', PostController.getOnePost);
 // router.get('/allPosts', PostController.getAllPosts);
 
  //POST

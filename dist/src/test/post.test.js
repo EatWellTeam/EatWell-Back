@@ -40,5 +40,11 @@ describe('Post Module', () => {
         const responseObject = JSON.parse(response.text);
         expect(responseObject.post).toMatchObject(post1);
     }));
+    test("TEST 2: GET /:postId", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app).get(`/${post1.user}`);
+        expect(response.statusCode).toEqual(200);
+        const responseObject = JSON.parse(response.text);
+        expect(responseObject).toMatchObject(post1);
+    }));
 });
 //# sourceMappingURL=post.test.js.map
