@@ -18,7 +18,7 @@ afterAll(async () => {
 
 describe('Post Module', () => {
   const post1 = {
-    user: '123',
+    user:"60d5ecb8b48738259ef1c1b6",
     title: 'Test Post',
     body: 'This is a test post',
     comments: ['cooment1', 'comment2'],
@@ -27,6 +27,10 @@ describe('Post Module', () => {
 
   test("TEST 1: POST /add-post", async () => {
     const response = await request(app).post('/add-post').send(post1);
-     expect(response.status).toBe(200);
-     expect(response.body).toMatchObject(post1);
+     expect(response.statusCode).toEqual(200);
+     
+     const responseObject = JSON.parse(response.text);
+
+      expect(responseObject.post).toMatchObject(post1);
+
   })});

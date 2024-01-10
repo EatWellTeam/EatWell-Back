@@ -18,13 +18,21 @@ const post_model_1 = __importDefault(require("../models/post_model"));
 const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     {
         console.log(req.body);
-        const post = new post_model_1.default(req.body);
         try {
-            const savedPost = yield post.save();
-            res.status(200).json(savedPost);
+            const post = yield post_model_1.default.create({
+                user: req.body.user,
+                title: req.body.title,
+                body: req.body.body,
+                comments: req.body.comments,
+                likes: req.body.likes,
+            });
+            if (post) {
+                res.status(200).json({ post });
+            }
         }
-        catch (err) {
-            res.json({ message: err });
+        catch (error) {
+            console.log(error);
+            res.status(404).json({ message: "Post not created" });
         }
     }
 });

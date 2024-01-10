@@ -28,7 +28,7 @@ afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
 }));
 describe('Post Module', () => {
     const post1 = {
-        user: '123',
+        user: "60d5ecb8b48738259ef1c1b6",
         title: 'Test Post',
         body: 'This is a test post',
         comments: ['cooment1', 'comment2'],
@@ -37,7 +37,8 @@ describe('Post Module', () => {
     test("TEST 1: POST /add-post", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app).post('/add-post').send(post1);
         expect(response.statusCode).toEqual(200);
-        //  expect(response.body).toMatchObject(post1);
+        const responseObject = JSON.parse(response.text);
+        expect(responseObject.post).toMatchObject(post1);
     }));
 });
 //# sourceMappingURL=post.test.js.map
