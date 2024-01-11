@@ -10,6 +10,8 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const auth_route_1 = __importDefault(require("./routes/auth_route"));
 const main_route_1 = __importDefault(require("./routes/main_route"));
+const posts_route_1 = __importDefault(require("./routes/posts_route"));
+const likes_route_1 = __importDefault(require("./routes/likes_route"));
 const initApp = () => {
     const promise = new Promise((resolve) => {
         const db = mongoose_1.default.connection;
@@ -18,10 +20,12 @@ const initApp = () => {
         const url = process.env.DB_URL;
         mongoose_1.default.connect(url).then(() => {
             const app = (0, express_1.default)();
-            app.use(main_route_1.default);
             app.use(body_parser_1.default.json());
             app.use(body_parser_1.default.urlencoded({ extended: true }));
+            app.use(main_route_1.default);
             app.use("/auth", auth_route_1.default);
+            app.use("/posts", posts_route_1.default);
+            app.use("/likes", likes_route_1.default);
             resolve(app);
         });
     });

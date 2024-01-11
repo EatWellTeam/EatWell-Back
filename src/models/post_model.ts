@@ -20,11 +20,9 @@ const postSchema = new Schema<IPost>({
   },
   comments: {
     type: [String],
-    required: false,
   },
   likes: {
     type: [String],
-    required: false,
   },
   createdAt: {
     type: Date,
@@ -32,6 +30,6 @@ const postSchema = new Schema<IPost>({
   },
 });
 
-const PostModel = model<IPost>("Post", postSchema);
+const postModel = model<IPost>("Post", postSchema);
 
-export default PostModel;
+export default postModel;
