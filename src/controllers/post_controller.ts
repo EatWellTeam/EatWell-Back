@@ -1,6 +1,6 @@
 import postModel, { IPost } from "../models/post_model";
-import createController from "./base_controller";
+import createController, { BaseController } from "./base_controller";
 
-const studentController = createController<IPost>(postModel);
+const PostController = createController<IPost>(postModel);
 
-export default studentController;
+export default PostController;
