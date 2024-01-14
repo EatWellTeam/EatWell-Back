@@ -1,10 +1,9 @@
-import { Request, Response} from "express";
+import {Request, Response} from "express";
 import Post from "../models/post_model";
-// import Comment from "../models/comments_model";
-// import Like from "../models/likes_model";
+
 
 const createPost = async (req: Request, res: Response) => {
-  console.log(req.body);
+  console.log("create post")
   try{
     const post = await Post.create({
       user: req.body.user,
@@ -23,20 +22,23 @@ const createPost = async (req: Request, res: Response) => {
  
 }
 const getOnePost = async (req:Request, res:Response) => {
+  console.log("get one post")
   try {
     const postId = req.params.id;
       const post = await Post.findById(postId);
+      console.log(post);
       if (!post) {
           return res.status(500).json({ msg: "No such post with this id!" })
       } else {
           return res.status(200).json({post});
       }
   } catch (error) {
-      return res.status(500).json(error.message)
+      return res.status(500).json({message:error.message});
   }
 
 }
 const getAllPosts = async (req:Request, res:Response) => {
+  console.log("get all posts")
   try {
       const posts = await Post.find();
       if (!posts) {
@@ -45,9 +47,11 @@ const getAllPosts = async (req:Request, res:Response) => {
           return res.status(200).json({posts});
       }
   } catch (error) {
-      return res.status(500).json(error.message)
+      return res.status(500).json({message:error.message});
   }
+
 }
+
   
 
-export default {createPost, getOnePost,getAllPosts};
+export default {createPost, getOnePost, getAllPosts};

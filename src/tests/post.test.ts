@@ -5,7 +5,7 @@ import { Express } from 'express';
 import Post from '../models/post_model';
 
 let app: Express;
-let postId: string;
+export let postId: string;
 beforeAll(async () => {
   app = await appPromise();
   console.log('------Post Test Start------');
@@ -30,7 +30,7 @@ describe('Post Module', () => {
   };
 
   test("TEST 1: POST /add-post", async () => {
-    const response = await request(app).post('/add-post').send(post1);
+    const response = await request(app).post('/posts/add-post').send(post1);
      expect(response.statusCode).toEqual(200);
      
      const responseObject = JSON.parse(response.text);
@@ -40,22 +40,23 @@ describe('Post Module', () => {
 
   })
   test("TEST 2: GET /:id", async () => {
-    const response = await request(app).get(`/${postId}`);
+    const response = await request(app).get(`/posts/${postId}`);
      expect(response.statusCode).toEqual(200);
      
      const responseObject = JSON.parse(response.text);
-      expect(responseObject.post._id).toContain(postId);
-
+      expect(responseObject.post.user).toEqual(post1.user.toHexString());
+      expect(responseObject.post.title).toEqual(post1.title);
+      expect(responseObject.post.body).toEqual(post1.body);
   });
   test("TEST 3: GET /allPosts", async () => {
-    const response = await request(app).get('/allPosts');
+    const response = await request(app).get(`/posts/allPosts`);
      expect(response.statusCode).toEqual(200);
      
      const responseObject = JSON.parse(response.text);
-    
-        expect(responseObject.posts[0]._id).toContain(postId);
-      
-     }
-  );  
+     expect(responseObject.posts[0].user).toEqual(post1.user.toHexString());
+     expect(responseObject.posts[0].title).toEqual(post1.title);
+     expect(responseObject.posts[0].body).toEqual(post1.body);
   });
+
+});
 

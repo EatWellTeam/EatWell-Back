@@ -23,7 +23,7 @@ const initApp = () => {
             app.use(body_parser_1.default.json());
             app.use(body_parser_1.default.urlencoded({ extended: true }));
             app.use(auth_route_1.default);
-            app.use(post_route_1.default);
+            app.use('/posts', post_route_1.default);
             resolve(app);
         });
     });

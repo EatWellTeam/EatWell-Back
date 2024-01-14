@@ -12,12 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.postId = void 0;
 const app_1 = __importDefault(require("../app"));
 const supertest_1 = __importDefault(require("supertest"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const post_model_1 = __importDefault(require("../models/post_model"));
 let app;
-let postId;
 beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     app = yield (0, app_1.default)();
     console.log('------Post Test Start------');
@@ -39,23 +39,27 @@ describe('Post Module', () => {
         likes: likesId
     };
     test("TEST 1: POST /add-post", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app).post('/add-post').send(post1);
+        const response = yield (0, supertest_1.default)(app).post('/posts/add-post').send(post1);
         expect(response.statusCode).toEqual(200);
         const responseObject = JSON.parse(response.text);
         expect(responseObject.post.user).toEqual(post1.user.toHexString());
-        postId = responseObject.post._id;
-    }));
-    test("TEST 3: GET /allPosts", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app).get('/allPosts');
-        expect(response.statusCode).toEqual(200);
-        const responseObject = JSON.parse(response.text);
-        expect(responseObject.posts[0]._id).toContain(postId);
+        exports.postId = responseObject.post._id;
     }));
     test("TEST 2: GET /:id", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app).get(`/${postId}`);
+        const response = yield (0, supertest_1.default)(app).get(`/posts/${exports.postId}`);
         expect(response.statusCode).toEqual(200);
         const responseObject = JSON.parse(response.text);
-        expect(responseObject.post._id).toContain(postId);
+        expect(responseObject.post.user).toEqual(post1.user.toHexString());
+        expect(responseObject.post.title).toEqual(post1.title);
+        expect(responseObject.post.body).toEqual(post1.body);
+    }));
+    test("TEST 3: GET /allPosts", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app).get(`/posts/allPosts`);
+        expect(response.statusCode).toEqual(200);
+        const responseObject = JSON.parse(response.text);
+        expect(responseObject.posts[0].user).toEqual(post1.user.toHexString());
+        expect(responseObject.posts[0].title).toEqual(post1.title);
+        expect(responseObject.posts[0].body).toEqual(post1.body);
     }));
 });
 //# sourceMappingURL=post.test.js.map

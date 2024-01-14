@@ -13,10 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const post_model_1 = __importDefault(require("../models/post_model"));
-// import Comment from "../models/comments_model";
-// import Like from "../models/likes_model";
 const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
+    console.log("create post");
     try {
         const post = yield post_model_1.default.create({
             user: req.body.user,
@@ -35,9 +33,11 @@ const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 const getOnePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("get one post");
     try {
         const postId = req.params.id;
         const post = yield post_model_1.default.findById(postId);
+        console.log(post);
         if (!post) {
             return res.status(500).json({ msg: "No such post with this id!" });
         }
@@ -46,10 +46,11 @@ const getOnePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         }
     }
     catch (error) {
-        return res.status(500).json(error.message);
+        return res.status(500).json({ message: error.message });
     }
 });
 const getAllPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("get all posts");
     try {
         const posts = yield post_model_1.default.find();
         if (!posts) {
@@ -60,7 +61,7 @@ const getAllPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         }
     }
     catch (error) {
-        return res.status(500).json(error.message);
+        return res.status(500).json({ message: error.message });
     }
 });
 exports.default = { createPost, getOnePost, getAllPosts };

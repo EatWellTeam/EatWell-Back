@@ -18,7 +18,7 @@ const initApp = (): Promise<Express> => {
       app.use(bodyParser.json());
       app.use(bodyParser.urlencoded({ extended: true }));
       app.use(authRoute);
-      app.use(postRoute);
+      app.use('/posts',postRoute);
       resolve(app);
     });
   });

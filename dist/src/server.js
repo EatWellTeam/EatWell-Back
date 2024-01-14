@@ -22,6 +22,5 @@ const port = process.env.PORT;
         cert: fs_1.default.readFileSync(clientCert),
     };
     https_1.default.createServer(options, app).listen(process.env.HTTPS_PORT);
-    https_1.default.createServer(app).listen(process.env.HTTPS_PORT);
 });
 //# sourceMappingURL=server.js.map
