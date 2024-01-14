@@ -24,6 +24,10 @@ const createPost = async (req: Request, res: Response) => {
 const getOnePost = async (req:Request, res:Response) => {
   console.log("get one post")
   try {
+    const existedPost = await Post.find();
+    if(existedPost.length === 0){
+      return res.status(500).send("No posts found!");
+    }
     const postId = req.params.id;
       const post = await Post.findById(postId);
       console.log(post);

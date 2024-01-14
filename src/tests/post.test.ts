@@ -28,8 +28,14 @@ describe('Post Module', () => {
     likes:likesId
     
   };
+  test("TEST 1: GET /post/:id empty DB", async () => {
+    const response = await request(app).get(`/posts/65a3f0c6c1d4cafa959dcf32`);
+    expect(response.statusCode).toEqual(500);
+    expect(response.text).toEqual("No posts found!");
 
-  test("TEST 1: POST /add-post", async () => {
+
+  });
+  test("TEST 2: POST /add-post", async () => {
     const response = await request(app).post('/posts/add-post').send(post1);
      expect(response.statusCode).toEqual(200);
      
@@ -39,7 +45,7 @@ describe('Post Module', () => {
   
 
   })
-  test("TEST 2: GET /:id", async () => {
+  test("TEST 3: GET /:id", async () => {
     const response = await request(app).get(`/posts/${postId}`);
      expect(response.statusCode).toEqual(200);
      
@@ -48,7 +54,7 @@ describe('Post Module', () => {
       expect(responseObject.post.title).toEqual(post1.title);
       expect(responseObject.post.body).toEqual(post1.body);
   });
-  test("TEST 3: GET /allPosts", async () => {
+  test("TEST 4: GET /allPosts", async () => {
     const response = await request(app).get(`/posts/allPosts`);
      expect(response.statusCode).toEqual(200);
      
@@ -58,7 +64,7 @@ describe('Post Module', () => {
      expect(responseObject.posts[0].body).toEqual(post1.body);
   });
 
-  test("TEST 4:GET /:id unExisted post", async () => {
+  test("TEST 5:GET /:id unExisted post", async () => {
     const response = await request(app).get(`/posts/65a3f0c6c1d5cafa959dcf32`);
     expect(response.statusCode).toEqual(500);
 
