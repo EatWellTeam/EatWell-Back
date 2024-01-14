@@ -91,6 +91,10 @@ const updatePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 const deletePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("delete post");
+    const existedPost = yield post_model_1.default.find();
+    if (existedPost.length === 0) {
+        return res.status(500).send("No posts found!");
+    }
     try {
         const postId = req.params.id;
         const post = yield post_model_1.default.findById(postId);

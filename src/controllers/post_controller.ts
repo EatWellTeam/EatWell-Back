@@ -78,6 +78,10 @@ const updatePost = async (req:Request, res:Response) => {
 }
 const deletePost = async (req:Request, res:Response) => {
   console.log("delete post")
+  const existedPost = await Post.find();
+    if(existedPost.length === 0){
+      return res.status(500).send("No posts found!");
+    }
   try {
       const postId = req.params.id;
       const post = await Post.findById(postId);

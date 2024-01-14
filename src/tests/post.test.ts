@@ -86,21 +86,26 @@ describe('Post Module', () => {
       expect(responseObject.updatedPost.comments[0]).toEqual(commentsId.toHexString());
       expect(responseObject.updatedPost.likes[0]).toEqual(likesId.toHexString());
     });
+    
     test ("TEST 8:PUT /:id/update unExisted post", async () => {
       const response = await request(app).put(`/posts/65a3f0c6c1d5cafa959dcf32/update`).send({title:"updated title",body:"updated body",comments:commentsId,likes:likesId});
       expect(response.statusCode).toEqual(500);
       expect(response.text).toEqual("No such post with this id!");
     });
-      
-    test("TEST 9: DELETE /:id", async () => {
+    test("TEST 9: DELETE /:id unExisted post", async () => {
+      const response = await request(app).delete(`/posts/65a3f0c6c1d5cafa959dcf32`);
+      expect(response.statusCode).toEqual(500);
+      expect(response.text).toEqual("No such post with this id!");
+    });
+    test("TEST 10: DELETE /:id", async () => {
       const response = await request(app).delete(`/posts/${postId}`);
       expect(response.statusCode).toEqual(200);
       expect(response.text).toEqual("Post deleted successfully!");
     });
-    test("TEST 10: DELETE /:id unExisted post", async () => {
+    test("TEST 11: DELETE /:id empty DB", async () => {
       const response = await request(app).delete(`/posts/65a3f0c6c1d5cafa959dcf32`);
       expect(response.statusCode).toEqual(500);
-      expect(response.text).toEqual("No such post with this id!");
+      expect(response.text).toEqual("No posts found!");
     });
   
 });
