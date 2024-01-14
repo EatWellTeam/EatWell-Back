@@ -9,9 +9,9 @@ router.get('/allPosts', PostController.getAllPosts);
  router.post('/add-post', PostController.createPost);
 //PUT
  router.put('/:id/update', PostController.updatePost);
-//  router.post('/:id', PostController.toggleLikePost);
+  // router.put('/:id', PostController.likePost);
 //DELETE
-// router.delete('/:id', PostController.deletePost);
+router.delete('/:id', PostController.deletePost);
 
 
 

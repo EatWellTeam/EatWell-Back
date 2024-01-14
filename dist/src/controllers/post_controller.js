@@ -89,5 +89,22 @@ const updatePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         return res.status(500).json({ message: error.message });
     }
 });
-exports.default = { createPost, getOnePost, getAllPosts, updatePost };
+const deletePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("delete post");
+    try {
+        const postId = req.params.id;
+        const post = yield post_model_1.default.findById(postId);
+        if (!post) {
+            return res.status(500).send("No such post with this id!");
+        }
+        else {
+            yield post_model_1.default.findByIdAndDelete(postId);
+            return res.status(200).send("Post deleted successfully!");
+        }
+    }
+    catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+});
+exports.default = { createPost, getOnePost, getAllPosts, updatePost, deletePost };
 //# sourceMappingURL=post_controller.js.map

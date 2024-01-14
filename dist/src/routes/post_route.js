@@ -13,9 +13,9 @@ router.get('/:id', post_controller_1.default.getOnePost);
 router.post('/add-post', post_controller_1.default.createPost);
 //PUT
 router.put('/:id/update', post_controller_1.default.updatePost);
-//  router.post('/:id', PostController.toggleLikePost);
+// router.put('/:id', PostController.likePost);
 //DELETE
-// router.delete('/:id', PostController.deletePost);
+router.delete('/:id', post_controller_1.default.deletePost);
 //   router.delete('/:postId', PostController.unlikePost);
 // // //Comments
 //  router.post(':/postId/addComment', PostController.addCommentToPost);

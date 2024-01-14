@@ -76,7 +76,23 @@ const updatePost = async (req:Request, res:Response) => {
   }
 
 }
+const deletePost = async (req:Request, res:Response) => {
+  console.log("delete post")
+  try {
+      const postId = req.params.id;
+      const post = await Post.findById(postId);
+      if (!post) {
+          return res.status(500).send( "No such post with this id!");
+      } else {
+          await Post.findByIdAndDelete(postId);
+          return res.status(200).send( "Post deleted successfully!");
+      }
+  } catch (error) {
+      return res.status(500).json({message:error.message});
+  }
+
+}
 
   
 
-export default {createPost, getOnePost, getAllPosts, updatePost};
+export default {createPost, getOnePost, getAllPosts, updatePost, deletePost};
