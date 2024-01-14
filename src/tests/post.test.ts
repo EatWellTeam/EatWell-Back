@@ -58,5 +58,10 @@ describe('Post Module', () => {
      expect(responseObject.posts[0].body).toEqual(post1.body);
   });
 
+  test("TEST 4:GET /:id unExisted post", async () => {
+    const response = await request(app).get(`/posts/65a3f0c6c1d5cafa959dcf32`);
+    expect(response.statusCode).toEqual(500);
+
+});
 });
 

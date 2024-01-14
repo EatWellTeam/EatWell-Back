@@ -61,5 +61,9 @@ describe('Post Module', () => {
         expect(responseObject.posts[0].title).toEqual(post1.title);
         expect(responseObject.posts[0].body).toEqual(post1.body);
     }));
+    test("TEST 4:GET /:id unExisted post", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app).get(`/posts/65a3f0c6c1d5cafa959dcf32`);
+        expect(response.statusCode).toEqual(500);
+    }));
 });
 //# sourceMappingURL=post.test.js.map
