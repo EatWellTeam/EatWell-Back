@@ -97,7 +97,11 @@ describe('Post Module', () => {
       expect(response.statusCode).toEqual(200);
       expect(response.text).toEqual("Post deleted successfully!");
     });
-
+    test("TEST 10: DELETE /:id unExisted post", async () => {
+      const response = await request(app).delete(`/posts/65a3f0c6c1d5cafa959dcf32`);
+      expect(response.statusCode).toEqual(500);
+      expect(response.text).toEqual("No such post with this id!");
+    });
   
 });
 

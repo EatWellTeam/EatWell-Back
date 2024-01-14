@@ -94,5 +94,10 @@ describe('Post Module', () => {
         expect(response.statusCode).toEqual(200);
         expect(response.text).toEqual("Post deleted successfully!");
     }));
+    test("TEST 10: DELETE /:id unExisted post", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app).delete(`/posts/65a3f0c6c1d5cafa959dcf32`);
+        expect(response.statusCode).toEqual(500);
+        expect(response.text).toEqual("No such post with this id!");
+    }));
 });
 //# sourceMappingURL=post.test.js.map
