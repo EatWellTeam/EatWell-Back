@@ -68,5 +68,22 @@ const getAllPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         return res.status(500).json({ message: error.message });
     }
 });
-exports.default = { createPost, getOnePost, getAllPosts };
+const updatePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("update post");
+    try {
+        const postId = req.params.id;
+        const post = yield post_model_1.default.findById(postId);
+        if (!post) {
+            return res.status(500).json({ msg: "No such post with this id!" });
+        }
+        else {
+            const updatedPost = yield post_model_1.default.findByIdAndUpdate(postId, req.body, { new: true });
+            return res.status(200).json({ updatedPost });
+        }
+    }
+    catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+});
+exports.default = { createPost, getOnePost, getAllPosts, updatePost };
 //# sourceMappingURL=post_controller.js.map

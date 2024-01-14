@@ -55,7 +55,23 @@ const getAllPosts = async (req:Request, res:Response) => {
   }
 
 }
+const updatePost = async (req:Request, res:Response) => {
+  console.log("update post")
+  try {
+      const postId = req.params.id;
+      const post = await Post.findById(postId);
+      if (!post) {
+          return res.status(500).json({ msg: "No such post with this id!" })
+      } else {
+          const updatedPost = await Post.findByIdAndUpdate(postId, req.body, { new: true });
+          return res.status(200).json({ updatedPost });
+      }
+  } catch (error) {
+      return res.status(500).json({message:error.message});
+  }
+
+}
 
   
 
-export default {createPost, getOnePost, getAllPosts};
+export default {createPost, getOnePost, getAllPosts, updatePost};

@@ -70,5 +70,14 @@ describe('Post Module', () => {
         const response = yield (0, supertest_1.default)(app).get(`/posts/65a3f0c6c1d5cafa959dcf32`);
         expect(response.statusCode).toEqual(500);
     }));
+    test("TEST 6:PUT /:id/update", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app).put(`/posts/${exports.postId}/update`).send({ title: "updated title", body: "updated body", comments: commentsId, likes: likesId });
+        expect(response.statusCode).toEqual(200);
+        const responseObject = JSON.parse(response.text);
+        expect(responseObject.updatedPost.title).toEqual("updated title");
+        expect(responseObject.updatedPost.body).toEqual("updated body");
+        expect(responseObject.updatedPost.comments[0]).toEqual(commentsId.toHexString());
+        expect(responseObject.updatedPost.likes[0]).toEqual(likesId.toHexString());
+    }));
 });
 //# sourceMappingURL=post.test.js.map
