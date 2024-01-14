@@ -43,14 +43,19 @@ describe('Post Module', () => {
         expect(response.statusCode).toEqual(500);
         expect(response.text).toEqual("No posts found!");
     }));
-    test("TEST 2: POST /add-post", () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 2: PUT /:id/update empty DB", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app).put(`/posts/65a3f0c6c1d4cafa959dcf32/update`).send({ title: "updated title", body: "updated body", comments: commentsId, likes: likesId });
+        expect(response.statusCode).toEqual(500);
+        expect(response.text).toEqual("No posts found!");
+    }));
+    test("TEST 3: POST /add-post", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app).post('/posts/add-post').send(post1);
         expect(response.statusCode).toEqual(200);
         const responseObject = JSON.parse(response.text);
         expect(responseObject.post.user).toEqual(post1.user.toHexString());
         exports.postId = responseObject.post._id;
     }));
-    test("TEST 3: GET /:id", () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 4: GET /:id", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app).get(`/posts/${exports.postId}`);
         expect(response.statusCode).toEqual(200);
         const responseObject = JSON.parse(response.text);
@@ -58,7 +63,7 @@ describe('Post Module', () => {
         expect(responseObject.post.title).toEqual(post1.title);
         expect(responseObject.post.body).toEqual(post1.body);
     }));
-    test("TEST 4: GET /allPosts", () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 5: GET /allPosts", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app).get(`/posts/allPosts`);
         expect(response.statusCode).toEqual(200);
         const responseObject = JSON.parse(response.text);
@@ -66,11 +71,11 @@ describe('Post Module', () => {
         expect(responseObject.posts[0].title).toEqual(post1.title);
         expect(responseObject.posts[0].body).toEqual(post1.body);
     }));
-    test("TEST 5:GET /:id unExisted post", () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 6:GET /:id unExisted post", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app).get(`/posts/65a3f0c6c1d5cafa959dcf32`);
         expect(response.statusCode).toEqual(500);
     }));
-    test("TEST 6:PUT /:id/update", () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 7:PUT /:id/update", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app).put(`/posts/${exports.postId}/update`).send({ title: "updated title", body: "updated body", comments: commentsId, likes: likesId });
         expect(response.statusCode).toEqual(200);
         const responseObject = JSON.parse(response.text);
@@ -79,7 +84,7 @@ describe('Post Module', () => {
         expect(responseObject.updatedPost.comments[0]).toEqual(commentsId.toHexString());
         expect(responseObject.updatedPost.likes[0]).toEqual(likesId.toHexString());
     }));
-    test("TEST 7:PUT /:id/update unExisted post", () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 8:PUT /:id/update unExisted post", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app).put(`/posts/65a3f0c6c1d5cafa959dcf32/update`).send({ title: "updated title", body: "updated body", comments: commentsId, likes: likesId });
         expect(response.statusCode).toEqual(500);
         expect(response.text).toEqual("No such post with this id!");

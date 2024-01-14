@@ -35,7 +35,15 @@ describe('Post Module', () => {
 
 
       });
-      test("TEST 2: POST /add-post", async () => {
+      test("TEST 2: PUT /:id/update empty DB", async () => {
+        const response = await request(app).put(`/posts/65a3f0c6c1d4cafa959dcf32/update`).send({title:"updated title",body:"updated body",comments:commentsId,likes:likesId});
+        expect(response.statusCode).toEqual(500);
+        expect(response.text).toEqual("No posts found!");
+     
+      
+
+      });
+      test("TEST 3: POST /add-post", async () => {
         const response = await request(app).post('/posts/add-post').send(post1);
         expect(response.statusCode).toEqual(200);
         
@@ -45,7 +53,7 @@ describe('Post Module', () => {
       
 
       })
-      test("TEST 3: GET /:id", async () => {
+      test("TEST 4: GET /:id", async () => {
         const response = await request(app).get(`/posts/${postId}`);
         expect(response.statusCode).toEqual(200);
         
@@ -54,7 +62,7 @@ describe('Post Module', () => {
           expect(responseObject.post.title).toEqual(post1.title);
           expect(responseObject.post.body).toEqual(post1.body);
       });
-      test("TEST 4: GET /allPosts", async () => {
+      test("TEST 5: GET /allPosts", async () => {
         const response = await request(app).get(`/posts/allPosts`);
         expect(response.statusCode).toEqual(200);
         
@@ -64,12 +72,12 @@ describe('Post Module', () => {
         expect(responseObject.posts[0].body).toEqual(post1.body);
       });
 
-      test("TEST 5:GET /:id unExisted post", async () => {
+      test("TEST 6:GET /:id unExisted post", async () => {
         const response = await request(app).get(`/posts/65a3f0c6c1d5cafa959dcf32`);
         expect(response.statusCode).toEqual(500);
 
     });
-    test("TEST 6:PUT /:id/update", async () => {
+    test("TEST 7:PUT /:id/update", async () => {
       const response = await request(app).put(`/posts/${postId}/update`).send({title:"updated title",body:"updated body",comments:commentsId,likes:likesId});
       expect(response.statusCode).toEqual(200);
       const responseObject = JSON.parse(response.text);
@@ -78,7 +86,7 @@ describe('Post Module', () => {
       expect(responseObject.updatedPost.comments[0]).toEqual(commentsId.toHexString());
       expect(responseObject.updatedPost.likes[0]).toEqual(likesId.toHexString());
     });
-    test ("TEST 7:PUT /:id/update unExisted post", async () => {
+    test ("TEST 8:PUT /:id/update unExisted post", async () => {
       const response = await request(app).put(`/posts/65a3f0c6c1d5cafa959dcf32/update`).send({title:"updated title",body:"updated body",comments:commentsId,likes:likesId});
       expect(response.statusCode).toEqual(500);
       expect(response.text).toEqual("No such post with this id!");
