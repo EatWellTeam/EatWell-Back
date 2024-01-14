@@ -13,12 +13,4 @@ router.get('/allPosts', PostController.getAllPosts);
 //DELETE
 router.delete('/:id', PostController.deletePost);
 
-
-
-
-
-//   router.delete('/:postId', PostController.unlikePost);
-// // //Comments
-//  router.post(':/postId/addComment', PostController.addCommentToPost);
-//  router.delete(':/postId/removeComment', PostController.removeCommentFromPost);
 export default router;

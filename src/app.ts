@@ -14,6 +14,7 @@ const initApp = (): Promise<Express> => {
     const url = process.env.DB_URL;
     mongoose.connect(url!).then(() => {
       const app = express();
+
       app.use(mainRoute);
       app.use(bodyParser.json());
       app.use(bodyParser.urlencoded({ extended: true }));
