@@ -74,7 +74,7 @@ const updatePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const postId = req.params.id;
         const post = yield post_model_1.default.findById(postId);
         if (!post) {
-            return res.status(500).json({ msg: "No such post with this id!" });
+            return res.status(500).send("No such post with this id!");
         }
         else {
             const updatedPost = yield post_model_1.default.findByIdAndUpdate(postId, req.body, { new: true });

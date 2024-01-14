@@ -79,5 +79,10 @@ describe('Post Module', () => {
         expect(responseObject.updatedPost.comments[0]).toEqual(commentsId.toHexString());
         expect(responseObject.updatedPost.likes[0]).toEqual(likesId.toHexString());
     }));
+    test("TEST 7:PUT /:id/update unExisted post", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app).put(`/posts/65a3f0c6c1d5cafa959dcf32/update`).send({ title: "updated title", body: "updated body", comments: commentsId, likes: likesId });
+        expect(response.statusCode).toEqual(500);
+        expect(response.text).toEqual("No such post with this id!");
+    }));
 });
 //# sourceMappingURL=post.test.js.map
