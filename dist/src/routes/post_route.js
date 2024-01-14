@@ -7,15 +7,15 @@ const express_1 = __importDefault(require("express"));
 const post_controller_1 = __importDefault(require("../controllers/post_controller"));
 const router = express_1.default.Router();
 //GET
-router.get('/:postId', post_controller_1.default.getOnePost);
-// router.get('/allPosts', PostController.getAllPosts);
+router.get('/:id', post_controller_1.default.getOnePost);
+router.get('/allPosts', post_controller_1.default.getAllPosts);
 //POST
 router.post('/add-post', post_controller_1.default.createPost);
 //PUT
-// router.put('/:postId/update', PostController.updatePost);
-//  router.post('/:postId', PostController.toggleLikePost);
+// router.put('/:id/update', PostController.updatePost);
+//  router.post('/:id', PostController.toggleLikePost);
 //DELETE
-// router.delete('/:postId', PostController.deletePost);
+// router.delete('/:id', PostController.deletePost);
 //   router.delete('/:postId', PostController.unlikePost);
 // // //Comments
 //  router.post(':/postId/addComment', PostController.addCommentToPost);

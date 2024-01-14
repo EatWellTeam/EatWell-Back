@@ -1,4 +1,4 @@
-import {Request, Response} from "express";
+import { Request, Response} from "express";
 import Post from "../models/post_model";
 // import Comment from "../models/comments_model";
 // import Like from "../models/likes_model";
@@ -24,16 +24,30 @@ const createPost = async (req: Request, res: Response) => {
 }
 const getOnePost = async (req:Request, res:Response) => {
   try {
-
-      const post = await Post.findOne({user: req.params.postId});
+    const postId = req.params.id;
+      const post = await Post.findById(postId);
       if (!post) {
           return res.status(500).json({ msg: "No such post with this id!" })
       } else {
-          return res.status(200).json(post)
+          return res.status(200).json({post});
+      }
+  } catch (error) {
+      return res.status(500).json(error.message)
+  }
+
+}
+const getAllPosts = async (req:Request, res:Response) => {
+  try {
+      const posts = await Post.find();
+      if (!posts) {
+          return res.status(500).json({ msg: "No posts found!" })
+      } else {
+          return res.status(200).json({posts});
       }
   } catch (error) {
       return res.status(500).json(error.message)
   }
 }
+  
 
-export default {createPost, getOnePost};
+export default {createPost, getOnePost,getAllPosts};

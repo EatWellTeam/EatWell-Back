@@ -36,17 +36,32 @@ const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 const getOnePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const post = yield post_model_1.default.findOne({ user: req.params.postId });
+        const postId = req.params.id;
+        const post = yield post_model_1.default.findById(postId);
         if (!post) {
             return res.status(500).json({ msg: "No such post with this id!" });
         }
         else {
-            return res.status(200).json(post);
+            return res.status(200).json({ post });
         }
     }
     catch (error) {
         return res.status(500).json(error.message);
     }
 });
-exports.default = { createPost, getOnePost };
+const getAllPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const posts = yield post_model_1.default.find();
+        if (!posts) {
+            return res.status(500).json({ msg: "No posts found!" });
+        }
+        else {
+            return res.status(200).json({ posts });
+        }
+    }
+    catch (error) {
+        return res.status(500).json(error.message);
+    }
+});
+exports.default = { createPost, getOnePost, getAllPosts };
 //# sourceMappingURL=post_controller.js.map

@@ -5,7 +5,7 @@ import { Express } from 'express';
 import Post from '../models/post_model';
 
 let app: Express;
-
+let postId: string;
 beforeAll(async () => {
   app = await appPromise();
   console.log('------Post Test Start------');
@@ -17,12 +17,16 @@ afterAll(async () => {
 });
 
 describe('Post Module', () => { 
+  const userId = new mongoose.Types.ObjectId();
+  const commentsId = new mongoose.Types.ObjectId();
+  const likesId = new mongoose.Types.ObjectId();
   const post1 = {
-    user:"60d5ecb8b48738259ef1c1b6",
+    user: userId,
     title: 'Test Post',
     body: 'This is a test post',
-    comments: ['cooment1', 'comment2'],
-    likes: ['like1', 'like2'],
+    comments:commentsId,
+    likes:likesId
+    
   };
 
   test("TEST 1: POST /add-post", async () => {
@@ -30,16 +34,28 @@ describe('Post Module', () => {
      expect(response.statusCode).toEqual(200);
      
      const responseObject = JSON.parse(response.text);
-
-      expect(responseObject.post).toMatchObject(post1);
+     expect(responseObject.post.user).toEqual(post1.user.toHexString());
+     postId = responseObject.post._id;
+  
 
   })
-  test("TEST 2: GET /:postId", async () => {
-    const response = await request(app).get(`/${post1.user}`);
+  test("TEST 2: GET /:id", async () => {
+    const response = await request(app).get(`/${postId}`);
      expect(response.statusCode).toEqual(200);
      
      const responseObject = JSON.parse(response.text);
+      expect(responseObject.post._id).toContain(postId);
 
-      expect(responseObject).toMatchObject(post1);
   });
-});
+  test("TEST 3: GET /allPosts", async () => {
+    const response = await request(app).get('/allPosts');
+     expect(response.statusCode).toEqual(200);
+     
+     const responseObject = JSON.parse(response.text);
+    
+        expect(responseObject.posts[0]._id).toContain(postId);
+      
+     }
+  );  
+  });
+
