@@ -12,7 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-
 exports.postId = void 0;
 const app_1 = __importDefault(require("../app"));
 const supertest_1 = __importDefault(require("supertest"));
@@ -104,7 +103,6 @@ describe('Post Module', () => {
         const response = yield (0, supertest_1.default)(app).delete(`/posts/65a3f0c6c1d5cafa959dcf32`);
         expect(response.statusCode).toEqual(500);
         expect(response.text).toEqual("No posts found!");
-
     }));
 });
 //# sourceMappingURL=post.test.js.map

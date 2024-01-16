@@ -5,8 +5,8 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import authRoute from "./routes/auth_route";
 import mainRoute from "./routes/main_route";
-
-import postRoute from "./routes/posts_route";
+import commentRoute from "./routes/comments_route";
+import postRoute from "./routes/post_route";
 import likeRoute from "./routes/likes_route";
 
 
@@ -24,6 +24,7 @@ const initApp = (): Promise<Express> => {
       app.use(mainRoute);
       app.use("/auth", authRoute);
       app.use("/posts", postRoute);
+      app.use("/posts/comments", commentRoute);
       app.use("/likes", likeRoute);
 
 
