@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BaseController = void 0;
 class BaseController {
     constructor(model) {
+
         console.log("Model type:", typeof model);
         console.log("Model value:", model);
         this.model = model;
@@ -27,12 +28,14 @@ class BaseController {
             catch (err) {
                 console.error(err);
                 res.status(500).json({ message: "Internal Server Error" });
+
             }
         });
     }
     getById(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+
                 const item = yield this.model.findById(req.params.id);
                 if (!item) {
                     res.status(404).json({ message: "Not Found" });
@@ -43,23 +46,29 @@ class BaseController {
             catch (err) {
                 console.error(err);
                 res.status(500).json({ message: "Internal Server Error" });
+
             }
         });
     }
     post(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+
             console.log("Post method in base controller ===> " + req.body);
+
             try {
                 const obj = yield this.model.create(req.body);
                 res.status(201).send(obj);
             }
             catch (err) {
+
                 console.error(err.message);
                 res.status(500).json({ message: "Internal Server Error" });
+
             }
         });
     }
     putById(req, res) {
+
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const updatedItem = yield this.model.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -88,11 +97,14 @@ class BaseController {
                 this.handleServerError(res, err);
             }
         });
+
     }
 }
 exports.BaseController = BaseController;
 const createController = (model) => {
+
     console.log("Create Controller ===> " + model);
+
     return new BaseController(model);
 };
 exports.default = createController;
