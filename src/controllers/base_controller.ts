@@ -10,7 +10,7 @@ export class BaseController<ModelType> {
     this.model = model;
   }
 
-  handleServerError(res: Response, error: Error) {}
+  // handleServerError(res: Response, error: Error) {}
 
   async get(req: Request, res: Response) {
     try {
@@ -61,7 +61,7 @@ export class BaseController<ModelType> {
       }
       res.send(updatedItem);
     } catch (err) {
-      this.handleServerError(res, err);
+      // this.handleServerError(res, err);
     }
   }
 
@@ -74,7 +74,7 @@ export class BaseController<ModelType> {
       }
       res.json({ message: "Deleted successfully" });
     } catch (err) {
-      this.handleServerError(res, err);
+      // this.handleServerError(res, err);
     }
   }
 }
