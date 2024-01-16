@@ -107,6 +107,5 @@ describe('Post Module', () => {
       expect(response.statusCode).toEqual(500);
       expect(response.text).toEqual("No posts found!");
     });
-  
 });
 

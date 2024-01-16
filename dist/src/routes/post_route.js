@@ -16,9 +16,5 @@ router.put('/:id/update', post_controller_1.default.updatePost);
 // router.put('/:id', PostController.likePost);
 //DELETE
 router.delete('/:id', post_controller_1.default.deletePost);
-//   router.delete('/:postId', PostController.unlikePost);
-// // //Comments
-//  router.post(':/postId/addComment', PostController.addCommentToPost);
-//  router.delete(':/postId/removeComment', PostController.removeCommentFromPost);
 exports.default = router;
 //# sourceMappingURL=post_route.js.map

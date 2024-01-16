@@ -6,7 +6,8 @@ import fs from "fs";
 
 const clientKey = process.cwd() + "/client-key.pem";
 const clientCert = process.cwd() + "/client-cert.pem";
-const port = process.env.PORT;
+const port = process.env.PORT || 3001;
+const portHttps = process.env.HTTPS_PORT;
 initApp().then((app) => {
   if (process.env.NODE_ENV !== "production") {
     console.log("development");
@@ -17,6 +18,6 @@ initApp().then((app) => {
     key: fs.readFileSync(clientKey),
     cert: fs.readFileSync(clientCert),
   };
-  https.createServer(options, app).listen(process.env.HTTPS_PORT);
+  https.createServer(options, app).listen(portHttps);
 
 });

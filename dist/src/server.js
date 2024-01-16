@@ -10,7 +10,8 @@ const fs_1 = __importDefault(require("fs"));
 // const path = require("path");
 const clientKey = process.cwd() + "/client-key.pem";
 const clientCert = process.cwd() + "/client-cert.pem";
-const port = process.env.PORT;
+const port = process.env.PORT || 3001;
+const portHttps = process.env.HTTPS_PORT;
 (0, app_1.default)().then((app) => {
     if (process.env.NODE_ENV !== "production") {
         console.log("development");
@@ -21,6 +22,6 @@ const port = process.env.PORT;
         key: fs_1.default.readFileSync(clientKey),
         cert: fs_1.default.readFileSync(clientCert),
     };
-    https_1.default.createServer(options, app).listen(process.env.HTTPS_PORT);
+    https_1.default.createServer(options, app).listen(portHttps);
 });
 //# sourceMappingURL=server.js.map

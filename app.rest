@@ -1,4 +1,6 @@
 
+
+
 POST http://localhost:3000/register HTTP/1.1
 Content-Type: application/json
 
@@ -16,7 +18,7 @@ Content-Type: application/json
 //------POST MODEL-----//
 //READ
 ###
-GET http://localhost:3000/posts/65a3f0c6c1d4cafa959dcf32 HTTP/1.1
+GET http://localhost:3000/posts/65a667f46176351c31ab141b HTTP/1.1
 
 ###
 GET http://localhost:3000/posts/allPosts HTTP/1.1
@@ -29,28 +31,22 @@ Content-Type: application/json
     "user": "5f9f5b3b1c1d4cafa959dcf2",
     "title": "test",
     "body": "test",
-    "comments": [
-        {
-            "user": "5f9f5b3b1c1d4cafa959dcf2",
-            "text": "test"
-        }
-    ],
-    "likes": [
-        {
-            "user": "5f9f5b3b1c1d4cafa959dcf2"
-        }
-    ]
-    
+    "comments": "65a6644d07a1ba2d560112e6",
+    "likes": "65a6644d07a1ba2d560112e7"
 }
   
 ###
-PATCH http://localhost:3000/posts/65a3f0c6c1d4cafa959dcf32/update HTTP/1.1
+PUT http://localhost:3000/posts/65a667f46176351c31ab141b/update HTTP/1.1
 Content-Type: application/json
 
 {
-      "title":"update",
-     " body":"update"
-{
+    "title": "update title",
+    "body": "update body",
+    "comments": "",
+    "likes": ""
+
+}
+
 ###
-  DELETE http://localhost:3000/posts/65a3f0c6c1d4cafa959dcf32/delete HTTP/1.1
+DELETE http://localhost:3000/posts/65a667f46176351c31ab141b HTTP/1.1
 
