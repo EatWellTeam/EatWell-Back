@@ -3,53 +3,85 @@ import { Model } from "mongoose";
 
 export class BaseController<ModelType> {
   model: Model<ModelType>;
+
   constructor(model: Model<ModelType>) {
+    console.log("Model type:", typeof model);
+    console.log("Model value:", model);
     this.model = model;
   }
 
+  handleServerError(res: Response, error: Error) {}
+
   async get(req: Request, res: Response) {
     try {
-      if (req.query.name) {
-        const students = await this.model.find({ name: req.query.name });
-        res.send(students);
-      } else {
-        const students = await this.model.find();
-        res.send(students);
-      }
+      const query = req.query.body ? { body: req.query.body } : {};
+      const items = await this.model.find(query);
+      res.send(items);
     } catch (err) {
-      res.status(500).json({ message: err.message });
+      console.error(err);
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 
   async getById(req: Request, res: Response) {
     try {
-      const student = await this.model.findById(req.params.id);
-      res.send(student);
+      const item = await this.model.findById(req.params.id);
+      if (!item) {
+        res.status(404).json({ message: "Not Found" });
+        return;
+      }
+      res.send(item);
     } catch (err) {
-      res.status(500).json({ message: err.message });
+      console.error(err);
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 
   async post(req: Request, res: Response) {
+    console.log("Post method in base controller ===> " + req.body);
     try {
       const obj = await this.model.create(req.body);
       res.status(201).send(obj);
     } catch (err) {
-      console.log(err);
-      res.status(406).send("fail: " + err.message);
+      console.error(err.message);
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 
-  putById(req: Request, res: Response) {
-    res.send("put student by id: " + req.params.id);
+  async putById(req: Request, res: Response) {
+    try {
+      const updatedItem = await this.model.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true }
+      );
+      if (!updatedItem) {
+        res.status(404).json({ message: "Not Found" });
+        return;
+      }
+      res.send(updatedItem);
+    } catch (err) {
+      this.handleServerError(res, err);
+    }
   }
 
-  deleteById(req: Request, res: Response) {
-    res.send("delete student by id: " + req.params.id);
+  async deleteById(req: Request, res: Response) {
+    try {
+      const deletedItem = await this.model.findByIdAndDelete(req.params.id);
+      if (!deletedItem) {
+        res.status(404).json({ message: "Not Found" });
+        return;
+      }
+      res.json({ message: "Deleted successfully" });
+    } catch (err) {
+      this.handleServerError(res, err);
+    }
   }
 }
 
 const createController = <ModelType>(model: Model<ModelType>) => {
+  console.log("Create Controller ===> " + model);
+
   return new BaseController<ModelType>(model);
 };
 

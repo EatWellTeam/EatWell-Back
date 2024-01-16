@@ -12,57 +12,99 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BaseController = void 0;
 class BaseController {
     constructor(model) {
+
+        console.log("Model type:", typeof model);
+        console.log("Model value:", model);
         this.model = model;
     }
+    handleServerError(res, error) { }
     get(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                if (req.query.name) {
-                    const students = yield this.model.find({ name: req.query.name });
-                    res.send(students);
-                }
-                else {
-                    const students = yield this.model.find();
-                    res.send(students);
-                }
+                const query = req.query.body ? { body: req.query.body } : {};
+                const items = yield this.model.find(query);
+                res.send(items);
             }
             catch (err) {
-                res.status(500).json({ message: err.message });
+                console.error(err);
+                res.status(500).json({ message: "Internal Server Error" });
+
             }
         });
     }
     getById(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const student = yield this.model.findById(req.params.id);
-                res.send(student);
+
+                const item = yield this.model.findById(req.params.id);
+                if (!item) {
+                    res.status(404).json({ message: "Not Found" });
+                    return;
+                }
+                res.send(item);
             }
             catch (err) {
-                res.status(500).json({ message: err.message });
+                console.error(err);
+                res.status(500).json({ message: "Internal Server Error" });
+
             }
         });
     }
     post(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+
+            console.log("Post method in base controller ===> " + req.body);
+
             try {
                 const obj = yield this.model.create(req.body);
                 res.status(201).send(obj);
             }
             catch (err) {
-                console.log(err);
-                res.status(406).send("fail: " + err.message);
+
+                console.error(err.message);
+                res.status(500).json({ message: "Internal Server Error" });
+
             }
         });
     }
     putById(req, res) {
-        res.send("put student by id: " + req.params.id);
+
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const updatedItem = yield this.model.findByIdAndUpdate(req.params.id, req.body, { new: true });
+                if (!updatedItem) {
+                    res.status(404).json({ message: "Not Found" });
+                    return;
+                }
+                res.send(updatedItem);
+            }
+            catch (err) {
+                this.handleServerError(res, err);
+            }
+        });
     }
     deleteById(req, res) {
-        res.send("delete student by id: " + req.params.id);
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const deletedItem = yield this.model.findByIdAndDelete(req.params.id);
+                if (!deletedItem) {
+                    res.status(404).json({ message: "Not Found" });
+                    return;
+                }
+                res.json({ message: "Deleted successfully" });
+            }
+            catch (err) {
+                this.handleServerError(res, err);
+            }
+        });
+
     }
 }
 exports.BaseController = BaseController;
 const createController = (model) => {
+
+    console.log("Create Controller ===> " + model);
+
     return new BaseController(model);
 };
 exports.default = createController;

@@ -1,3 +1,4 @@
+
 import {Request, Response} from "express";
 import Post from "../models/post_model";
 
@@ -100,3 +101,4 @@ const deletePost = async (req:Request, res:Response) => {
   
 
 export default {createPost, getOnePost, getAllPosts, updatePost, deletePost};
+

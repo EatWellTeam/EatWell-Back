@@ -5,7 +5,11 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import authRoute from "./routes/auth_route";
 import mainRoute from "./routes/main_route";
-import postRoute from "./routes/post_route";
+
+import postRoute from "./routes/posts_route";
+import likeRoute from "./routes/likes_route";
+
+
 const initApp = (): Promise<Express> => {
   const promise = new Promise<Express>((resolve) => {
     const db = mongoose.connection;
@@ -15,11 +19,14 @@ const initApp = (): Promise<Express> => {
     mongoose.connect(url!).then(() => {
       const app = express();
 
-      app.use(mainRoute);
       app.use(bodyParser.json());
       app.use(bodyParser.urlencoded({ extended: true }));
-      app.use(authRoute);
-      app.use('/posts',postRoute);
+      app.use(mainRoute);
+      app.use("/auth", authRoute);
+      app.use("/posts", postRoute);
+      app.use("/likes", likeRoute);
+
+
       resolve(app);
     });
   });
