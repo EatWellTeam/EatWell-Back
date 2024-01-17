@@ -5,7 +5,7 @@ const router = express.Router();
 router.get('/allPosts', PostController.getAllPosts);
  router.get('/:id', PostController.getOnePost);
 
- //POST
+ //POST  //change
  router.post('/add-post', PostController.createPost);
 //PUT
  router.put('/:id/update', PostController.updatePost);

@@ -9,7 +9,7 @@ const router = express_1.default.Router();
 //GET
 router.get('/allPosts', post_controller_1.default.getAllPosts);
 router.get('/:id', post_controller_1.default.getOnePost);
-//POST
+//POST  //change
 router.post('/add-post', post_controller_1.default.createPost);
 //PUT
 router.put('/:id/update', post_controller_1.default.updatePost);

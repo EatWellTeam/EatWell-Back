@@ -1,12 +1,12 @@
 import express from "express";
 const router = express.Router();
 import CommentsController from "../controllers/comment_controller";
-
+import authenticate from "../middleware/auth_middleware";
 //GET
-// router.get('/:postId/', CommentsController.getAllPostComments);
-router.get('/:id/getComment', CommentsController.getCommentById);
+// router.get('/:postId/', .getAllPostComments);
+router.get('/:id/getComment/:commentId', CommentsController.getCommentById);
 //POST
-router.post('/:id/createComment',CommentsController.createComment);
+router.post('/:id/createComment',authenticate,CommentsController.createComment);
 
 
 export default router;

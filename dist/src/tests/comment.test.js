@@ -17,15 +17,25 @@ const supertest_1 = __importDefault(require("supertest"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const comments_model_1 = __importDefault(require("../models/comments_model"));
 const post_model_1 = __importDefault(require("../models/post_model"));
+const user_model_1 = __importDefault(require("../models/user_model"));
 let app;
 let postId;
-// let post:mongoose.Types.ObjectId;
+let commentId;
+let accessToken;
+const user = {
+    email: "testUser@test.com",
+    password: "1234567890",
+};
 beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     app = yield (0, app_1.default)();
     console.log('------Comment Test Start------');
     yield comments_model_1.default.deleteMany();
+    yield user_model_1.default.deleteMany({ email: user.email });
+    yield (0, supertest_1.default)(app).post("/auth/register").send(user);
+    const response = yield (0, supertest_1.default)(app).post("/auth/login").send(user);
+    accessToken = response.body.accessToken;
     postId = (yield post_model_1.default.findOne({}).then((post) => post === null || post === void 0 ? void 0 : post._id)).toHexString();
-    //  post = await PostModel.findById(postId).then((post) => post?._id);
+    commentId = (yield comments_model_1.default.findOne({}).then((comment) => comment === null || comment === void 0 ? void 0 : comment._id)).toHexString();
 }));
 afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
     yield mongoose_1.default.disconnect();
@@ -34,20 +44,26 @@ afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
 describe('Comment Test', () => {
     let comment1;
     beforeEach(() => __awaiter(void 0, void 0, void 0, function* () {
-        const userModel = "5f9f5b3b1c1d4cafa959dcf2";
-        // const userModel = PostModel.findById(postId).populate('user');
+        const userId = "5f9f5b3b1c1d4cafa959dcf2";
         console.log("------USER------");
-        console.log(userModel);
+        console.log(userId);
         comment1 = {
-            user: userModel,
+            user: userId,
             post: `${postId}`,
             body: 'test comment',
         };
     }));
-    test('Create Comment : /posts/comments/:id/createComment', () => __awaiter(void 0, void 0, void 0, function* () {
+    test('TEST 1: Create Comment : /posts/comments/:id/createComment/:commentId', () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .post(`/posts/comments/${postId}/createComment`)
-            .send(comment1);
+            .send(comment1).set('Authorization', `JWT ${accessToken}`);
+        expect(response.status).toBe(200);
+        console.log(response.body);
+        expect(response.body).toMatchObject(comment1);
+    }));
+    test('TEST 2: Get Comment : /posts/comments/:id', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app)
+            .get(`/posts/comments/${postId}/getComment/${commentId}`);
         expect(response.status).toBe(200);
         console.log(response.body);
         expect(response.body).toMatchObject(comment1);

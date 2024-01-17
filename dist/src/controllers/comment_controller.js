@@ -32,5 +32,25 @@ const createComment = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(500).json(err);
     }
 });
-exports.default = { createComment };
+const getCommentById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("------GET COMMENT BY ID------");
+    const postId = req.params.id;
+    const commentId = req.params.commentId;
+    try {
+        // Fetch the post and populate the comments
+        const post = yield post_model_1.default.findById(postId).populate('comments');
+        // Find the specific comment
+        const comment = post.comments.find(comment => comment._id.toString() === commentId);
+        if (comment) {
+            res.status(200).json(comment);
+        }
+        else {
+            res.status(404).json("Comment not found");
+        }
+    }
+    catch (err) {
+        res.status(500).json(err);
+    }
+});
+exports.default = { createComment, getCommentById };
 //# sourceMappingURL=comment_controller.js.map

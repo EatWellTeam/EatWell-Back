@@ -6,9 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const comment_controller_1 = __importDefault(require("../controllers/comment_controller"));
+const auth_middleware_1 = __importDefault(require("../middleware/auth_middleware"));
 //GET
-// router.get('/:postId/', CommentsController.getAllPostComments);
+// router.get('/:postId/', .getAllPostComments);
+router.get('/:id/getComment/:commentId', comment_controller_1.default.getCommentById);
 //POST
-router.post('/:id/createComment', comment_controller_1.default.createComment);
+router.post('/:id/createComment', auth_middleware_1.default, comment_controller_1.default.createComment);
 exports.default = router;
 //# sourceMappingURL=comments_route.js.map
