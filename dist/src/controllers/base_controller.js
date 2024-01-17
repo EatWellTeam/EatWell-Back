@@ -51,7 +51,12 @@ class BaseController {
             console.log("Post method in base controller ===> " + req.body);
             try {
                 const obj = yield this.model.create(req.body);
-                res.status(201).send(obj);
+                if (obj) {
+                    res.status(201).send(obj);
+                }
+                else {
+                    res.status(500).send("Error in creating object");
+                }
             }
             catch (err) {
                 console.error(err.message);

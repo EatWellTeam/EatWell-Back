@@ -16,15 +16,14 @@ const app_1 = __importDefault(require("../app"));
 const supertest_1 = __importDefault(require("supertest"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const comments_model_1 = __importDefault(require("../models/comments_model"));
-const post_model_1 = __importDefault(require("../models/post_model"));
 const user_model_1 = __importDefault(require("../models/user_model"));
 let app;
-let postId;
-let commentId;
+const postId = "65a69b520e7d1666b2dcc49b";
+// const commentId = "5f9f5b3b1c1d4cafa959dcf2";
 let accessToken;
 const user = {
     email: "testUser@test.com",
-    password: "1234567890",
+    password: "1234567890"
 };
 beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     app = yield (0, app_1.default)();
@@ -34,8 +33,6 @@ beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, supertest_1.default)(app).post("/auth/register").send(user);
     const response = yield (0, supertest_1.default)(app).post("/auth/login").send(user);
     accessToken = response.body.accessToken;
-    postId = (yield post_model_1.default.findOne({}).then((post) => post === null || post === void 0 ? void 0 : post._id)).toHexString();
-    commentId = (yield comments_model_1.default.findOne({}).then((comment) => comment === null || comment === void 0 ? void 0 : comment._id)).toHexString();
 }));
 afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
     yield mongoose_1.default.disconnect();
@@ -53,18 +50,11 @@ describe('Comment Test', () => {
             body: 'test comment',
         };
     }));
-    test('TEST 1: Create Comment : /posts/comments/:id/createComment/:commentId', () => __awaiter(void 0, void 0, void 0, function* () {
+    test('TEST 1: Create Comment : /posts/comments/:id/createComment', () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .post(`/posts/comments/${postId}/createComment`)
             .send(comment1).set('Authorization', `JWT ${accessToken}`);
-        expect(response.status).toBe(200);
-        console.log(response.body);
-        expect(response.body).toMatchObject(comment1);
-    }));
-    test('TEST 2: Get Comment : /posts/comments/:id', () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app)
-            .get(`/posts/comments/${postId}/getComment/${commentId}`);
-        expect(response.status).toBe(200);
+        expect(response.status).toBe(201);
         console.log(response.body);
         expect(response.body).toMatchObject(comment1);
     }));

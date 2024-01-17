@@ -9,8 +9,8 @@ const comment_controller_1 = __importDefault(require("../controllers/comment_con
 const auth_middleware_1 = __importDefault(require("../middleware/auth_middleware"));
 //GET
 // router.get('/:postId/', .getAllPostComments);
-router.get('/:id/getComment/:commentId', comment_controller_1.default.getCommentById);
+router.get('/:id/getComment/:commentId', comment_controller_1.default.getById.bind(comment_controller_1.default));
 //POST
-router.post('/:id/createComment', auth_middleware_1.default, comment_controller_1.default.createComment);
+router.post('/:id/createComment', auth_middleware_1.default, comment_controller_1.default.post.bind(comment_controller_1.default));
 exports.default = router;
 //# sourceMappingURL=comments_route.js.map

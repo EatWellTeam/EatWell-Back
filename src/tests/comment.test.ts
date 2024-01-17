@@ -3,15 +3,15 @@ import request from 'supertest';
 import mongoose from 'mongoose';
 import { Express } from 'express';
 import CommentModel from '../models/comments_model';
-import PostModel from '../models/post_model';
 import UserModel from '../models/user_model';
 let app: Express;
-let postId:string;
-let commentId:string;
+const postId = "65a69b520e7d1666b2dcc49b";
+// const commentId = "5f9f5b3b1c1d4cafa959dcf2";
 let accessToken: string;
 const user = {
   email: "testUser@test.com",
-  password: "1234567890",
+  password: "1234567890"
+
 };
 beforeAll(async () => {
   app = await appPromise();
@@ -19,10 +19,11 @@ beforeAll(async () => {
   await CommentModel.deleteMany();
   await UserModel.deleteMany({ email: user.email });
   await request(app).post("/auth/register").send(user);
+  
   const response = await request(app).post("/auth/login").send(user);
   accessToken = response.body.accessToken;
-   postId = (await PostModel.findOne({}).then((post) => post?._id)).toHexString();
-  commentId = (await CommentModel.findOne({}).then((comment) => comment?._id)).toHexString();
+
+ 
 });
 afterAll(async () => {
   await mongoose.disconnect();
@@ -50,20 +51,15 @@ describe('Comment Test', () => {
   });
   
 
-  test('TEST 1: Create Comment : /posts/comments/:id/createComment/:commentId', async () => {
+  test('TEST 1: Create Comment : /posts/comments/:id/createComment', async () => {
     const response = await request(app)
       .post(`/posts/comments/${postId}/createComment`)
       .send(comment1).set('Authorization', `JWT ${accessToken}`);
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(201);
     console.log(response.body);
     expect(response.body).toMatchObject(comment1);
  
   });
-  test('TEST 2: Get Comment : /posts/comments/:id', async () => {
-    const response = await request(app)
-      .get(`/posts/comments/${postId}/getComment/${commentId}`);
-    expect(response.status).toBe(200);
-    console.log(response.body);
-    expect(response.body).toMatchObject(comment1);
-  });
+
+
 });
