@@ -6,7 +6,7 @@ import CommentModel from '../models/comments_model';
 import UserModel from '../models/user_model';
 let app: Express;
 const postId = "65a69b520e7d1666b2dcc49b";
-// const commentId = "5f9f5b3b1c1d4cafa959dcf2";
+ let commentId: string;
 let accessToken: string;
 const user = {
   email: "testUser@test.com",
@@ -58,8 +58,17 @@ describe('Comment Test', () => {
     expect(response.status).toBe(201);
     console.log(response.body);
     expect(response.body).toMatchObject(comment1);
+    commentId = response.body._id;
  
   });
-
+  test('TEST 2: Get Comment By Id : /posts/comments/:id/getComment/:commentId', async () => {
+    const response = await request(app)
+      .get(`/posts/comments/${postId}/getComment/${commentId}`)
+      .send(comment1).set('Authorization', `JWT ${accessToken}`);
+    expect(response.status).toBe(200);
+    console.log(response.body);
+    expect(response.body).toMatchObject(comment1);
+ 
+  });
 
 });

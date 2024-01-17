@@ -19,7 +19,7 @@ const comments_model_1 = __importDefault(require("../models/comments_model"));
 const user_model_1 = __importDefault(require("../models/user_model"));
 let app;
 const postId = "65a69b520e7d1666b2dcc49b";
-// const commentId = "5f9f5b3b1c1d4cafa959dcf2";
+let commentId;
 let accessToken;
 const user = {
     email: "testUser@test.com",
@@ -55,6 +55,15 @@ describe('Comment Test', () => {
             .post(`/posts/comments/${postId}/createComment`)
             .send(comment1).set('Authorization', `JWT ${accessToken}`);
         expect(response.status).toBe(201);
+        console.log(response.body);
+        expect(response.body).toMatchObject(comment1);
+        commentId = response.body._id;
+    }));
+    test('TEST 2: Get Comment By Id : /posts/comments/:id/getComment/:commentId', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app)
+            .get(`/posts/comments/${postId}/getComment/${commentId}`)
+            .send(comment1).set('Authorization', `JWT ${accessToken}`);
+        expect(response.status).toBe(200);
         console.log(response.body);
         expect(response.body).toMatchObject(comment1);
     }));
