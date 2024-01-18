@@ -20,7 +20,6 @@ const user_model_1 = __importDefault(require("../models/user_model"));
 let app;
 const postId = "65a69b520e7d1666b2dcc49b";
 const userId = "5f9f5b3b1c1d4cafa959dcf2";
-// let commentModel;
 let commentId;
 let accessToken;
 const user = {
@@ -62,15 +61,17 @@ describe('Comment Test', () => {
             .get(`/posts/comments/${commentId}/getComment/${postId}`)
             .send(comment1).set('Authorization', `JWT ${accessToken}`);
         expect(response.status).toBe(200);
-        console.log(response.body);
-        // commentModel = response.body;
         expect(response.body).toMatchObject(comment1);
     }));
     test('TEST 3: PUT Comment By Id : /posts/comments/:id/updateComment/:postId', () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app).put(`/posts/comments/${commentId}/updateComment/${postId}`).send({ body: 'updated comment' }).set('Authorization', `JWT ${accessToken}`);
         expect(response.status).toBe(200);
-        console.log(response.body);
         expect(response.body.body).toBe('updated comment');
+    }));
+    test('TEST 4: GET All Comments : /posts/comments/AllComments', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app).get(`/posts/comments/AllComments`).set('Authorization', `JWT ${accessToken}`);
+        expect(response.status).toBe(200);
+        expect(response.body[0].body).toBe('updated comment');
     }));
 });
 //# sourceMappingURL=comment.test.js.map
