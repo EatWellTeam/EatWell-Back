@@ -72,7 +72,7 @@ class BaseController {
                     res.status(404).json({ message: "Not Found" });
                     return;
                 }
-                res.send(updatedItem);
+                res.status(200).send(updatedItem);
             }
             catch (err) {
                 // this.handleServerError(res, err);
