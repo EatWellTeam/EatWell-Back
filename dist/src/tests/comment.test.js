@@ -73,5 +73,10 @@ describe('Comment Test', () => {
         expect(response.status).toBe(200);
         expect(response.body[0].body).toBe('updated comment');
     }));
+    test('TEST 5: DELETE Comment By Id : /posts/comments/:id/deleteComment/:postId', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app).delete(`/posts/comments/${commentId}/deleteComment/${postId}`).set('Authorization', `JWT ${accessToken}`);
+        expect(response.status).toBe(200);
+        expect(response.body.message).toBe('Deleted successfully');
+    }));
 });
 //# sourceMappingURL=comment.test.js.map

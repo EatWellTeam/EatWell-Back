@@ -15,4 +15,6 @@ router.post('/:id/createComment', auth_middleware_1.default, comment_controller_
 //PUT
 router.put('/:id/updateComment/:postId', auth_middleware_1.default, comment_controller_1.default.putById.bind(comment_controller_1.default));
 exports.default = router;
+//DELETE
+router.delete('/:id/deleteComment/:postId', auth_middleware_1.default, comment_controller_1.default.deleteById.bind(comment_controller_1.default));
 //# sourceMappingURL=comments_route.js.map

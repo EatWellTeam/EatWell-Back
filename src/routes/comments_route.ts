@@ -13,3 +13,6 @@ router.post('/:id/createComment',authenticate,CommentsController.post.bind(Comme
 router.put('/:id/updateComment/:postId',authenticate,CommentsController.putById.bind(CommentsController));
 export default router;
 
+//DELETE
+ router.delete('/:id/deleteComment/:postId',authenticate,CommentsController.deleteById.bind(CommentsController));
+

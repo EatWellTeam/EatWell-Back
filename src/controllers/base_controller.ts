@@ -77,7 +77,7 @@ export class BaseController<ModelType> {
         res.status(404).json({ message: "Not Found" });
         return;
       }
-      res.json({ message: "Deleted successfully" });
+      res.status(200).json({ message: "Deleted successfully" });
     } catch (err) {
       // this.handleServerError(res, err);
     }

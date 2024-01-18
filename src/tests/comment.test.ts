@@ -77,4 +77,9 @@ describe('Comment Test', () => {
     expect(response.body[0].body).toBe('updated comment');
   });
 
+  test('TEST 5: DELETE Comment By Id : /posts/comments/:id/deleteComment/:postId', async () => {
+    const response = await request(app).delete(`/posts/comments/${commentId}/deleteComment/${postId}`).set('Authorization', `JWT ${accessToken}`);
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('Deleted successfully');
+  });
 });
