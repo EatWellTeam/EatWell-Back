@@ -75,21 +75,24 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("logout");
     const authHeader = req.headers["authorization"];
     const refreshToken = authHeader && authHeader.split(" ")[1]; // Bearer <token>
     if (refreshToken == null)
         return res.sendStatus(401);
     jsonwebtoken_1.default.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, user) => __awaiter(void 0, void 0, void 0, function* () {
         console.log(err);
-        if (err)
-            return res.sendStatus(401);
+        if (err) {
+            console.log(err);
+            return res.sendStatus(402);
+        }
         try {
             const userDb = yield user_model_1.default.findOne({ _id: user._id });
             if (!userDb.refreshTokens ||
                 !userDb.refreshTokens.includes(refreshToken)) {
                 userDb.refreshTokens = [];
                 yield userDb.save();
-                return res.sendStatus(401);
+                return res.sendStatus(200);
             }
             else {
                 userDb.refreshTokens = userDb.refreshTokens.filter((t) => t !== refreshToken);
@@ -98,7 +101,7 @@ const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             }
         }
         catch (err) {
-            res.sendStatus(401).send(err.message);
+            res.sendStatus(403).send(err.message);
         }
     }));
 });
