@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import LikesController from "../controllers/likes_controller";
+// import LikesController from "../controllers/likes_controller";
 import { BaseController } from "../controllers/base_controller";
 import LikePost from "../models/likes_model";
 

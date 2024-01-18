@@ -10,7 +10,7 @@ export class BaseController<ModelType> {
     this.model = model;
   }
 
-  handleServerError(res: Response, error: Error) {}
+  // handleServerError(res: Response, error: Error) {}
 
   async get(req: Request, res: Response) {
     try {
@@ -30,7 +30,7 @@ export class BaseController<ModelType> {
         res.status(404).json({ message: "Not Found" });
         return;
       }
-      res.send(item);
+      res.status(200).send(item);
     } catch (err) {
       console.error(err);
       res.status(500).json({ message: "Internal Server Error" });
@@ -41,7 +41,12 @@ export class BaseController<ModelType> {
     console.log("Post method in base controller ===> " + req.body);
     try {
       const obj = await this.model.create(req.body);
-      res.status(201).send(obj);
+      if(obj){
+        res.status(201).send(obj);
+      }
+      else{
+        res.status(500).send("Error in creating object");
+      }
     } catch (err) {
       console.error(err.message);
       res.status(500).json({ message: "Internal Server Error" });
@@ -59,9 +64,9 @@ export class BaseController<ModelType> {
         res.status(404).json({ message: "Not Found" });
         return;
       }
-      res.send(updatedItem);
+      res.status(200).send(updatedItem);
     } catch (err) {
-      this.handleServerError(res, err);
+      // this.handleServerError(res, err);
     }
   }
 
@@ -72,9 +77,9 @@ export class BaseController<ModelType> {
         res.status(404).json({ message: "Not Found" });
         return;
       }
-      res.json({ message: "Deleted successfully" });
+      res.status(200).json({ message: "Deleted successfully" });
     } catch (err) {
-      this.handleServerError(res, err);
+      // this.handleServerError(res, err);
     }
   }
 }

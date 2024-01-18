@@ -3,7 +3,7 @@ import User from "../models/user_model";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
-const register = async (req: Request, res: Response) => {
+const register = async (req: Request, res: Response):Promise<Response> => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(400).send("Missing email or password");
