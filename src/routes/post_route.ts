@@ -10,7 +10,7 @@ router.get('/allPosts', PostController.get.bind(PostController));
  router.post('/addPost',authenticate, PostController.post.bind(PostController));
 //PUT
  router.put('/:id/update', authenticate, PostController.putById.bind(PostController));
-  // router.put('/:id', PostController.likePost);
+ 
 //DELETE
 router.delete('/:id', authenticate, PostController.deleteById.bind(PostController));
 
