@@ -56,12 +56,14 @@ describe('Comment Test', () => {
             .send(comment1).set('Authorization', `JWT ${accessToken}`);
         expect(response.status).toBe(201);
         console.log(response.body);
-        expect(response.body).toMatchObject(comment1);
+        expect(response.body.user).toBe(comment1.user);
+        expect(response.body.post).toBe(comment1.post);
+        expect(response.body.body).toBe(comment1.body);
         commentId = response.body._id;
     }));
     test('TEST 2: Get Comment By Id : /posts/comments/:id/getComment/:commentId', () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
-            .get(`/posts/comments/${postId}/getComment/${commentId}`)
+            .get(`/posts/comments/${commentId}/getComment/${postId}`)
             .send(comment1).set('Authorization', `JWT ${accessToken}`);
         expect(response.status).toBe(200);
         console.log(response.body);

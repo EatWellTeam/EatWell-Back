@@ -4,9 +4,9 @@ import CommentsController from "../controllers/comment_controller";
 import authenticate from "../middleware/auth_middleware";
 //GET
 // router.get('/:postId/', .getAllPostComments);
-router.get('/:id/getComment/:commentId', CommentsController.getById.bind(CommentsController));
+router.get('/:commentId/getComment/:postId', CommentsController.getById.bind(CommentsController));
 //POST
-router.post('/:id/createComment',authenticate,CommentsController.post.bind(CommentsController));
+router.post('/:postId/createComment',authenticate,CommentsController.post.bind(CommentsController));
 
 
 export default router;
