@@ -19,11 +19,17 @@ const comments_model_1 = __importDefault(require("../models/comments_model"));
 const user_model_1 = __importDefault(require("../models/user_model"));
 let app;
 const postId = "65a69b520e7d1666b2dcc49b";
+const userId = "5f9f5b3b1c1d4cafa959dcf2";
 let commentId;
 let accessToken;
 const user = {
     email: "testUser@test.com",
     password: "1234567890"
+};
+const comment1 = {
+    user: userId,
+    post: `${postId}`,
+    body: 'test comment',
 };
 beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     app = yield (0, app_1.default)();
@@ -39,17 +45,6 @@ afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
     console.log('------Comment Test End------');
 }));
 describe('Comment Test', () => {
-    let comment1;
-    beforeEach(() => __awaiter(void 0, void 0, void 0, function* () {
-        const userId = "5f9f5b3b1c1d4cafa959dcf2";
-        console.log("------USER------");
-        console.log(userId);
-        comment1 = {
-            user: userId,
-            post: `${postId}`,
-            body: 'test comment',
-        };
-    }));
     test('TEST 1: Create Comment : /posts/comments/:id/createComment', () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .post(`/posts/comments/${postId}/createComment`)
