@@ -17,6 +17,7 @@ const supertest_1 = __importDefault(require("supertest"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const comments_model_1 = __importDefault(require("../models/comments_model"));
 const user_model_1 = __importDefault(require("../models/user_model"));
+const auth_test_1 = require("./auth.test");
 let app;
 const postId = "65a69b520e7d1666b2dcc49b";
 const userId = "5f9f5b3b1c1d4cafa959dcf2";
@@ -35,8 +36,9 @@ beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     app = yield (0, app_1.default)();
     console.log('------Comment Test Start------');
     yield comments_model_1.default.deleteMany();
-    yield user_model_1.default.deleteMany({ email: user.email });
-    yield (0, supertest_1.default)(app).post("/auth/register").send(user);
+    yield (0, auth_test_1.authUser)();
+    yield user_model_1.default.deleteMany({ 'email': user.email });
+    yield (0, supertest_1.default)(app).post("/auth/register").send(user); //register user
     const response = yield (0, supertest_1.default)(app).post("/auth/login").send(user);
     accessToken = response.body.accessToken;
 }));

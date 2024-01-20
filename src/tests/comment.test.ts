@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import { Express } from 'express';
 import CommentModel from '../models/comments_model';
 import UserModel from '../models/user_model';
+import { authUser } from './auth.test';
 let app: Express;
 const postId = "65a69b520e7d1666b2dcc49b";
 const userId = "5f9f5b3b1c1d4cafa959dcf2";
@@ -25,9 +26,9 @@ beforeAll(async () => {
   app = await appPromise();
   console.log('------Comment Test Start------');
   await CommentModel.deleteMany();
-  await UserModel.deleteMany({ email: user.email });
-  await request(app).post("/auth/register").send(user);
-  
+  await authUser();
+  await UserModel.deleteMany({ 'email': user.email });
+  await request(app).post("/auth/register").send(user);  //register user
   const response = await request(app).post("/auth/login").send(user);
   accessToken = response.body.accessToken;
 
