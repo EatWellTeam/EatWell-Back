@@ -92,19 +92,18 @@ describe('Post Module', () => {
       expect(response.statusCode).toEqual(401);
      
     });
+ 
+    test("test login for correct email and password", async () => {
+      const response = await request(app).post("/auth/login").send(user3);  //user3 logged in
+      expect(response.statusCode).toEqual(200);
+        accessToken = response.body.accessToken;
+    });
     test("test logout", async () => {
-      const response = await request(app).get("/auth/logout").set('Authorization', `JWT ${accessToken}`);
+      const response = await request(app).get("/auth/logout").set('Authorization',`JWT ${accessToken}`);
       console.log("logout response:");
       console.log(response.text);
       expect(response.statusCode).toEqual(200);
     });
-    
-    test("test login for correct email and password", async () => {
-      const response = await request(app).post("/auth/login").send(user);  //user logged in
-      expect(response.statusCode).toEqual(200);
-      accessToken = response.body.accessToken;
-    });
-
 
 
 

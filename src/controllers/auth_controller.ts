@@ -80,7 +80,7 @@ const logout = async (req: Request, res: Response) => {
       console.log(err);
       if (err) {
         console.log(err);
-        return res.sendStatus(402);
+        return res.status(402).send(err);
       }
       try {
         const userDb = await User.findOne({ _id: user._id });

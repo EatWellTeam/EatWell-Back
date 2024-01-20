@@ -84,7 +84,7 @@ const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         console.log(err);
         if (err) {
             console.log(err);
-            return res.sendStatus(402);
+            return res.status(402).send(err);
         }
         try {
             const userDb = yield user_model_1.default.findOne({ _id: user._id });

@@ -94,16 +94,16 @@ describe('Post Module', () => {
         const response = yield (0, supertest_1.default)(app).get("/auth/logout");
         expect(response.statusCode).toEqual(401);
     }));
+    test("test login for correct email and password", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app).post("/auth/login").send(user3); //user3 logged in
+        expect(response.statusCode).toEqual(200);
+        accessToken = response.body.accessToken;
+    }));
     test("test logout", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app).get("/auth/logout").set('Authorization', `JWT ${accessToken}`);
+        const response = yield (0, supertest_1.default)(app).get("/auth/logout").set('Authorization', `Bearer ${accessToken}`);
         console.log("logout response:");
         console.log(response.text);
         expect(response.statusCode).toEqual(200);
-    }));
-    test("test login for correct email and password", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app).post("/auth/login").send(user); //user logged in
-        expect(response.statusCode).toEqual(200);
-        accessToken = response.body.accessToken;
     }));
     test("TEST 1: GET /post/:id empty DB", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
