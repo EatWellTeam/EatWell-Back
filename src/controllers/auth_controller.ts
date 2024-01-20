@@ -28,6 +28,7 @@ const register = async (req: Request, res: Response):Promise<Response> => {
 };
 
 const login = async (req: Request, res: Response) => {
+
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(400).send("missing email or password");
@@ -66,7 +67,10 @@ const login = async (req: Request, res: Response) => {
 };
 
 const logout = async (req: Request, res: Response) => {
+  console.log("logout");
+
   const authHeader = req.headers["authorization"];
+ 
   const refreshToken = authHeader && authHeader.split(" ")[1]; // Bearer <token>
   if (refreshToken == null) return res.sendStatus(401);
   jwt.verify(
@@ -74,7 +78,10 @@ const logout = async (req: Request, res: Response) => {
     process.env.JWT_REFRESH_SECRET,
     async (err, user: { _id: string }) => {
       console.log(err);
-      if (err) return res.sendStatus(401);
+      if (err) {
+        console.log(err);
+        return res.status(402).send(err);
+      }
       try {
         const userDb = await User.findOne({ _id: user._id });
         if (
@@ -83,7 +90,7 @@ const logout = async (req: Request, res: Response) => {
         ) {
           userDb.refreshTokens = [];
           await userDb.save();
-          return res.sendStatus(401);
+          return res.sendStatus(200);
         } else {
           userDb.refreshTokens = userDb.refreshTokens.filter(
             (t) => t !== refreshToken
@@ -92,7 +99,7 @@ const logout = async (req: Request, res: Response) => {
           return res.sendStatus(200);
         }
       } catch (err) {
-        res.sendStatus(401).send(err.message);
+        res.sendStatus(403).send(err.message);
       }
     }
   );

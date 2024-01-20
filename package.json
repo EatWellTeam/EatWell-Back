@@ -7,7 +7,7 @@
     "build": "tsc",
     "test": "tsc && jest --detectOpenHandles --forceExit",
     "testAuth": "tsc && jest --detectOpenHandles --forceExit ./src/tests/auth.test.ts",
-    "testPost": "tsc && jest --detectOpenHandles --forceExit --runInBand ./src/tests/post.test.ts",
+    "testPost": "tsc && jest --detectOpenHandles --forceExit --runInBand --coverage ./src/tests/post.test.ts",
     "testComment": "tsc && jest --detectOpenHandles --forceExit --runInBand ./src/tests/comment.test.ts",
 
     "testLike": "tsc && jest --detectOpenHandles --forceExit --runInBand ./src/tests/like.test.ts",

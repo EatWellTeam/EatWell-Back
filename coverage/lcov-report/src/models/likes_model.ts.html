@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/models/post_model.ts</title>
+    <title>Code coverage report for src/models/likes_model.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/models</a> post_model.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/models</a> likes_model.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -88,10 +88,10 @@
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -100,6 +100,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -115,29 +121,32 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Document, Schema, Types, model } from "mongoose";
 &nbsp;
-export interface IPost extends Document {
+export interface ILike extends Document {
   user: Types.ObjectId;
-  title: string;
-  body: string;
-  comments: [Types.ObjectId];
-  likes: [Types.ObjectId];
+  post: Types.ObjectId;
   createdAt: Date;
 }
 &nbsp;
-const postSchema = new Schema&lt;IPost&gt;({
-&nbsp;
-  user: { type: Schema.Types.ObjectId,ref: "User", required: true,},
-  title: {type: String, required: true,min: 4,},
-  body: {type: String,required: true,},
-  comments: {type: [String],required: false,},
-  likes: {type: [String],required: false,},
-  createdAt: {type: Date,default: Date.now,},
-&nbsp;
+const likeSchema = new Schema&lt;ILike&gt;({
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  post: {
+    type: Schema.Types.ObjectId,
+    ref: "Post",
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 &nbsp;
-const postModel = model&lt;IPost&gt;("Post", postSchema);
+const LikeModel = model&lt;ILike&gt;("Like", likeSchema);
 &nbsp;
-export default postModel;
+export default LikeModel;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
