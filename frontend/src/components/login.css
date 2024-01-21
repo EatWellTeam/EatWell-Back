@@ -1,0 +1,97 @@
+/* ---------- SIGN IN ---------- */
+.sign-in__wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.sign-in__backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.sign-in__wrapper form {
+  width: 24rem;
+  max-width: 90%;
+  z-index: 1;
+  animation: showSignInForm 1s;
+}
+
+.sign-in__wrapper form img {
+  width: 4rem;
+}
+
+@keyframes showSignInForm {
+  0%,
+  30% {
+    transform: translate(0, -150%);
+  }
+  70%,
+  90% {
+    transform: translate(0, 1rem);
+  }
+  80%,
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.btn-facebook {
+  color: #fff;
+  background-color: #3b5998;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.btn-social {
+  position: relative;
+  padding-left: 44px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-social:hover {
+  color: #eee;
+}
+
+.btn-social :first-child {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  padding: 7px;
+  font-size: 1.6em;
+  text-align: center;
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.custom-input {
+  border-radius: 10px;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+}
+
+.register {
+  background-color: #05a017;
+  color: rgb(255, 255, 255);
+  margin-top: 10px; /* Example margin-top */
+  display: inline-block; /* Ensures that it behaves like a block-level element */
+  text-decoration: none; /* Remove default underline for links */
+  cursor: pointer; /* Add cursor style to indicate it's clickable */
+}
+
+.register:hover {
+  /* Add styles for when the link is hovered */
+  background-color: #038512; /* Darker gray hover background color */
+}
