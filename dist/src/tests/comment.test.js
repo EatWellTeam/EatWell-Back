@@ -36,7 +36,6 @@ beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     app = yield (0, app_1.default)();
     console.log('------Comment Test Start------');
     yield comments_model_1.default.deleteMany();
-    yield (0, auth_test_1.authUser)();
     yield user_model_1.default.deleteMany({ 'email': user.email });
     yield (0, supertest_1.default)(app).post("/auth/register").send(user); //register user
     const response = yield (0, supertest_1.default)(app).post("/auth/login").send(user);
@@ -47,6 +46,7 @@ afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
     console.log('------Comment Test End------');
 }));
 describe('Comment Test', () => {
+    (0, auth_test_1.authUser)();
     test('TEST 1: Create Comment : /posts/comments/:id/createComment', () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .post(`/posts/comments/${postId}/createComment`)
@@ -79,6 +79,26 @@ describe('Comment Test', () => {
         const response = yield (0, supertest_1.default)(app).delete(`/posts/comments/${commentId}/deleteComment/${postId}`).set('Authorization', `JWT ${accessToken}`);
         expect(response.status).toBe(200);
         expect(response.body.message).toBe('Deleted successfully');
+    }));
+    test('TEST 6: unExisted Comment By Id : /posts/comments/:id/deleteComment/:postId', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app).delete(`/posts/comments/${commentId}/deleteComment/${postId}`).set('Authorization', `JWT ${accessToken}`);
+        expect(response.status).toBe(404);
+        expect(response.body.message).toBe('Not Found');
+    }));
+    test('TEST 7:unExisted Comment By Id : /posts/comments/:id/updateComment/:postId', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app).put(`/posts/comments/${commentId}/updateComment/${postId}`).send({ body: 'updated comment' }).set('Authorization', `JWT ${accessToken}`);
+        expect(response.status).toBe(404);
+        expect(response.body.message).toBe('Not Found');
+    }));
+    test('TEST 8:Error creating comment : /posts/comments/:id/createComment', () => __awaiter(void 0, void 0, void 0, function* () {
+        // Send invalid data in the request body
+        const response = yield (0, supertest_1.default)(app)
+            .post(`/posts/comments/${postId}/createComment`)
+            .send({})
+            .set('Authorization', `JWT ${accessToken}`);
+        // Assert that the server returns an error response
+        expect(response.status).toBe(500); // or whatever status code your server returns for invalid data
+        expect(response.body.message).toBe('Error in creating object'); // or whatever error message your server returns for invalid data
     }));
 });
 //# sourceMappingURL=comment.test.js.map

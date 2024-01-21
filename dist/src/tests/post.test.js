@@ -30,7 +30,6 @@ beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     console.log('------Post Test Start------');
     yield post_model_1.default.deleteMany();
     // Use the function to run tests and get the token
-    yield (0, auth_test_1.authUser)();
     yield user_model_1.default.deleteMany({ 'email': user.email });
     yield (0, supertest_1.default)(app).post("/auth/register").send(user); //register user
     const response = yield (0, supertest_1.default)(app).post("/auth/login").send(user);
@@ -51,6 +50,7 @@ describe('Post Module', () => {
         comments: commentsId,
         likes: likesId
     };
+    (0, auth_test_1.authUser)();
     test("TEST 1: GET /post/:id empty DB", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .get(`/posts/65a3f0c6c1d4cafa959dcf32`)

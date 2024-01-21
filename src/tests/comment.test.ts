@@ -26,7 +26,6 @@ beforeAll(async () => {
   app = await appPromise();
   console.log('------Comment Test Start------');
   await CommentModel.deleteMany();
-  await authUser();
   await UserModel.deleteMany({ 'email': user.email });
   await request(app).post("/auth/register").send(user);  //register user
   const response = await request(app).post("/auth/login").send(user);
@@ -40,7 +39,7 @@ afterAll(async () => {
 });
 
 describe('Comment Test', () => {
-
+  authUser();
 
 
   test('TEST 1: Create Comment : /posts/comments/:id/createComment', async () => {
@@ -83,4 +82,15 @@ describe('Comment Test', () => {
     expect(response.status).toBe(200);
     expect(response.body.message).toBe('Deleted successfully');
   });
+  test('TEST 6: unExisted Comment By Id : /posts/comments/:id/deleteComment/:postId', async () => {
+    const response = await request(app).delete(`/posts/comments/${commentId}/deleteComment/${postId}`).set('Authorization', `JWT ${accessToken}`);
+    expect(response.status).toBe(404);
+    expect(response.body.message).toBe('Not Found');
+  });
+  test('TEST 7:unExisted Comment By Id : /posts/comments/:id/updateComment/:postId', async () => {
+    const response = await request(app).put(`/posts/comments/${commentId}/updateComment/${postId}`).send({ body: 'updated comment' }).set('Authorization', `JWT ${accessToken}`);
+    expect(response.status).toBe(404);
+    expect(response.body.message).toBe('Not Found');
+  });
+
 });

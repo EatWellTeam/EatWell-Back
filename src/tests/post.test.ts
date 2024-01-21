@@ -19,7 +19,7 @@ beforeAll(async () => {
   console.log('------Post Test Start------');
   await Post.deleteMany();
   // Use the function to run tests and get the token
-  await authUser();
+  
   await UserModel.deleteMany({ 'email': user.email });
   await request(app).post("/auth/register").send(user);  //register user
   const response = await request(app).post("/auth/login").send(user);
@@ -45,7 +45,7 @@ describe('Post Module', () => {
   };
    
 
-
+    authUser();
 
       test("TEST 1: GET /post/:id empty DB", async () => {
         const response = await request(app)
