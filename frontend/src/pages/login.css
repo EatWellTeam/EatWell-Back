@@ -1,4 +1,7 @@
-/* ---------- SIGN IN ---------- */
+.login {
+  background: #f6f6f6;
+}
+
 .sign-in__wrapper {
   display: flex;
   flex-direction: column;
@@ -105,7 +108,7 @@ a {
 }
 
 .adLogin {
-  background-color: green;
+  background-color: #42b72a;
   justify-content: center;
   border: 0;
 }
