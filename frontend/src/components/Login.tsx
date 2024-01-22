@@ -42,9 +42,27 @@ const Login = () => {
 
   return (
     <div className="login">
-      <h1 className="loginTitle">Choose a Login Method</h1>
-      <div className="wrapper">
+      <div className="myWrapper">
+        <h1 className="loginTitle mt-5">Login to AD Social</h1>
+        <div className="center">
+          <div className="line" />
+          {/* <div className="or">OR</div> */}
+        </div>
+        <div className="details">
+          <input
+            type="text"
+            placeholder="Username"
+            className="custom-input"
+            style={{ borderRadius: "10px" }}
+          />
+          <input
+            type="text"
+            placeholder="Password"
+            className="custom-input mb-3"
+          />
+        </div>
         <div className="left">
+          <button className="loginButton adLogin">Login</button>
           <div className="loginButton google" onClick={google}>
             <img src={Google} alt="" className="icon" />
             Google
@@ -53,23 +71,11 @@ const Login = () => {
             <img src={Facebook} alt="" className="icon" />
             Facebook
           </div>
+          <div className="register">
+            <span className="mx-1">New user?</span>
+            <a href="/register">Register</a>
+          </div>
         </div>
-        <div className="center">
-          <div className="line" />
-          <div className="or">OR</div>
-        </div>
-        <div className="right">
-          <input
-            type="text"
-            placeholder="Username"
-            className="custom-input"
-            style={{ borderRadius: "10px" }}
-          />
-          <input type="text" placeholder="Password" className="custom-input" />
-          <button className="submit">Login</button>
-          <button className="submit register">Register</button>
-        </div>
-        <div></div>
       </div>
     </div>
   );
