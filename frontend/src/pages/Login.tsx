@@ -51,7 +51,7 @@ const Login = () => {
         <div className="details">
           <input
             type="text"
-            placeholder="Username"
+            placeholder="Email"
             className="custom-input"
             style={{ borderRadius: "10px" }}
           />
