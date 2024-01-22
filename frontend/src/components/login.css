@@ -76,6 +76,7 @@
 }
 
 .custom-input {
+  width: 70%;
   border-radius: 10px;
   padding: 8px;
   margin-bottom: 10px;
@@ -83,15 +84,32 @@
 }
 
 .register {
-  background-color: #05a017;
-  color: rgb(255, 255, 255);
-  margin-top: 10px; /* Example margin-top */
+  color: rgb(0, 0, 0);
+  margin-bottom: 10px;
   display: inline-block; /* Ensures that it behaves like a block-level element */
   text-decoration: none; /* Remove default underline for links */
-  cursor: pointer; /* Add cursor style to indicate it's clickable */
+  /* Add cursor style to indicate it's clickable */
 }
 
-.register:hover {
-  /* Add styles for when the link is hovered */
-  background-color: #038512; /* Darker gray hover background color */
+a {
+  cursor: pointer;
+}
+
+.details {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.adLogin {
+  background-color: green;
+  justify-content: center;
+  border: 0;
+}
+
+.loginTitle {
+  color: rgba(0, 0, 0, 0.698);
 }
