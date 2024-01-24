@@ -4,13 +4,26 @@ import BackgroundImage from "../assets/background.png";
 import profileImg from "../assets/profile.png";
 
 const Register = () => {
-  const [inputEmail, setInputEmail] = useState("");
-  const [inputPassword, setInputPassword] = useState("");
+  const initialUser = {
+    email: "testuser@example.com",
+    password: "testpassword",
+    profileImage: profileImg,
+  };
+
+  const [inputEmail, setInputEmail] = useState(initialUser.email);
+  const [inputPassword, setInputPassword] = useState(initialUser.password);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(profileImg);
+  const [imagePreview, setImagePreview] = useState<string | null>(
+    initialUser.profileImage
+  );
+  const [isEditing, setIsEditing] = useState(false);
 
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
@@ -33,6 +46,7 @@ const Register = () => {
 
     if (inputEmail !== "admin" || inputPassword !== "admin") {
       setShow(true);
+      setIsEditing(false); // Exit editing mode after successful submission
     }
     setLoading(false);
   };
@@ -72,7 +86,7 @@ const Register = () => {
   return (
     <div className="login">
       <div className="myWrapper">
-        <h1 className="loginTitle mt-5">Register to AD Social</h1>
+        <h1 className="loginTitle mt-5">Profile</h1>
         <div className="center">
           <div className="line" />
         </div>
@@ -84,6 +98,7 @@ const Register = () => {
             style={{ borderRadius: "10px" }}
             value={inputEmail}
             onChange={(e) => setInputEmail(e.target.value)}
+            readOnly={!isEditing}
           />
           <input
             type="password"
@@ -91,24 +106,29 @@ const Register = () => {
             className="custom-input mb-3"
             value={inputPassword}
             onChange={(e) => setInputPassword(e.target.value)}
+            readOnly={!isEditing}
           />
 
-          <label htmlFor="profile-image" className="btn btn-outline-dark">
-            Select Profile Image
-          </label>
-          <input
-            id="profile-image"
-            type="file"
-            accept="image/*"
-            className="custom-input"
-            style={{
-              visibility: "hidden",
-              width: "0px",
-              height: "0px",
-              padding: "0px",
-            }}
-            onChange={handleImageChange}
-          />
+          {isEditing && (
+            <>
+              <label htmlFor="profile-image" className="btn btn-outline-dark">
+                Choose Profile Image
+              </label>
+              <input
+                id="profile-image"
+                type="file"
+                accept="image/*"
+                className="custom-input"
+                style={{
+                  visibility: "hidden",
+                  width: "0px",
+                  height: "0px",
+                  padding: "0px",
+                }}
+                onChange={handleImageChange}
+              />
+            </>
+          )}
 
           {imagePreview && (
             <img
@@ -125,9 +145,21 @@ const Register = () => {
           )}
         </div>
         <div className="left">
-          <button className="loginButton adLogin" onClick={handleSubmit}>
-            Submit
-          </button>
+          {isEditing ? (
+            <button
+              className="loginButton adLogin bg-warning"
+              onClick={handleSubmit}
+            >
+              Save
+            </button>
+          ) : (
+            <button
+              className="loginButton adLogin bg-warning"
+              onClick={handleEdit}
+            >
+              Edit
+            </button>
+          )}
         </div>
       </div>
     </div>
