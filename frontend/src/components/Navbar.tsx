@@ -34,7 +34,7 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
           </li>
         </ul>
       ) : (
-        <Link className="link" to="login">
+        <Link className="link" to="">
           Login
         </Link>
       )}
