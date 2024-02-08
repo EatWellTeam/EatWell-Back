@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1705853570113" clover="3.2.0">
-  <project timestamp="1705853570113" name="All files">
-    <metrics statements="233" coveredstatements="209" conditionals="37" coveredconditionals="28" methods="31" coveredmethods="28" elements="301" coveredelements="265" complexity="0" loc="233" ncloc="233" packages="5" files="16" classes="16"/>
+<coverage generated="1707397658538" clover="3.2.0">
+  <project timestamp="1707397658538" name="All files">
+    <metrics statements="233" coveredstatements="207" conditionals="37" coveredconditionals="28" methods="31" coveredmethods="28" elements="301" coveredelements="263" complexity="0" loc="233" ncloc="233" packages="5" files="16" classes="16"/>
     <package name="src">
       <metrics statements="28" coveredstatements="28" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="4"/>
       <file name="app.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\src\app.ts">
@@ -37,7 +37,7 @@
       </file>
     </package>
     <package name="src.controllers">
-      <metrics statements="137" coveredstatements="113" conditionals="33" coveredconditionals="26" methods="24" coveredmethods="22"/>
+      <metrics statements="137" coveredstatements="111" conditionals="33" coveredconditionals="26" methods="24" coveredmethods="22"/>
       <file name="auth_controller.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\src\controllers\auth_controller.ts">
         <metrics statements="84" coveredstatements="70" conditionals="26" coveredconditionals="22" methods="14" coveredmethods="14"/>
         <line num="2" count="1" type="stmt"/>
@@ -96,7 +96,7 @@
         <line num="92" count="0" type="stmt"/>
         <line num="93" count="0" type="stmt"/>
         <line num="95" count="2" type="stmt"/>
-        <line num="96" count="2" type="stmt"/>
+        <line num="96" count="4" type="stmt"/>
         <line num="98" count="2" type="stmt"/>
         <line num="99" count="2" type="stmt"/>
         <line num="102" count="0" type="stmt"/>
@@ -118,7 +118,7 @@
         <line num="130" count="4" type="stmt"/>
         <line num="135" count="4" type="stmt"/>
         <line num="139" count="4" type="stmt"/>
-        <line num="140" count="7" type="stmt"/>
+        <line num="140" count="9" type="stmt"/>
         <line num="142" count="4" type="stmt"/>
         <line num="143" count="4" type="stmt"/>
         <line num="144" count="4" type="stmt"/>
@@ -126,7 +126,7 @@
         <line num="155" count="1" type="stmt"/>
       </file>
       <file name="base_controller.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\src\controllers\base_controller.ts">
-        <metrics statements="42" coveredstatements="33" conditionals="7" coveredconditionals="4" methods="7" coveredmethods="6"/>
+        <metrics statements="42" coveredstatements="31" conditionals="7" coveredconditionals="4" methods="7" coveredmethods="6"/>
         <line num="4" count="1" type="stmt"/>
         <line num="8" count="3" type="stmt"/>
         <line num="9" count="3" type="stmt"/>
@@ -145,14 +145,14 @@
         <line num="33" count="1" type="stmt"/>
         <line num="35" count="0" type="stmt"/>
         <line num="36" count="0" type="stmt"/>
-        <line num="41" count="2" type="stmt"/>
-        <line num="42" count="2" type="stmt"/>
-        <line num="43" count="2" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
         <line num="44" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="45" count="1" type="stmt"/>
         <line num="48" count="0" type="stmt"/>
-        <line num="51" count="1" type="stmt"/>
-        <line num="52" count="1" type="stmt"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
         <line num="57" count="2" type="stmt"/>
         <line num="58" count="2" type="stmt"/>
         <line num="63" count="2" type="cond" truecount="1" falsecount="0"/>
@@ -197,14 +197,14 @@
         <metrics statements="11" coveredstatements="11" conditionals="4" coveredconditionals="2" methods="2" coveredmethods="2"/>
         <line num="2" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
-        <line num="12" count="6" type="stmt"/>
-        <line num="13" count="6" type="cond" truecount="2" falsecount="0"/>
-        <line num="14" count="6" type="cond" truecount="0" falsecount="1"/>
-        <line num="15" count="6" type="stmt"/>
-        <line num="16" count="6" type="stmt"/>
-        <line num="17" count="6" type="cond" truecount="0" falsecount="1"/>
-        <line num="18" count="6" type="stmt"/>
-        <line num="19" count="6" type="stmt"/>
+        <line num="12" count="5" type="stmt"/>
+        <line num="13" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="14" count="5" type="cond" truecount="0" falsecount="1"/>
+        <line num="15" count="5" type="stmt"/>
+        <line num="16" count="5" type="stmt"/>
+        <line num="17" count="5" type="cond" truecount="0" falsecount="1"/>
+        <line num="18" count="5" type="stmt"/>
+        <line num="19" count="5" type="stmt"/>
         <line num="23" count="1" type="stmt"/>
       </file>
     </package>

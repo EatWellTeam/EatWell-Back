@@ -7,7 +7,6 @@
 // import Profile from "./pages/Profile";
 // import Navbar from "./components/Navbar";
 // import NotFound from "./components/NotFound";
-
 // function App() {
 //   return (
 //     <Router>
@@ -21,5 +20,5 @@
 //     </Router>
 //   );
 // }
-
 // export default App;
+//# sourceMappingURL=App.js.map

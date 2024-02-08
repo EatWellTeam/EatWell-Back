@@ -2,50 +2,40 @@
 // import { Form, Button, Alert } from "react-bootstrap";
 // import BackgroundImage from "../assets/background.png";
 // import profileImg from "../assets/profile.png";
-
 // const Register = () => {
 //   const [inputEmail, setInputEmail] = useState("");
 //   const [inputPassword, setInputPassword] = useState("");
 //   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 //   const [imagePreview, setImagePreview] = useState<string | null>(profileImg);
-
 //   const [show, setShow] = useState(false);
 //   const [loading, setLoading] = useState(false);
-
 //   const handleSubmit = async (event: { preventDefault: () => void }) => {
 //     event.preventDefault();
-
 //     // Validate email
 //     if (!validateEmail(inputEmail)) {
 //       alert("Invalid email format");
 //       return;
 //     }
-
 //     // Validate password
 //     if (!validatePassword(inputPassword)) {
 //       alert("Password must be at least 6 characters long");
 //       return;
 //     }
-
 //     setLoading(true);
 //     await delay(500);
 //     console.log(`Email: ${inputEmail}, Password: ${inputPassword}`);
-
 //     if (inputEmail !== "admin" || inputPassword !== "admin") {
 //       setShow(true);
 //     }
 //     setLoading(false);
 //   };
-
 //   const handlePassword = () => {
 //     // Handle password logic if needed
 //   };
-
 //   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
 //     if (event.target.files && event.target.files.length > 0) {
 //       const selectedFile = event.target.files[0];
 //       setSelectedImage(selectedFile);
-
 //       const reader = new FileReader();
 //       reader.onload = (e) => {
 //         setImagePreview(e.target?.result as string);
@@ -53,22 +43,18 @@
 //       reader.readAsDataURL(selectedFile);
 //     }
 //   };
-
 //   const validateEmail = (email: string) => {
 //     // Basic email validation
 //     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 //     return emailRegex.test(email);
 //   };
-
 //   const validatePassword = (password: string) => {
 //     // Basic password validation (at least 6 characters)
 //     return password.length >= 6;
 //   };
-
 //   function delay(ms: number | undefined) {
 //     return new Promise((resolve) => setTimeout(resolve, ms));
 //   }
-
 //   return (
 //     <div className="login">
 //       <div className="myWrapper">
@@ -92,7 +78,6 @@
 //             value={inputPassword}
 //             onChange={(e) => setInputPassword(e.target.value)}
 //           />
-
 //           <label htmlFor="profile-image" className="btn btn-outline-dark">
 //             Select Profile Image
 //           </label>
@@ -109,7 +94,6 @@
 //             }}
 //             onChange={handleImageChange}
 //           />
-
 //           {imagePreview && (
 //             <img
 //               src={imagePreview}
@@ -133,5 +117,5 @@
 //     </div>
 //   );
 // };
-
 // export default Register;
+//# sourceMappingURL=Register.js.map

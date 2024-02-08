@@ -3,26 +3,20 @@
 // import "./login.css";
 // import BackgroundImage from "../assets/background.png";
 // import Logo from "../assets/logo.png";
-
 // import Google from "../assets/google.png";
 // import Facebook from "../assets/facebook.png";
 // import Github from "../assets/github.png";
-
 // const Login = () => {
 //   const google = () => {
 //     window.open("http://localhost:5000/auth/google", "_self");
 //   };
-
 //   const facebook = () => {
 //     window.open("http://localhost:5000/auth/facebook", "_self");
 //   };
-
 //   const [inputUsername, setInputUsername] = useState("");
 //   const [inputPassword, setInputPassword] = useState("");
-
 //   const [show, setShow] = useState(false);
 //   const [loading, setLoading] = useState(false);
-
 //   const handleSubmit = async (event: { preventDefault: () => void }) => {
 //     event.preventDefault();
 //     setLoading(true);
@@ -33,13 +27,10 @@
 //     }
 //     setLoading(false);
 //   };
-
 //   const handlePassword = () => {};
-
 //   function delay(ms: number | undefined) {
 //     return new Promise((resolve) => setTimeout(resolve, ms));
 //   }
-
 //   return (
 //     <div className="login">
 //       <div className="myWrapper">
@@ -80,5 +71,5 @@
 //     </div>
 //   );
 // };
-
 // export default Login;
+//# sourceMappingURL=Login.js.map

@@ -1,6 +1,9 @@
 import likesModel, { ILike } from "../models/likes_model";
-import createController from "./base_controller";
+import { BaseController } from "./base_controller";
+class LikeController extends BaseController<ILike> {
+  constructor() {
+    super(likesModel);
+  }
+}
 
-const LikesController = createController<ILike>(likesModel);
-
-export default LikesController;
+export default new LikeController();

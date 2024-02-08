@@ -9,7 +9,7 @@ import UserModel from "../models/user_model";
 let accessToken: string;
 let app: Express;
 
-let postId: string;
+export let postId: string;
 const user = {
   email: "test@test.com",
   password: "1234567890"
@@ -83,6 +83,13 @@ describe('Post Module', () => {
         expect(response.body.title).toEqual(post1.title);
         expect(response.body.body).toEqual(post1.body);
        
+      });
+      test("TEST 5: Post Like", async () => {
+        const response = await request(app)
+        .post(`/posts/${postId}/like`)
+        .set('Authorization', `JWT ${accessToken}`);
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.message).toEqual("Liked successfully");
       });
       test("TEST 5: GET /allPosts", async () => {
         const response = await request(app).get(`/posts/allPosts`) .set('Authorization', `JWT ${accessToken}`);
