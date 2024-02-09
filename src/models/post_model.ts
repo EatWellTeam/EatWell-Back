@@ -4,8 +4,8 @@ export interface IPost extends Document {
   user: Types.ObjectId;
   title: string;
   body: string;
-  comments: [Types.ObjectId];
-  likes: [Types.ObjectId];
+  comments: string[];
+  likes:string[] ;
   createdAt: Date;
 }
 
