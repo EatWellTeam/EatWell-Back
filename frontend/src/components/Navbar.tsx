@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 
 // Define the type for the 'user' prop

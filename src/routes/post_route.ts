@@ -8,10 +8,12 @@ router.get('/allPosts', PostController.get.bind(PostController));
 
  //POST 
  router.post('/addPost',authenticate, PostController.post.bind(PostController));
+  router.post('/:id/like',authenticate, PostController.addLike.bind(PostController));
 //PUT
  router.put('/:id/update', authenticate, PostController.putById.bind(PostController));
  
 //DELETE
+router.delete('/:id/like',authenticate, PostController.deleteLike.bind(PostController));
 router.delete('/:id', authenticate, PostController.deleteById.bind(PostController));
 
 export default router;
