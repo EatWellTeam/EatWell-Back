@@ -23,7 +23,12 @@ class PostController extends base_controller_1.BaseController {
             try {
                 const post = yield post_model_1.default.findById(req.params.id);
                 if (post) {
+                    const length = post.likes.length;
                     post.likes = post.likes.filter((like) => like !== req.body.email);
+                    if (length === post.likes.length) {
+                        res.status(402).json({ message: "Like not found" });
+                        return;
+                    }
                     yield post.save();
                     res.status(200).json({ message: "Post unliked" });
                 }

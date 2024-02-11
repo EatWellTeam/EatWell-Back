@@ -99,7 +99,7 @@ describe('Post Module', () => {
         expect(response.statusCode).toEqual(404);
         expect(response.body.message).toEqual("Post not found");
     }));
-    test("TEST 5: GET /:id", () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 6: GET /:id", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .get(`/posts/${exports.postId}`)
             .set('Authorization', `JWT ${accessToken}`);
@@ -108,35 +108,42 @@ describe('Post Module', () => {
         expect(response.body.title).toEqual(post1.title);
         expect(response.body.body).toEqual(post1.body);
     }));
-    test("TEST 6: Post Like", () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 7: Post Like", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .post(`/posts/${exports.postId}/like`).send(user2)
             .set('Authorization', `JWT ${accessToken2}`);
         expect(response.statusCode).toEqual(200);
         expect(response.body.message).toEqual("Post liked");
     }));
-    test("TEST 7: DELETE Post Like", () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 8: DELETE Post Like - Like not found", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app)
+            .delete(`/posts/${exports.postId}/like`).send(user)
+            .set('Authorization', `JWT ${accessToken2}`);
+        expect(response.statusCode).toEqual(402);
+        expect(response.body.message).toEqual("Like not found");
+    }));
+    test("TEST 8: DELETE Post Like", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .delete(`/posts/${exports.postId}/like`).send(user2)
             .set('Authorization', `JWT ${accessToken2}`);
         expect(response.statusCode).toEqual(200);
         expect(response.body.message).toEqual("Post unliked");
     }));
-    test("TEST 7: GET /allPosts", () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 9: GET /allPosts", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app).get(`/posts/allPosts`).set('Authorization', `JWT ${accessToken}`);
         expect(response.statusCode).toEqual(200);
         expect(response.body[0].user).toEqual(post1.user);
         expect(response.body[0].title).toEqual(post1.title);
         expect(response.body[0].body).toEqual(post1.body);
     }));
-    test("TEST 8:GET /:id unExisted post", () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 10:GET /:id unExisted post", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .get(`/posts/65a3f0c6c1d5cafa959dcf32`)
             .set('Authorization', `JWT ${accessToken}`);
         expect(response.statusCode).toEqual(404);
         expect(response.body.message).toEqual("Not Found");
     }));
-    test("TEST 9:PUT /:id/update", () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 11:PUT /:id/update", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .put(`/posts/${exports.postId}/update`)
             .send({ title: "updated title", body: "updated body" })
@@ -145,7 +152,7 @@ describe('Post Module', () => {
         expect(response.body.title).toEqual("updated title");
         expect(response.body.body).toEqual("updated body");
     }));
-    test("TEST 10:PUT /:id/update unExisted post", () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 12:PUT /:id/update unExisted post", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .put(`/posts/65a3f0c6c1d5cafa959dcf32/update`)
             .send({ title: "updated title", body: "updated body" })
@@ -153,19 +160,19 @@ describe('Post Module', () => {
         expect(response.statusCode).toEqual(404);
         expect(response.body.message).toEqual("Not Found");
     }));
-    test("TEST 11: DELETE /:id unExisted post", () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 13: DELETE /:id unExisted post", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app).delete(`/posts/65a3f0c6c1d5cafa959dcf32`)
             .set('Authorization', `JWT ${accessToken}`);
         expect(response.statusCode).toEqual(404);
     }));
-    test("TEST 11: DELETE /:id", () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 14: DELETE /:id", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .delete(`/posts/${exports.postId}`)
             .set('Authorization', `JWT ${accessToken}`);
         expect(response.statusCode).toEqual(200);
         expect(response.body.message).toEqual("Deleted successfully");
     }));
-    test("TEST 12: DELETE /:id empty DB", () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 15: DELETE /:id empty DB", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app).delete(`/posts/65a3f0c6c1d5cafa959dcf32`).set('Authorization', `JWT ${accessToken}`);
         expect(response.statusCode).toEqual(404);
     }));

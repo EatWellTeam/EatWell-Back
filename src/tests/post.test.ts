@@ -117,6 +117,13 @@ describe('Post Module', () => {
         expect(response.statusCode).toEqual(200);
         expect(response.body.message).toEqual("Post liked");
       });
+      test("TEST 8: DELETE Post Like - Like not found", async () => {
+        const response = await request(app)
+        .delete(`/posts/${postId}/like`).send(user)
+        .set('Authorization', `JWT ${accessToken2}`);
+        expect(response.statusCode).toEqual(402);
+        expect(response.body.message).toEqual("Like not found");
+      });
       test("TEST 8: DELETE Post Like", async () => {
         const response = await request(app)
         .delete(`/posts/${postId}/like`).send(user2)
