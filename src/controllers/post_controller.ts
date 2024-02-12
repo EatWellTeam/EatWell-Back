@@ -2,6 +2,7 @@
 import Post,{IPost} from "../models/post_model";
 import { BaseController } from "./base_controller";
 import { Request, Response } from "express";
+
 class PostController extends BaseController<IPost> {
   constructor() {
     super(Post);
@@ -10,8 +11,12 @@ class PostController extends BaseController<IPost> {
     try {
       const post = await Post.findById(req.params.id);
       if (post) {
+        const length = post.likes.length;
          post.likes = post.likes.filter((like) => like !== req.body.email);
-        
+        if (length === post.likes.length) {
+          res.status(402).json({ message: "Like not found" });
+          return;
+        }
         await post.save();
         res.status(200).json({ message: "Post unliked" });
       } else {

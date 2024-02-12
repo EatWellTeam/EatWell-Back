@@ -48,14 +48,13 @@ class BaseController {
     }
     post(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("Post method in base controller ===> " + req.body);
             try {
                 const obj = yield this.model.create(req.body);
                 if (obj) {
                     res.status(201).send(obj);
                 }
                 else {
-                    res.status(500).send("Error in creating object");
+                    res.status(402).send("Error in creating object");
                 }
             }
             catch (err) {

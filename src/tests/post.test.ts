@@ -10,7 +10,7 @@ let accessToken: string;
 let accessToken2: string;
 let app: Express;
 
-export let postId: string;
+let postId: string;
 const user = {
   email: "test@test.com",
   password: "1234567890"
@@ -20,9 +20,20 @@ const user2 = {
   password:"1234567890"
 }
 
+let userId = new mongoose.Types.ObjectId().toHexString();
+
+const post1 = {
+  user: userId,
+  title: 'Test Post',
+  body: 'This is a test post',
+  comments:[],
+  likes:[]
+  
+};
 async function createUser(user:object){
   await request(app).post("/auth/register").send(user);  //register user
   const response = await request(app).post("/auth/login").send(user);
+
   return response.body.accessToken;
 }
 
@@ -37,7 +48,10 @@ createUser(user);
 accessToken = await createUser(user);
 createUser(user2);
 accessToken2 = await createUser(user2);
-
+userId = await UserModel.findOne({email:user.email}).then((user)=>{
+  return user._id.toHexString();
+});
+post1.user = userId;
 });
 afterAll(async () => {
   await mongoose.disconnect();
@@ -45,17 +59,6 @@ afterAll(async () => {
 });
 
 describe('Post Module', () => { 
-  const userId = new mongoose.Types.ObjectId().toHexString();
- 
-
-  const post1 = {
-    user: userId,
-    title: 'Test Post',
-    body: 'This is a test post',
-    comments:undefined,
-    likes:undefined
-    
-  };
 
     authUser();
 
@@ -85,7 +88,7 @@ describe('Post Module', () => {
         postId = response.body._id;
         
       })
-      test("TEST 4: POST post not found for add likes", async () => {
+      test("TEST 4: POST - post not found for add likes", async () => {
         const response = await request(app)
         .post(`/posts/65a3f0c6c1d4cafa959dcf32/like`).send(user2)
         .set('Authorization', `JWT ${accessToken2}`);
@@ -116,6 +119,13 @@ describe('Post Module', () => {
         .set('Authorization', `JWT ${accessToken2}`);
         expect(response.statusCode).toEqual(200);
         expect(response.body.message).toEqual("Post liked");
+      });
+      test("TEST 8: DELETE Post Like - Like not found", async () => {
+        const response = await request(app)
+        .delete(`/posts/${postId}/like`).send(user)
+        .set('Authorization', `JWT ${accessToken2}`);
+        expect(response.statusCode).toEqual(402);
+        expect(response.body.message).toEqual("Like not found");
       });
       test("TEST 8: DELETE Post Like", async () => {
         const response = await request(app)
@@ -182,4 +192,4 @@ describe('Post Module', () => {
     });
 });
 
-
+export default post1;

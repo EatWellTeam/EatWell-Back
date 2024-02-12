@@ -38,14 +38,15 @@ export class BaseController<ModelType> {
   }
 
   async post(req: Request, res: Response) {
-    console.log("Post method in base controller ===> " + req.body);
+   
     try {
+      
       const obj = await this.model.create(req.body);
       if(obj){
         res.status(201).send(obj);
       }
       else{
-        res.status(500).send("Error in creating object");
+        res.status(402).send("Error in creating object");
       }
     } catch (err) {
       console.error(err.message);
@@ -66,7 +67,8 @@ export class BaseController<ModelType> {
       }
       res.status(200).send(updatedItem);
     } catch (err) {
-      // this.handleServerError(res, err);
+      console.error(err);
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 
@@ -79,7 +81,8 @@ export class BaseController<ModelType> {
       }
       res.status(200).json({ message: "Deleted successfully" });
     } catch (err) {
-      // this.handleServerError(res, err);
+      console.error(err);
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 }

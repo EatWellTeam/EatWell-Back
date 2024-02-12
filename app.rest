@@ -31,15 +31,16 @@ GET http://localhost:3000/posts/65a667f46176351c31ab141b HTTP/1.1
 GET http://localhost:3000/posts/allPosts HTTP/1.1
 
 ###
-POST http://localhost:3000/posts/add-post HTTP/1.1
+POST http://localhost:3000/posts/addPost HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWM4YzIzMzE0ODcxZWFmNDQ5ODIyZDgiLCJpYXQiOjE3MDc2NTU3NDAsImV4cCI6MTcwNzY1OTM0MH0.NjohJKQA_x7uXTpFDpDeDM294wO-9Fn4ezQde6-H5EQ
 
 {
-    "user": "5f9f5b3b1c1d4cafa959dcf2",
-    "title": "test",
-    "body": "test",
-    "comments": "65a6644d07a1ba2d560112e6",
-    "likes": "65a6644d07a1ba2d560112e7"
+    "user":"65c7df67b106ed55b1467051",
+    "title": "test title",
+    "body": "test body",
+    "comments": "",
+    "likes": ""
 }
   
 ###
