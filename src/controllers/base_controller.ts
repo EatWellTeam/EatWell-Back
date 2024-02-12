@@ -67,7 +67,8 @@ export class BaseController<ModelType> {
       }
       res.status(200).send(updatedItem);
     } catch (err) {
-      // this.handleServerError(res, err);
+      console.error(err);
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 
@@ -80,7 +81,8 @@ export class BaseController<ModelType> {
       }
       res.status(200).json({ message: "Deleted successfully" });
     } catch (err) {
-      // this.handleServerError(res, err);
+      console.error(err);
+      res.status(500).json({ message: "Internal Server Error" });
     }
   }
 }

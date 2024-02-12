@@ -54,7 +54,7 @@ test('TEST 1: Create Comment - post not found : /posts/comments/:id/createCommen
   const response = await request(app)
     .post(`/posts/comments/${idnotfound}/createComment`)
     .send(comment1).set('Authorization', `JWT ${accessToken}`);
-  expect(response.status).toBe(401);
+  expect(response.status).toBe(402);
   expect(response.text).toBe('Post not found to add comment');
 
 });
