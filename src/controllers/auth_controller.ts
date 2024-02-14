@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import User from "../models/user_model";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import UserActivityModel from "../models/userActivity_model";
 
 const register = async (req: Request, res: Response):Promise<Response> => {
   const { email, password } = req.body;
@@ -20,6 +21,9 @@ const register = async (req: Request, res: Response):Promise<Response> => {
       password: encryptedPassword,
     });
     newUser.save();
+
+    const userActivity = await (await UserActivityModel.create({user: newUser._id, email: newUser.email, createdAt: new Date()})).populate("user");
+    userActivity.save();
     return res.status(201).send(newUser);
   } catch (error) {
     console.log(error);
@@ -55,6 +59,8 @@ const login = async (req: Request, res: Response) => {
     } else {
       user.refreshTokens.push(refreshToken);
     }
+    await UserActivityModel.findOne({user: user._id}).populate("user").exec();
+
     await user.save();
     return res.status(200).send({
       accessToken: accessToken,

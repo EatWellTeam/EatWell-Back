@@ -2,7 +2,8 @@
 import Post,{IPost} from "../models/post_model";
 import { BaseController } from "./base_controller";
 import { Request, Response } from "express";
-
+import UserActivity from "../models/userActivity_model";
+import mongoose from "mongoose";
 class PostController extends BaseController<IPost> {
   constructor() {
     super(Post);
@@ -41,7 +42,20 @@ class PostController extends BaseController<IPost> {
       res.status(500).json({ message: error.message });
     }
   }
-}
 
+  async post(req: Request, res: Response) {
+    try{
+      const post = await Post.create(req.body);
+        if(post){
+          
+        }
+         
+
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+}
 export default new PostController();
 

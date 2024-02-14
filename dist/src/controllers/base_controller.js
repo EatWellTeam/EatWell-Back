@@ -8,8 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BaseController = void 0;
+const mongoose_1 = __importDefault(require("mongoose"));
+const userActivity_model_1 = __importDefault(require("../models/userActivity_model"));
 class BaseController {
     constructor(model) {
         console.log("Model type:", typeof model);
@@ -74,7 +79,8 @@ class BaseController {
                 res.status(200).send(updatedItem);
             }
             catch (err) {
-                // this.handleServerError(res, err);
+                console.error(err);
+                res.status(500).json({ message: "Internal Server Error" });
             }
         });
     }
@@ -86,10 +92,19 @@ class BaseController {
                     res.status(404).json({ message: "Not Found" });
                     return;
                 }
+                const modelName = this.model.modelName;
+                if (modelName === "Post") {
+                    const ObjectId = mongoose_1.default.Types.ObjectId;
+                    const userActivity = yield userActivity_model_1.default.findOne({ post: new ObjectId(req.params.id) });
+                    if (userActivity) {
+                        yield userActivity_model_1.default.findByIdAndDelete(userActivity._id);
+                    }
+                }
                 res.status(200).json({ message: "Deleted successfully" });
             }
             catch (err) {
-                // this.handleServerError(res, err);
+                console.error(err);
+                res.status(500).json({ message: "Internal Server Error" });
             }
         });
     }

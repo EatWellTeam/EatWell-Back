@@ -47,7 +47,7 @@ const router = express.Router();
  *           format: date-time
  *           description: The date of the creation of the post
  *       example:
- *         user: 611f4f3f9b3f3e2f3c3f3f3f
+ *         user: <replace-with-actual-user-id>
  *         title: New Post
  *         body: This is a new post
  *         comments: []

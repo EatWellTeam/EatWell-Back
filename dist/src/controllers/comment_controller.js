@@ -31,7 +31,7 @@ class CommentsController extends base_controller_1.BaseController {
                 const post = yield post_model_1.default.findById(req.params.id);
                 console.log(post);
                 if (!post) {
-                    res.status(401).send("Post not found to add comment");
+                    res.status(402).send("Post not found to add comment");
                     return;
                 }
                 else {

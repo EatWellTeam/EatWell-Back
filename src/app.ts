@@ -7,6 +7,7 @@ import authRoute from "./routes/auth_route";
 import mainRoute from "./routes/main_route";
 import commentRoute from "./routes/comments_route";
 import postRoute from "./routes/post_route";
+import userActivityRoute from "./routes/userActivity_route";
 // import likeRoute from "./routes/likes_route";
 
 
@@ -25,6 +26,7 @@ const initApp = (): Promise<Express> => {
       app.use("/auth", authRoute);
       app.use("/posts", postRoute);
       app.use("/posts/comments", commentRoute);
+      app.use("/user", userActivityRoute);
       // app.use("/likes", likeRoute);
 
 

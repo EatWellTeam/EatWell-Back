@@ -62,7 +62,7 @@ describe('Comment Test', () => {
         const response = yield (0, supertest_1.default)(app)
             .post(`/posts/comments/${idnotfound}/createComment`)
             .send(comment1).set('Authorization', `JWT ${accessToken}`);
-        expect(response.status).toBe(401);
+        expect(response.status).toBe(402);
         expect(response.text).toBe('Post not found to add comment');
     }));
     test('TEST 1: Create Comment : /posts/comments/:id/createComment', () => __awaiter(void 0, void 0, void 0, function* () {

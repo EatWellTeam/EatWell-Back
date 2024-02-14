@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { Model } from "mongoose";
+import mongoose, { Model } from "mongoose";
+import UserActtivity from "../models/userActivity_model";
 
 export class BaseController<ModelType> {
   model: Model<ModelType>;
@@ -40,7 +41,6 @@ export class BaseController<ModelType> {
   async post(req: Request, res: Response) {
    
     try {
-      
       const obj = await this.model.create(req.body);
       if(obj){
         res.status(201).send(obj);
@@ -79,13 +79,23 @@ export class BaseController<ModelType> {
         res.status(404).json({ message: "Not Found" });
         return;
       }
+      const modelName = this.model.modelName;
+      if(modelName === "Post"){
+        const ObjectId = mongoose.Types.ObjectId;
+        const userActivity = await UserActtivity.findOne({post:new ObjectId(req.params.id)});
+        if(userActivity){
+          await UserActtivity.findByIdAndDelete(userActivity._id);
+        }
+      }
       res.status(200).json({ message: "Deleted successfully" });
+      
     } catch (err) {
       console.error(err);
       res.status(500).json({ message: "Internal Server Error" });
     }
   }
-}
+
+  }
 
 const createController = <ModelType>(model: Model<ModelType>) => {
   console.log("Create Controller ===> " + model);

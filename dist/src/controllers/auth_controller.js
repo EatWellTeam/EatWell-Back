@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const user_model_1 = __importDefault(require("../models/user_model"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const userActivity_model_1 = __importDefault(require("../models/userActivity_model"));
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -32,6 +33,8 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             password: encryptedPassword,
         });
         newUser.save();
+        const userActivity = yield (yield userActivity_model_1.default.create({ user: newUser._id, email: newUser.email, createdAt: new Date() })).populate("user");
+        userActivity.save();
         return res.status(201).send(newUser);
     }
     catch (error) {
@@ -63,6 +66,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         else {
             user.refreshTokens.push(refreshToken);
         }
+        yield userActivity_model_1.default.findOne({ user: user._id }).populate("user").exec();
         yield user.save();
         return res.status(200).send({
             accessToken: accessToken,
