@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const post_model_1 = __importDefault(require("../models/post_model"));
 const base_controller_1 = require("./base_controller");
 const userActivity_model_1 = __importDefault(require("../models/userActivity_model"));
-const mongoose_1 = __importDefault(require("mongoose"));
 class PostController extends base_controller_1.BaseController {
     constructor() {
         super(post_model_1.default);
@@ -46,6 +45,11 @@ class PostController extends base_controller_1.BaseController {
     addLike(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                const userActivity = yield userActivity_model_1.default.findOne({ email: req.body.email });
+                if (!userActivity) {
+                    res.status(402).json({ message: "User not found" });
+                    return;
+                }
                 const post = yield post_model_1.default.findById(req.params.id);
                 if (post) {
                     post.likes.push(req.body.email);
@@ -66,13 +70,9 @@ class PostController extends base_controller_1.BaseController {
             try {
                 const post = yield post_model_1.default.create(req.body);
                 if (post) {
-                    const ObjectId = mongoose_1.default.Types.ObjectId;
-                    const userActivity = yield userActivity_model_1.default.create({ user: new ObjectId(post.user), email: new ObjectId(req.body.email), post: new ObjectId(post._id) });
+                    const userActivity = yield userActivity_model_1.default.findOneAndUpdate({ user: post.user }, { post: post._id }, { upsert: true });
                     if (userActivity) {
                         res.status(201).send(post);
-                    }
-                    else {
-                        res.status(402).send("Error in creating object");
                     }
                 }
                 else {

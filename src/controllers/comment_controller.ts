@@ -3,6 +3,7 @@ import CommentModel, { IComment } from "../models/comments_model";
 import  { BaseController } from "./base_controller";
  import { Request, Response } from "express";
  import Post from "../models/post_model";
+import UserActivity from "../models/userActivity_model";
 
 class CommentsController extends BaseController<IComment> {
   constructor() {
@@ -10,8 +11,8 @@ class CommentsController extends BaseController<IComment> {
   }
 
     async post(req: Request, res: Response): Promise<void>  {
-      console.log("Post method in base controller ===> " + req.body);
-      console.log("Post method in base controller ===> " + req.params.id);
+      // console.log("Post method in base controller ===> " + req.body);
+      // console.log("Post method in base controller ===> " + req.params.id);
       try {
         
           if (!req.params.id) {
@@ -26,16 +27,16 @@ class CommentsController extends BaseController<IComment> {
           }
           else{
             console.log("Post found");
-            const comment = new CommentModel({
-              user: req.body.user,
-              post: req.params.id,
-              body: req.body.body,
-            });
-            console.log(comment);
-            const result = await comment.save();
-            post.comments.push(result._id);
-            await post.save();
-            res.status(201).send(result);
+            const comment = await CommentModel.create(req.body);
+            if(comment){
+              post.comments.push(comment._id);
+              await post.save();
+              await UserActivity.findOneAndUpdate({user: comment.user},{comment: comment._id},{upsert: true});
+              res.status(201).send(comment);
+            }
+            else{
+              res.status(402).send("Error in creating object");
+            }
           }
         
       } catch (err) {
@@ -60,6 +61,7 @@ class CommentsController extends BaseController<IComment> {
         }
         post.comments = post.comments.filter((id) => id.toString() !== req.params.id);
         await post.save();
+        await UserActivity.findOneAndDelete({comment: req.params.id});
         res.status(200).send("Deleted successfully");
       } catch (err) {
         console.error(err.message);

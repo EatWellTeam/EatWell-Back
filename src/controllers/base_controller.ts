@@ -98,7 +98,7 @@ export class BaseController<ModelType> {
   }
 
 const createController = <ModelType>(model: Model<ModelType>) => {
-  console.log("Create Controller ===> " + model);
+  //console.log("Create Controller ===> " + model);
 
   return new BaseController<ModelType>(model);
 };

@@ -3,7 +3,6 @@ import Post,{IPost} from "../models/post_model";
 import { BaseController } from "./base_controller";
 import { Request, Response } from "express";
 import UserActivity from "../models/userActivity_model";
-import mongoose from "mongoose";
 class PostController extends BaseController<IPost> {
   constructor() {
     super(Post);
@@ -30,6 +29,11 @@ class PostController extends BaseController<IPost> {
 
   async addLike(req: Request, res: Response) {
     try {
+      const userActivity = await UserActivity.findOne({email: req.body.email});
+      if(!userActivity){
+        res.status(402).json({ message: "User not found" });
+        return;
+      }
       const post = await Post.findById(req.params.id);
       if (post) {
         post.likes.push(req.body.email);
@@ -47,7 +51,13 @@ class PostController extends BaseController<IPost> {
     try{
       const post = await Post.create(req.body);
         if(post){
-          
+          const userActivity = await UserActivity.findOneAndUpdate({user: post.user},{post: post._id},{upsert: true})
+          if(userActivity){
+            res.status(201).send(post);
+        }
+      }
+        else{
+          res.status(402).send("Error in creating object");
         }
          
 

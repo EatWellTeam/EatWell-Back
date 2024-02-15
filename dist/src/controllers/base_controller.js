@@ -111,7 +111,7 @@ class BaseController {
 }
 exports.BaseController = BaseController;
 const createController = (model) => {
-    console.log("Create Controller ===> " + model);
+    //console.log("Create Controller ===> " + model);
     return new BaseController(model);
 };
 exports.default = createController;

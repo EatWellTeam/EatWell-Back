@@ -15,14 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const comments_model_1 = __importDefault(require("../models/comments_model"));
 const base_controller_1 = require("./base_controller");
 const post_model_1 = __importDefault(require("../models/post_model"));
+const userActivity_model_1 = __importDefault(require("../models/userActivity_model"));
 class CommentsController extends base_controller_1.BaseController {
     constructor() {
         super(comments_model_1.default);
     }
     post(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("Post method in base controller ===> " + req.body);
-            console.log("Post method in base controller ===> " + req.params.id);
+            // console.log("Post method in base controller ===> " + req.body);
+            // console.log("Post method in base controller ===> " + req.params.id);
             try {
                 if (!req.params.id) {
                     res.status(400).send("Post id is required to add comment");
@@ -36,16 +37,16 @@ class CommentsController extends base_controller_1.BaseController {
                 }
                 else {
                     console.log("Post found");
-                    const comment = new comments_model_1.default({
-                        user: req.body.user,
-                        post: req.params.id,
-                        body: req.body.body,
-                    });
-                    console.log(comment);
-                    const result = yield comment.save();
-                    post.comments.push(result._id);
-                    yield post.save();
-                    res.status(201).send(result);
+                    const comment = yield comments_model_1.default.create(req.body);
+                    if (comment) {
+                        post.comments.push(comment._id);
+                        yield post.save();
+                        yield userActivity_model_1.default.findOneAndUpdate({ user: comment.user }, { comment: comment._id }, { upsert: true });
+                        res.status(201).send(comment);
+                    }
+                    else {
+                        res.status(402).send("Error in creating object");
+                    }
                 }
             }
             catch (err) {
@@ -70,6 +71,7 @@ class CommentsController extends base_controller_1.BaseController {
                 }
                 post.comments = post.comments.filter((id) => id.toString() !== req.params.id);
                 yield post.save();
+                yield userActivity_model_1.default.findOneAndDelete({ comment: req.params.id });
                 res.status(200).send("Deleted successfully");
             }
             catch (err) {

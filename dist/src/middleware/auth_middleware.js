@@ -10,7 +10,6 @@ const authMiddleware = (req, res, next) => {
     if (token == null)
         return res.sendStatus(401);
     jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET, (err, user) => {
-        console.log(err);
         if (err)
             return res.sendStatus(401);
         req.user = user;

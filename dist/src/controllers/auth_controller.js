@@ -17,6 +17,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const userActivity_model_1 = __importDefault(require("../models/userActivity_model"));
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("register");
     const { email, password } = req.body;
     if (!email || !password) {
         return res.status(400).send("Missing email or password");
@@ -43,6 +44,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("login");
     const { email, password } = req.body;
     if (!email || !password) {
         return res.status(400).send("missing email or password");
