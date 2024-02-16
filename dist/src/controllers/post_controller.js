@@ -67,6 +67,11 @@ class PostController extends base_controller_1.BaseController {
     }
     post(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const user = yield userActivity_model_1.default.findOne({ user: req.body.user });
+            if (!user) {
+                res.status(402).send("User not found");
+                return;
+            }
             try {
                 const post = yield post_model_1.default.create(req.body);
                 if (post) {

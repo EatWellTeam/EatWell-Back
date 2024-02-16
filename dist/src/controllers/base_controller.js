@@ -53,13 +53,15 @@ class BaseController {
     }
     post(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const user = yield userActivity_model_1.default.findOne({ user: req.body.user });
+            if (!user) {
+                res.status(402).json({ message: "User not found" });
+                return;
+            }
             try {
                 const obj = yield this.model.create(req.body);
                 if (obj) {
                     res.status(201).send(obj);
-                }
-                else {
-                    res.status(402).send("Error in creating object");
                 }
             }
             catch (err) {

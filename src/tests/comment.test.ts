@@ -11,6 +11,7 @@ import { createUser } from './auth.test';
 let app: Express;
 let postId: string;
 let userId = new mongoose.Types.ObjectId().toHexString();
+const ObjectId = new mongoose.Types.ObjectId();
  let commentId: string;
 let accessTokenComment:Promise<string>;
 let accessToken:Promise<string>;
@@ -32,6 +33,12 @@ const comment1 = {
   user:userId,
   userActivity:userId,
   post:`${postId}`,
+  body: 'test comment',
+};
+const invalidComment = {
+  user: new mongoose.Types.ObjectId().toHexString(),
+  userActivity: new mongoose.Types.ObjectId().toHexString(),
+  post: new mongoose.Types.ObjectId().toHexString(),
   body: 'test comment',
 };
 beforeAll(async () => {
@@ -57,8 +64,6 @@ beforeAll(async () => {
   comment1.post = postId;
   comment1.user = userIdComment;
   comment1.userActivity = userIdComment;
-  // comment1.user = userId;
-  // comment1.userActivity = userId;
 });
 
 afterAll(async () => {
@@ -114,20 +119,43 @@ test('TEST 1: Create Comment - post not found : /posts/comments/:id/createCommen
     expect(response.body[0].body).toBe('updated comment');
   });
 
-  // test('TEST 5: DELETE Comment By Id : /posts/comments/:id/deleteComment/:postId', async () => {
-  //   const response = await request(app).delete(`/posts/comments/${commentId}/deleteComment/${postId}`).set('Authorization', `JWT ${accessTokenComment}`);
-  //   expect(response.status).toBe(200);
-  //   expect(response.text).toBe('Deleted successfully');
-  // });
-  // test('TEST 6: unExisted Comment By Id : /posts/comments/:id/deleteComment/:postId', async () => {
-  //   const response = await request(app).delete(`/posts/comments/${commentId}/deleteComment/${postId}`).set('Authorization', `JWT ${accessTokenComment}`);
-  //   expect(response.status).toBe(404);
-  //   expect(response.text).toBe('Comment not found');
-  // });
-  // test('TEST 7:unExisted Comment By Id : /posts/comments/:id/updateComment/:postId', async () => {
-  //   const response = await request(app).put(`/posts/comments/${commentId}/updateComment/${postId}`).send({ body: 'updated comment' }).set('Authorization', `JWT ${accessTokenComment}`);
-  //   expect(response.status).toBe(404);
-  //   expect(response.body.message).toBe('Not Found');
-  // });
-
+  test('TEST 5:unExisted Post to add comment : /posts/comments/:id/createComment', async () => {
+    const response = await request(app)
+      .post(`/posts/comments/${ObjectId}/createComment`)
+      .send(comment1).set('Authorization', `JWT ${accessTokenComment}`);
+    expect(response.status).toBe(402);
+    expect(response.text).toBe('Post not found to add comment');
+  });
+  test('TEST 6: DELETE - Post not found to delete comment : /posts/comments/:id/deleteComment/:postId', async () => {
+    
+    const response = await request(app)
+    .delete(`/posts/comments/${commentId}/deleteComment/${ObjectId}`)
+    .set('Authorization', `JWT ${accessTokenComment}`);
+    expect(response.status).toBe(404);
+    expect(response.text).toBe('Post not found to delete comment');
+  });
+  test('TEST 6: DELETE Comment By Id : /posts/comments/:id/deleteComment/:postId', async () => {
+    const response = await request(app).delete(`/posts/comments/${commentId}/deleteComment/${postId}`).set('Authorization', `JWT ${accessTokenComment}`);
+    expect(response.status).toBe(200);
+    expect(response.text).toBe('Deleted successfully');
+  });
+  test('TEST 7: unExisted Comment By Id : /posts/comments/:id/deleteComment/:postId', async () => {
+    const response = await request(app).delete(`/posts/comments/${commentId}/deleteComment/${postId}`).set('Authorization', `JWT ${accessTokenComment}`);
+    expect(response.status).toBe(404);
+    expect(response.text).toBe('Comment not found');
+  });
+  test('TEST 8:unExisted Comment By Id : /posts/comments/:id/updateComment/:postId', async () => {
+    const response = await request(app).put(`/posts/comments/${commentId}/updateComment/${postId}`).send({ body: 'updated comment' }).set('Authorization', `JWT ${accessTokenComment}`);
+    expect(response.status).toBe(404);
+    expect(response.body.message).toBe('Not Found');
+  });
+  test(('TEST 9: user not found'), async () => {
+ 
+    const response = await request(app)
+      .post(`/posts/comments/${postId}/createComment`)
+      .send(invalidComment).set('Authorization', `JWT ${accessTokenComment}`);
+    expect(response.status).toBe(403);
+    expect(response.text).toBe('User not found');
+  });
+  
 });

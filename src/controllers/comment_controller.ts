@@ -14,10 +14,10 @@ class CommentsController extends BaseController<IComment> {
       // console.log("Post method in base controller ===> " + req.body);
       // console.log("Post method in base controller ===> " + req.params.id);
       try {
-        
-          if (!req.params.id) {
-      res.status(400).send("Post id is required to add comment");
-      return;
+          const user = await UserActivity.findOne({user: req.body.user})
+          if(!user){
+            res.status(403).send("User not found");
+            return;
           }
           const post = await Post.findById(req.params.id);
           console.log(post);

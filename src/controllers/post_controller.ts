@@ -48,6 +48,11 @@ class PostController extends BaseController<IPost> {
   }
 
   async post(req: Request, res: Response) {
+    const user = await UserActivity.findOne({user: req.body.user});
+    if(!user){
+      res.status(402).send("User not found");
+      return;
+    }
     try{
       const post = await Post.create(req.body);
         if(post){

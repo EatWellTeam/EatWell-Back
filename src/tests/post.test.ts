@@ -21,11 +21,22 @@ const user = {
   email:"testlike@testlike.com",
   password:"1234567890"
 }
+
 let userId = new mongoose.Types.ObjectId().toHexString();
 
 const post1 = {
   user: userId,
   userActivity: userId,
+  title: 'Test Post',
+  body: 'This is a test post',
+  comments:[],
+  likes:[]
+  
+};
+
+const postForNotRegisteredUser = {
+  user: new mongoose.Types.ObjectId().toHexString(),
+  userActivity: new mongoose.Types.ObjectId().toHexString(),
   title: 'Test Post',
   body: 'This is a test post',
   comments:[],
@@ -138,13 +149,13 @@ describe('Post Module', () => {
         expect(response.statusCode).toEqual(402);
         expect(response.body.message).toEqual("Like not found");
       });
-      // test("TEST 8: DELETE Post Like", async () => {
-      //   const response = await request(app)
-      //   .delete(`/posts/${postId}/like`).send(user2)
-      //   .set('Authorization', `JWT ${accessToken2}`);
-      //   expect(response.statusCode).toEqual(200);
-      //   expect(response.body.message).toEqual("Post unliked");
-      // });
+      test("TEST 8: DELETE Post Like", async () => {
+        const response = await request(app)
+        .delete(`/posts/${postId}/like`).send(user2)
+        .set('Authorization', `JWT ${accessToken2}`);
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.message).toEqual("Post unliked");
+      });
       test("TEST 9: GET /allPosts", async () => {
         const response = await request(app).get(`/posts/allPosts`) .set('Authorization', `JWT ${accessToken}`);
         expect(response.statusCode).toEqual(200);
@@ -189,17 +200,25 @@ describe('Post Module', () => {
 
    
     });
-    // test("TEST 14: DELETE /:id", async () => {
-    //   const response = await request(app)
-    //   .delete(`/posts/${postId}`)
-    //   .set('Authorization', `JWT ${accessToken}`);
-    //   expect(response.statusCode).toEqual(200);
-    //   expect(response.body.message).toEqual("Deleted successfully");
-    // });
+    test("TEST 14: DELETE /:id", async () => {
+      const response = await request(app)
+      .delete(`/posts/${postId}`)
+      .set('Authorization', `JWT ${accessToken}`);
+      expect(response.statusCode).toEqual(200);
+      expect(response.body.message).toEqual("Deleted successfully");
+    });
     test("TEST 15: DELETE /:id empty DB", async () => {
       const response = await request(app).delete(`/posts/65a3f0c6c1d5cafa959dcf32`) .set('Authorization', `JWT ${accessToken}`);
       expect(response.statusCode).toEqual(404);
       
+    });
+
+    test("TEST 16: Post - User not found", async () => {
+      const response = await request(app)
+      .post('/posts/addPost').send(postForNotRegisteredUser)
+      .set('Authorization', `JWT ${accessToken}`);
+      expect(response.statusCode).toEqual(402);
+      expect(response.text).toEqual("User not found");
     });
 });
 

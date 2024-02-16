@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.61% </span>
+                <span class="strong">13.95% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/42</span>
+                <span class='fraction'>6/43</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.85% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/7</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/4</span>
+                <span class='fraction'>1/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.78% </span>
+                <span class="strong">14.28% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>20/41</span>
+                <span class='fraction'>6/42</span>
             </div>
         
             
@@ -149,26 +149,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -217,31 +217,31 @@ class CommentsController extends BaseController&lt;IComment&gt; {
     super(CommentModel);
   }
 &nbsp;
-    async post(req: Request, res: Response): Promise&lt;void&gt;  {
+    async <span class="fstat-no" title="function not covered" >post(</span>req: Request, res: Response): Promise&lt;void&gt;  {
       // console.log("Post method in base controller ===&gt; " + req.body);
       // console.log("Post method in base controller ===&gt; " + req.params.id);
-      try {
-        
-          <span class="missing-if-branch" title="if path not taken" >I</span>if (!req.params.id) {
-<span class="cstat-no" title="statement not covered" >      res.status(400).send("Post id is required to add comment");</span>
-<span class="cstat-no" title="statement not covered" >      return;</span>
+<span class="cstat-no" title="statement not covered" >      try {</span>
+          const user = <span class="cstat-no" title="statement not covered" >await UserActivity.findOne({user: req.body.user})</span>
+<span class="cstat-no" title="statement not covered" >          <span class="missing-if-branch" title="if path not taken" >I</span>if(!user){</span>
+<span class="cstat-no" title="statement not covered" >            res.status(403).send("User not found");</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
           }
-          const post = await Post.findById(req.params.id);
-          console.log(post);
-          if (!post) {
-          res.status(402).send("Post not found to add comment");
-          return;
+          const post = <span class="cstat-no" title="statement not covered" >await Post.findById(req.params.id);</span>
+<span class="cstat-no" title="statement not covered" >          console.log(post);</span>
+<span class="cstat-no" title="statement not covered" >          if (!post) {</span>
+<span class="cstat-no" title="statement not covered" >          res.status(402).send("Post not found to add comment");</span>
+<span class="cstat-no" title="statement not covered" >          return;</span>
           }
           else{
-            console.log("Post found");
-            const comment = await CommentModel.create(req.body);
-            if(comment){
-              post.comments.push(comment._id);
-              await post.save();
-              await UserActivity.findOneAndUpdate({user: comment.user},{comment: comment._id},{upsert: true});
-              res.status(201).send(comment);
+<span class="cstat-no" title="statement not covered" >            console.log("Post found");</span>
+            const comment = <span class="cstat-no" title="statement not covered" >await CommentModel.create(req.body);</span>
+<span class="cstat-no" title="statement not covered" >            if(comment){</span>
+<span class="cstat-no" title="statement not covered" >              post.comments.push(comment._id);</span>
+<span class="cstat-no" title="statement not covered" >              await post.save();</span>
+<span class="cstat-no" title="statement not covered" >              await UserActivity.findOneAndUpdate({user: comment.user},{comment: comment._id},{upsert: true});</span>
+<span class="cstat-no" title="statement not covered" >              res.status(201).send(comment);</span>
             }
-            else<span class="missing-if-branch" title="else path not taken" >E</span>{
+            else{
 <span class="cstat-no" title="statement not covered" >              res.status(402).send("Error in creating object");</span>
             }
           }
@@ -283,7 +283,7 @@ export default new CommentsController();</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-15T14:34:47.423Z
+                at 2024-02-16T14:47:03.525Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

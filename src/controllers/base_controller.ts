@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import mongoose, { Model } from "mongoose";
-import UserActtivity from "../models/userActivity_model";
+import UserActivity from "../models/userActivity_model";
 
 export class BaseController<ModelType> {
   model: Model<ModelType>;
@@ -13,6 +13,9 @@ export class BaseController<ModelType> {
 
   // handleServerError(res: Response, error: Error) {}
 
+
+
+
   async get(req: Request, res: Response) {
     try {
       const query = req.query.body ? { body: req.query.body } : {};
@@ -23,7 +26,7 @@ export class BaseController<ModelType> {
       res.status(500).json({ message: "Internal Server Error" });
     }
   }
-
+   
   async getById(req: Request, res: Response) {
     try {
       const item = await this.model.findById(req.params.id);
@@ -39,15 +42,17 @@ export class BaseController<ModelType> {
   }
 
   async post(req: Request, res: Response) {
-   
+      const user = await UserActivity.findOne({user: req.body.user});
+      if(!user){
+        res.status(402).json({ message: "User not found" });
+        return;
+      }
     try {
       const obj = await this.model.create(req.body);
       if(obj){
         res.status(201).send(obj);
       }
-      else{
-        res.status(402).send("Error in creating object");
-      }
+    
     } catch (err) {
       console.error(err.message);
       res.status(500).json({ message: "Internal Server Error" });
@@ -82,9 +87,9 @@ export class BaseController<ModelType> {
       const modelName = this.model.modelName;
       if(modelName === "Post"){
         const ObjectId = mongoose.Types.ObjectId;
-        const userActivity = await UserActtivity.findOne({post:new ObjectId(req.params.id)});
+        const userActivity = await UserActivity.findOne({post:new ObjectId(req.params.id)});
         if(userActivity){
-          await UserActtivity.findByIdAndDelete(userActivity._id);
+          await UserActivity.findByIdAndDelete(userActivity._id);
         }
       }
       res.status(200).json({ message: "Deleted successfully" });
