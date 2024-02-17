@@ -65,7 +65,7 @@ class CommentsController extends BaseController<IComment> {
       await post.save();
       const ObjectId = mongoose.Types.ObjectId;
       await UserActivity.findOneAndUpdate(
-        { comment: new ObjectId(req.params.commentId) },
+        { comment: new ObjectId(req.params.id) },
         { $set: { comment: null } }
       );
       res.status(200).send("Deleted successfully");

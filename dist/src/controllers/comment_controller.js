@@ -74,7 +74,7 @@ class CommentsController extends base_controller_1.BaseController {
                 post.comments = post.comments.filter((id) => id.toString() !== req.params.id);
                 yield post.save();
                 const ObjectId = mongoose_1.default.Types.ObjectId;
-                yield userActivity_model_1.default.findOneAndUpdate({ comment: new ObjectId(req.params.commentId) }, { $set: { comment: null } });
+                yield userActivity_model_1.default.findOneAndUpdate({ comment: new ObjectId(req.params.id) }, { $set: { comment: null } });
                 res.status(200).send("Deleted successfully");
             }
             catch (err) {

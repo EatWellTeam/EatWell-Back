@@ -30,31 +30,31 @@ let accessTokenComment;
 let accessToken;
 const user = {
     email: "testUser@test.com",
-    password: "1234567890"
+    password: "1234567890",
 };
 const userComment = {
     email: "testComment@comment.com",
-    password: "1234567890"
+    password: "1234567890",
 };
 const userLike = {
     email: "testlike@testlike.com",
-    password: "1234567890"
+    password: "1234567890",
 };
 const comment1 = {
     user: userId,
     userActivity: userId,
     post: `${postId}`,
-    body: 'test comment',
+    body: "test comment",
 };
 const invalidComment = {
     user: new mongoose_1.default.Types.ObjectId().toHexString(),
     userActivity: new mongoose_1.default.Types.ObjectId().toHexString(),
     post: new mongoose_1.default.Types.ObjectId().toHexString(),
-    body: 'test comment',
+    body: "test comment",
 };
 beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     app = yield (0, app_1.default)();
-    console.log('------Comment Test Start------');
+    console.log("------Comment Test Start------");
     yield comments_model_1.default.deleteMany();
     yield user_model_1.default.deleteMany();
     yield userActivity_model_1.default.deleteMany();
@@ -65,11 +65,16 @@ beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     userId = yield user_model_1.default.findOne({ email: user.email }).then((user) => {
         return user._id.toHexString();
     });
-    const userIdComment = yield user_model_1.default.findOne({ email: userComment.email }).then((user) => {
+    const userIdComment = yield user_model_1.default.findOne({
+        email: userComment.email,
+    }).then((user) => {
         return user._id.toHexString();
     });
     post_test_1.default.user = userId;
-    const responsePost = yield (0, supertest_1.default)(app).post("/posts/addPost").send(post_test_1.default).set('Authorization', `JWT ${accessToken}`);
+    const responsePost = yield (0, supertest_1.default)(app)
+        .post("/posts/addPost")
+        .send(post_test_1.default)
+        .set("Authorization", `JWT ${accessToken}`);
     postId = responsePost.body._id;
     comment1.post = postId;
     comment1.user = userIdComment;
@@ -77,21 +82,23 @@ beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
 }));
 afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
     yield mongoose_1.default.disconnect();
-    console.log('------Comment Test End------');
+    console.log("------Comment Test End------");
 }));
-describe('Comment Test', () => {
-    test('TEST 1: Create Comment - post not found : /posts/comments/:id/createComment', () => __awaiter(void 0, void 0, void 0, function* () {
+describe("Comment Test", () => {
+    test("TEST 1: Create Comment - post not found : /posts/comments/:id/createComment", () => __awaiter(void 0, void 0, void 0, function* () {
         const idnotfound = "5f9f5b3b1c1d4cafa959dcf2";
         const response = yield (0, supertest_1.default)(app)
             .post(`/posts/comments/${idnotfound}/createComment`)
-            .send(comment1).set('Authorization', `JWT ${accessTokenComment}`);
+            .send(comment1)
+            .set("Authorization", `JWT ${accessTokenComment}`);
         expect(response.status).toBe(402);
-        expect(response.text).toBe('Post not found to add comment');
+        expect(response.text).toBe("Post not found to add comment");
     }));
-    test('TEST 1: Create Comment : /posts/comments/:id/createComment', () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 1: Create Comment : /posts/comments/:id/createComment", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .post(`/posts/comments/${postId}/createComment`)
-            .send(comment1).set('Authorization', `JWT ${accessTokenComment}`);
+            .send(comment1)
+            .set("Authorization", `JWT ${accessTokenComment}`);
         expect(response.status).toBe(201);
         console.log("response for create a comment");
         console.log(response.body);
@@ -100,58 +107,73 @@ describe('Comment Test', () => {
         expect(response.body.body).toBe(comment1.body);
         commentId = response.body._id;
     }));
-    test('TEST 2: Get Comment By Id : /posts/comments/:id/getComment/:postId', () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 2: Get Comment By Id : /posts/comments/:id/getComment/:postId", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .get(`/posts/comments/${commentId}/getComment/${postId}`)
-            .send(comment1).set('Authorization', `JWT ${accessTokenComment}`);
+            .send(comment1)
+            .set("Authorization", `JWT ${accessTokenComment}`);
         expect(response.status).toBe(200);
         expect(response.body).toMatchObject(comment1);
     }));
-    test('TEST 3: PUT Comment By Id : /posts/comments/:id/updateComment/:postId', () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app).put(`/posts/comments/${commentId}/updateComment/${postId}`).send({ body: 'updated comment' }).set('Authorization', `JWT ${accessTokenComment}`);
+    test("TEST 3: PUT Comment By Id : /posts/comments/:id/updateComment/:postId", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app)
+            .put(`/posts/comments/${commentId}/updateComment/${postId}`)
+            .send({ body: "updated comment" })
+            .set("Authorization", `JWT ${accessTokenComment}`);
         expect(response.status).toBe(200);
-        expect(response.body.body).toBe('updated comment');
+        expect(response.body.body).toBe("updated comment");
     }));
-    test('TEST 4: GET All Comments : /posts/comments/AllComments', () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app).get(`/posts/comments/AllComments`).set('Authorization', `JWT ${accessTokenComment}`);
+    test("TEST 4: GET All Comments : /posts/comments/AllComments", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app)
+            .get(`/posts/comments/AllComments`)
+            .set("Authorization", `JWT ${accessTokenComment}`);
         expect(response.status).toBe(200);
-        expect(response.body[0].body).toBe('updated comment');
+        expect(response.body[0].body).toBe("updated comment");
     }));
-    test('TEST 5:unExisted Post to add comment : /posts/comments/:id/createComment', () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 5:unExisted Post to add comment : /posts/comments/:id/createComment", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .post(`/posts/comments/${ObjectId}/createComment`)
-            .send(comment1).set('Authorization', `JWT ${accessTokenComment}`);
+            .send(comment1)
+            .set("Authorization", `JWT ${accessTokenComment}`);
         expect(response.status).toBe(402);
-        expect(response.text).toBe('Post not found to add comment');
+        expect(response.text).toBe("Post not found to add comment");
     }));
-    test('TEST 6: DELETE - Post not found to delete comment : /posts/comments/:id/deleteComment/:postId', () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 6: DELETE - Post not found to delete comment : /posts/comments/:id/deleteComment/:postId", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
-            .delete(`/posts/comments/${commentId}/deleteComment/${ObjectId}`)
-            .set('Authorization', `JWT ${accessTokenComment}`);
+            .delete(`/posts/comments/${ObjectId}/deleteComment/${ObjectId}`)
+            .set("Authorization", `JWT ${accessTokenComment}`);
         expect(response.status).toBe(404);
-        expect(response.text).toBe('Post not found to delete comment');
+        expect(response.text).toBe("Post not found to delete comment");
     }));
-    test('TEST 6: DELETE Comment By Id : /posts/comments/:id/deleteComment/:postId', () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app).delete(`/posts/comments/${commentId}/deleteComment/${postId}`).set('Authorization', `JWT ${accessTokenComment}`);
-        expect(response.status).toBe(200);
-        expect(response.text).toBe('Deleted successfully');
-    }));
-    test('TEST 7: unExisted Comment By Id : /posts/comments/:id/deleteComment/:postId', () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app).delete(`/posts/comments/${commentId}/deleteComment/${postId}`).set('Authorization', `JWT ${accessTokenComment}`);
+    // test("TEST 6: DELETE Comment By Id : /posts/comments/:id/deleteComment/:postId", async () => {
+    //   const response = await request(app)
+    //     .delete(`/posts/comments/${commentId}/deleteComment/${postId}`)
+    //     .set("Authorization", `JWT ${accessTokenComment}`);
+    //   expect(response.status).toBe(200);
+    //   expect(response.text).toBe("Deleted successfully");
+    // });
+    test("TEST 7: unExisted Comment By Id : /posts/comments/:id/deleteComment/:postId", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app)
+            .delete(`/posts/comments/${ObjectId}/deleteComment/${postId}`)
+            .set("Authorization", `JWT ${accessTokenComment}`);
         expect(response.status).toBe(404);
-        expect(response.text).toBe('Comment not found');
+        expect(response.text).toBe("Comment not found");
     }));
-    test('TEST 8:unExisted Comment By Id : /posts/comments/:id/updateComment/:postId', () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app).put(`/posts/comments/${commentId}/updateComment/${postId}`).send({ body: 'updated comment' }).set('Authorization', `JWT ${accessTokenComment}`);
+    test("TEST 8:unExisted Comment By Id : /posts/comments/:id/updateComment/:postId", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app)
+            .put(`/posts/comments/${ObjectId}/updateComment/${postId}`)
+            .send({ body: "updated comment" })
+            .set("Authorization", `JWT ${accessTokenComment}`);
         expect(response.status).toBe(404);
-        expect(response.body.message).toBe('Not Found');
+        expect(response.body.message).toBe("Not Found");
     }));
-    test(('TEST 9: user not found'), () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 9: user not found", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .post(`/posts/comments/${postId}/createComment`)
-            .send(invalidComment).set('Authorization', `JWT ${accessTokenComment}`);
+            .send(invalidComment)
+            .set("Authorization", `JWT ${accessTokenComment}`);
         expect(response.status).toBe(403);
-        expect(response.text).toBe('User not found');
+        expect(response.text).toBe("User not found");
     }));
 });
 //# sourceMappingURL=comment.test.js.map

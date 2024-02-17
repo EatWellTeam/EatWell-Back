@@ -18,23 +18,33 @@ const app_1 = __importDefault(require("../app"));
 const userActivity_model_1 = __importDefault(require("../models/userActivity_model"));
 const auth_test_1 = require("./auth.test");
 const user_model_1 = __importDefault(require("../models/user_model"));
+const post_model_1 = __importDefault(require("../models/post_model"));
+const post_test_1 = __importDefault(require("./post.test"));
 let app;
 let userId;
 let user;
 let ObjectId;
+let accessToken;
 beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     app = yield (0, app_1.default)();
     console.log("------User Activity Test Start------");
     yield userActivity_model_1.default.deleteMany();
     yield user_model_1.default.deleteMany();
+    yield post_model_1.default.deleteMany();
     user = {
         email: "kuku@gmail.com",
         password: "123",
     };
-    (0, auth_test_1.createUser)(user);
+    accessToken = yield (0, auth_test_1.createUser)(user);
     userId = yield user_model_1.default.findOne({ email: user.email }).then((user) => {
         return user === null || user === void 0 ? void 0 : user._id.toHexString();
     });
+    post_test_1.default.user = userId;
+    post_test_1.default.userActivity = userId;
+    yield (0, supertest_1.default)(app)
+        .post("/posts/addPost")
+        .send(post_test_1.default)
+        .set("Authorization", `JWT ${accessToken}`);
     ObjectId = new mongoose_1.default.Types.ObjectId();
 }));
 afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
