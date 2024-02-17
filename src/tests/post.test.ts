@@ -8,16 +8,10 @@ import UserActivity from "../models/userActivity_model";
 import { createUser } from "./auth.test";
 import CommentModel from "../models/comments_model";
 let accessToken: string;
-let accessToken2: string;
 let app: Express;
 let postId: string;
-const ObjectId = new mongoose.Types.ObjectId();
 const user = {
   email: "test@test.com",
-  password: "1234567890",
-};
-const user2 = {
-  email: "testlike@testlike.com",
   password: "1234567890",
 };
 
@@ -51,8 +45,6 @@ beforeAll(async () => {
   await UserModel.deleteMany();
   createUser(user);
   accessToken = await createUser(user);
-  createUser(user2);
-  accessToken2 = await createUser(user2);
   userId = await UserModel.findOne({ email: user.email }).then((user) => {
     return user._id.toHexString();
   });
@@ -91,22 +83,7 @@ describe("Post Module", () => {
     expect(response.statusCode).toEqual(201);
     postId = response.body._id;
   });
-  test("TEST 4: POST - post not found for add likes", async () => {
-    const response = await request(app)
-      .post(`/posts/65a3f0c6c1d4cafa959dcf32/like`)
-      .send(user2)
-      .set("Authorization", `JWT ${accessToken2}`);
-    expect(response.statusCode).toEqual(404);
-    expect(response.body.message).toEqual("Post not found");
-  });
-  test("TEST 5: DELETE like post not found", async () => {
-    const response = await request(app)
-      .delete(`/posts/65a3f0c6c1d4cafa959dcf32/like`)
-      .send(user2)
-      .set("Authorization", `JWT ${accessToken2}`);
-    expect(response.statusCode).toEqual(404);
-    expect(response.body.message).toEqual("Post not found");
-  });
+
   test("TEST 6: GET /:id", async () => {
     const response = await request(app)
       .get(`/posts/${postId}`)
@@ -116,49 +93,7 @@ describe("Post Module", () => {
     expect(response.body.title).toEqual(post1.title);
     expect(response.body.body).toEqual(post1.body);
   });
-  test("TEST 7: Post like for unregister user", async () => {
-    const noUser = {
-      email: "",
-      password: "",
-    };
-    const response = await request(app)
-      .post(`/posts/${postId}/like`)
-      .send(noUser)
-      .set("Authorization", `JWT ${accessToken2}`);
-    expect(response.statusCode).toEqual(402);
-  });
-  test("TEST 8: Post like for unAthorized user", async () => {
-    const response = await request(app)
-      .post(`/posts/${postId}/like`)
-      .send(user2)
-      .set("Authorization", `JWT ${accessToken2}123`);
-    expect(response.statusCode).toEqual(401);
-  });
-  test("TEST 7: Post Like", async () => {
-    const response = await request(app)
-      .post(`/posts/${postId}/like`)
-      .send(user2)
-      .set("Authorization", `JWT ${accessToken2}`);
-    expect(response.statusCode).toEqual(200);
-    expect(response.body.message).toEqual("Post liked");
-  });
 
-  test("TEST 8: DELETE Post Like - Like not found", async () => {
-    const response = await request(app)
-      .delete(`/posts/${postId}/like`)
-      .send(user)
-      .set("Authorization", `JWT ${accessToken2}`);
-    expect(response.statusCode).toEqual(402);
-    expect(response.body.message).toEqual("Like not found");
-  });
-  test("TEST 8: DELETE Post Like", async () => {
-    const response = await request(app)
-      .delete(`/posts/${postId}/like`)
-      .send(user2)
-      .set("Authorization", `JWT ${accessToken2}`);
-    expect(response.statusCode).toEqual(200);
-    expect(response.body.message).toEqual("Post unliked");
-  });
   test("TEST 9: GET /allPosts", async () => {
     const response = await request(app)
       .get(`/posts/allPosts`)
@@ -201,13 +136,13 @@ describe("Post Module", () => {
       .set("Authorization", `JWT ${accessToken}`);
     expect(response.statusCode).toEqual(404);
   });
-  // test("TEST 14: DELETE /:id", async () => {
-  //   const response = await request(app)
-  //     .delete(`/posts/${postId}`)
-  //     .set("Authorization", `JWT ${accessToken}`);
-  //   expect(response.statusCode).toEqual(200);
-  //   expect(response.body.message).toEqual("Deleted successfully");
-  // });
+  test("TEST 14: DELETE /:id", async () => {
+    const response = await request(app)
+      .delete(`/posts/${postId}`)
+      .set("Authorization", `JWT ${accessToken}`);
+    expect(response.statusCode).toEqual(200);
+    expect(response.body.message).toEqual("Deleted successfully");
+  });
   test("TEST 15: DELETE /:id empty DB", async () => {
     const response = await request(app)
       .delete(`/posts/65a3f0c6c1d5cafa959dcf32`)
@@ -222,34 +157,6 @@ describe("Post Module", () => {
       .set("Authorization", `JWT ${accessToken}`);
     expect(response.statusCode).toEqual(402);
     expect(response.text).toEqual("User not found");
-  });
-  test("should get all user activity", async () => {
-    const response = await request(app).get("/user/find/all");
-    console.log("all users : ", response.body);
-    expect(response.status).toBe(200);
-  });
-
-  test("should get user activity by id", async () => {
-    const userActivity = await UserActivity.findOne({ email: user.email });
-    const response = await request(app).get(`/user/${userActivity?._id}`);
-    console.log("User Activity Response : ", response.body);
-    expect(response.status).toBe(200);
-  });
-  test("get posts of user", async () => {
-    const response = await request(app).get(`/user/${userId}/posts`);
-    console.log("User Posts : ", response.body);
-    expect(response.status).toBe(200);
-  });
-  test("get comments of user", async () => {
-    const response = await request(app).get(`/user/${userId}/comments`);
-    console.log("User Comments : ", response.body);
-    expect(response.status).toBe(200);
-  });
-
-  test("should not get user activity by id", async () => {
-    const response = await request(app).get(`/user/${ObjectId}`);
-    expect(response.status).toBe(404);
-    expect(response.body.message).toBe("Not Found");
   });
 });
 

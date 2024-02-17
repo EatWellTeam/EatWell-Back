@@ -53,11 +53,6 @@ class BaseController {
     }
     post(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = yield userActivity_model_1.default.findOne({ user: req.body.user });
-            if (!user) {
-                res.status(402).json({ message: "User not found" });
-                return;
-            }
             try {
                 const obj = yield this.model.create(req.body);
                 if (obj) {
@@ -97,9 +92,11 @@ class BaseController {
                 const modelName = this.model.modelName;
                 if (modelName === "Post") {
                     const ObjectId = mongoose_1.default.Types.ObjectId;
-                    const userActivity = yield userActivity_model_1.default.findOne({ post: new ObjectId(req.params.id) });
+                    const userActivity = yield userActivity_model_1.default.findOne({
+                        post: new ObjectId(req.params.id),
+                    });
                     if (userActivity) {
-                        yield userActivity_model_1.default.findByIdAndDelete(userActivity._id);
+                        yield userActivity_model_1.default.findOneAndUpdate({ post: new ObjectId(req.params.id) }, { $set: { post: null } });
                     }
                 }
                 res.status(200).json({ message: "Deleted successfully" });

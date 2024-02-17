@@ -13,9 +13,6 @@ export class BaseController<ModelType> {
 
   // handleServerError(res: Response, error: Error) {}
 
-
-
-
   async get(req: Request, res: Response) {
     try {
       const query = req.query.body ? { body: req.query.body } : {};
@@ -26,7 +23,7 @@ export class BaseController<ModelType> {
       res.status(500).json({ message: "Internal Server Error" });
     }
   }
-   
+
   async getById(req: Request, res: Response) {
     try {
       const item = await this.model.findById(req.params.id);
@@ -42,17 +39,11 @@ export class BaseController<ModelType> {
   }
 
   async post(req: Request, res: Response) {
-      const user = await UserActivity.findOne({user: req.body.user});
-      if(!user){
-        res.status(402).json({ message: "User not found" });
-        return;
-      }
     try {
       const obj = await this.model.create(req.body);
-      if(obj){
+      if (obj) {
         res.status(201).send(obj);
       }
-    
     } catch (err) {
       console.error(err.message);
       res.status(500).json({ message: "Internal Server Error" });
@@ -85,22 +76,25 @@ export class BaseController<ModelType> {
         return;
       }
       const modelName = this.model.modelName;
-      if(modelName === "Post"){
+      if (modelName === "Post") {
         const ObjectId = mongoose.Types.ObjectId;
-        const userActivity = await UserActivity.findOne({post:new ObjectId(req.params.id)});
-        if(userActivity){
-          await UserActivity.findByIdAndDelete(userActivity._id);
+        const userActivity = await UserActivity.findOne({
+          post: new ObjectId(req.params.id),
+        });
+        if (userActivity) {
+          await UserActivity.findOneAndUpdate(
+            { post: new ObjectId(req.params.id) },
+            { $set: { post: null } }
+          );
         }
       }
       res.status(200).json({ message: "Deleted successfully" });
-      
     } catch (err) {
       console.error(err);
       res.status(500).json({ message: "Internal Server Error" });
     }
   }
-
-  }
+}
 
 const createController = <ModelType>(model: Model<ModelType>) => {
   //console.log("Create Controller ===> " + model);

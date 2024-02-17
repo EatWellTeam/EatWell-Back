@@ -16,6 +16,7 @@ const comments_model_1 = __importDefault(require("../models/comments_model"));
 const base_controller_1 = require("./base_controller");
 const post_model_1 = __importDefault(require("../models/post_model"));
 const userActivity_model_1 = __importDefault(require("../models/userActivity_model"));
+const mongoose_1 = __importDefault(require("mongoose"));
 class CommentsController extends base_controller_1.BaseController {
     constructor() {
         super(comments_model_1.default);
@@ -72,7 +73,8 @@ class CommentsController extends base_controller_1.BaseController {
                 }
                 post.comments = post.comments.filter((id) => id.toString() !== req.params.id);
                 yield post.save();
-                yield userActivity_model_1.default.findOneAndDelete({ comment: req.params.id });
+                const ObjectId = mongoose_1.default.Types.ObjectId;
+                yield userActivity_model_1.default.findOneAndUpdate({ comment: new ObjectId(req.params.commentId) }, { $set: { comment: null } });
                 res.status(200).send("Deleted successfully");
             }
             catch (err) {
