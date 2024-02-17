@@ -16,7 +16,7 @@ class CommentsController extends BaseController<IComment> {
     try {
       const user = await UserActivity.findOne({ user: req.body.user });
       if (!user) {
-        res.status(403).send("User not found");
+        res.status(400).send("User not found");
         return;
       }
       const post = await Post.findById(req.params.id);
@@ -37,7 +37,7 @@ class CommentsController extends BaseController<IComment> {
           );
           res.status(201).send(comment);
         } else {
-          res.status(402).send("Error in creating object");
+          res.status(403).send("Error in creating object");
         }
       }
     } catch (err) {
@@ -51,7 +51,7 @@ class CommentsController extends BaseController<IComment> {
     try {
       const post = await Post.findById(req.params.postId);
       if (!post) {
-        res.status(404).send("Post not found to delete comment");
+        res.status(400).send("Post not found to delete comment");
         return;
       }
       const comment = await CommentModel.findByIdAndDelete(req.params.id);

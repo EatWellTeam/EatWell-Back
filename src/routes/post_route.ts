@@ -1,16 +1,14 @@
-import express from 'express';
-import PostController from '../controllers/post_controller';
-import authenticate from '../middleware/auth_middleware';
+import express from "express";
+import PostController from "../controllers/post_controller";
+import authenticate from "../middleware/auth_middleware";
 const router = express.Router();
-
 
 /**
  * @swagger
  * tags:
  *   name: Posts
-  *   description: The posts managing API
+ *   description: The posts managing API
  */
-
 
 /**
  * @swagger
@@ -48,13 +46,13 @@ const router = express.Router();
  *           description: The date of the creation of the post
  *       example:
  *         user: <replace-with-actual-user-id>
+ *         userActivity: <replace-with-actual-user-id>
  *         title: New Post
  *         body: This is a new post
  *         comments: []
  *         likes: []
  *         createdAt: 2021-08-25T12:00:00.000Z
  */
-
 
 /**
  * @swagger
@@ -78,9 +76,7 @@ const router = express.Router();
  *         description: Internal server error
  */
 //GET
-router.get('/allPosts', PostController.get.bind(PostController));
-
-
+router.get("/allPosts", PostController.get.bind(PostController));
 
 /**
  * @swagger
@@ -111,10 +107,7 @@ router.get('/allPosts', PostController.get.bind(PostController));
  *         description: Internal server error
  */
 
-
- router.get('/:id', PostController.getById.bind(PostController));
-
-
+router.get("/:id", PostController.getById.bind(PostController));
 
 /**
  * @swagger
@@ -138,15 +131,18 @@ router.get('/allPosts', PostController.get.bind(PostController));
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Post'
+ *       400:
+ *         description: User not found
  *       401:
  *         description: Unauthorized
+ *       402:
+ *         description: Error in creating object
  *       500:
  *         description: Internal server error
  */
 
- //POST 
- router.post('/addPost',authenticate, PostController.post.bind(PostController));
-
+//POST
+router.post("/addPost", authenticate, PostController.post.bind(PostController));
 
 /**
  * @swagger
@@ -177,18 +173,23 @@ router.get('/allPosts', PostController.get.bind(PostController));
  *         schema:
  *           type: string
  *     responses:
- *       201:
+ *       200:
  *         description: The like was successfully added
  *       401:
  *         description: Unauthorized
+ *       402:
+ *         description: User not found
  *       404:
  *         description: The post was not found
  *       500:
  *         description: Internal server error
  */
 
-
-  router.post('/:id/like',authenticate, PostController.addLike.bind(PostController));
+router.post(
+  "/:id/like",
+  authenticate,
+  PostController.addLike.bind(PostController)
+);
 //PUT
 
 /**
@@ -235,8 +236,11 @@ router.get('/allPosts', PostController.get.bind(PostController));
  *         description: Internal server error
  */
 
- router.put('/:id/update', authenticate, PostController.putById.bind(PostController));
- 
+router.put(
+  "/:id/update",
+  authenticate,
+  PostController.putById.bind(PostController)
+);
 
 /**
  * @swagger
@@ -280,8 +284,11 @@ router.get('/allPosts', PostController.get.bind(PostController));
  */
 
 //DELETE
-router.delete('/:id/like',authenticate, PostController.deleteLike.bind(PostController));
-
+router.delete(
+  "/:id/like",
+  authenticate,
+  PostController.deleteLike.bind(PostController)
+);
 
 /**
  * @swagger
@@ -310,6 +317,10 @@ router.delete('/:id/like',authenticate, PostController.deleteLike.bind(PostContr
  *         description: Internal server error
  */
 
-router.delete('/:id', authenticate, PostController.deleteById.bind(PostController));
+router.delete(
+  "/:id",
+  authenticate,
+  PostController.deleteById.bind(PostController)
+);
 
 export default router;

@@ -137,7 +137,7 @@ describe("Comment Test", () => {
     const response = await request(app)
       .delete(`/posts/comments/${ObjectId}/deleteComment/${ObjectId}`)
       .set("Authorization", `JWT ${accessTokenComment}`);
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(400);
     expect(response.text).toBe("Post not found to delete comment");
   });
   test("TEST 6: DELETE Comment By Id : /posts/comments/:id/deleteComment/:postId", async () => {
@@ -167,7 +167,7 @@ describe("Comment Test", () => {
       .post(`/posts/comments/${postId}/createComment`)
       .send(invalidComment)
       .set("Authorization", `JWT ${accessTokenComment}`);
-    expect(response.status).toBe(403);
+    expect(response.status).toBe(400);
     expect(response.text).toBe("User not found");
   });
 });
