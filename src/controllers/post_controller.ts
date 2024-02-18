@@ -37,6 +37,10 @@ class PostController extends BaseController<IPost> {
       }
       const post = await Post.findById(req.params.id);
       if (post) {
+        if (post.likes.includes(req.body.email)) {
+          res.status(402).json({ message: "Post already liked" });
+          return;
+        }
         post.likes.push(req.body.email);
         await post.save();
         res.status(200).json({ message: "Post liked" });

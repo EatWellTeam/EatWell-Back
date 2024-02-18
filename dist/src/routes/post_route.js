@@ -11,7 +11,7 @@ const router = express_1.default.Router();
  * @swagger
  * tags:
  *   name: Posts
-  *   description: The posts managing API
+ *   description: The posts managing API
  */
 /**
  * @swagger
@@ -49,6 +49,7 @@ const router = express_1.default.Router();
  *           description: The date of the creation of the post
  *       example:
  *         user: <replace-with-actual-user-id>
+ *         userActivity: <replace-with-actual-user-id>
  *         title: New Post
  *         body: This is a new post
  *         comments: []
@@ -77,7 +78,7 @@ const router = express_1.default.Router();
  *         description: Internal server error
  */
 //GET
-router.get('/allPosts', post_controller_1.default.get.bind(post_controller_1.default));
+router.get("/allPosts", post_controller_1.default.get.bind(post_controller_1.default));
 /**
  * @swagger
  * /posts/{id}:
@@ -106,7 +107,7 @@ router.get('/allPosts', post_controller_1.default.get.bind(post_controller_1.def
  *       500:
  *         description: Internal server error
  */
-router.get('/:id', post_controller_1.default.getById.bind(post_controller_1.default));
+router.get("/:id", post_controller_1.default.getById.bind(post_controller_1.default));
 /**
  * @swagger
  * /posts/addPost:
@@ -129,13 +130,17 @@ router.get('/:id', post_controller_1.default.getById.bind(post_controller_1.defa
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Post'
+ *       400:
+ *         description: User not found
  *       401:
  *         description: Unauthorized
+ *       402:
+ *         description: Error in creating object
  *       500:
  *         description: Internal server error
  */
-//POST 
-router.post('/addPost', auth_middleware_1.default, post_controller_1.default.post.bind(post_controller_1.default));
+//POST
+router.post("/addPost", auth_middleware_1.default, post_controller_1.default.post.bind(post_controller_1.default));
 /**
  * @swagger
  * /posts/{id}/like:
@@ -165,16 +170,18 @@ router.post('/addPost', auth_middleware_1.default, post_controller_1.default.pos
  *         schema:
  *           type: string
  *     responses:
- *       201:
+ *       200:
  *         description: The like was successfully added
  *       401:
  *         description: Unauthorized
+ *       402:
+ *         description: User not found
  *       404:
  *         description: The post was not found
  *       500:
  *         description: Internal server error
  */
-router.post('/:id/like', auth_middleware_1.default, post_controller_1.default.addLike.bind(post_controller_1.default));
+router.post("/:id/like", auth_middleware_1.default, post_controller_1.default.addLike.bind(post_controller_1.default));
 //PUT
 /**
  * @swagger
@@ -219,7 +226,7 @@ router.post('/:id/like', auth_middleware_1.default, post_controller_1.default.ad
  *       500:
  *         description: Internal server error
  */
-router.put('/:id/update', auth_middleware_1.default, post_controller_1.default.putById.bind(post_controller_1.default));
+router.put("/:id/update", auth_middleware_1.default, post_controller_1.default.putById.bind(post_controller_1.default));
 /**
  * @swagger
  * /posts/{id}/like:
@@ -261,7 +268,7 @@ router.put('/:id/update', auth_middleware_1.default, post_controller_1.default.p
  *         description: Internal server error
  */
 //DELETE
-router.delete('/:id/like', auth_middleware_1.default, post_controller_1.default.deleteLike.bind(post_controller_1.default));
+router.delete("/:id/like", auth_middleware_1.default, post_controller_1.default.deleteLike.bind(post_controller_1.default));
 /**
  * @swagger
  * /posts/{id}:
@@ -288,6 +295,6 @@ router.delete('/:id/like', auth_middleware_1.default, post_controller_1.default.
  *       500:
  *         description: Internal server error
  */
-router.delete('/:id', auth_middleware_1.default, post_controller_1.default.deleteById.bind(post_controller_1.default));
+router.delete("/:id", auth_middleware_1.default, post_controller_1.default.deleteById.bind(post_controller_1.default));
 exports.default = router;
 //# sourceMappingURL=post_route.js.map

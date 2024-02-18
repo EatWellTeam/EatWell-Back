@@ -49,7 +49,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /users/{id}:
+ * /user/{id}:
  *   get:
  *     summary: Returns the userActivity by id
  *     tags: [UserActivity]
@@ -76,7 +76,7 @@ router.get("/:id", userActivityController.getById.bind(userActivityController));
 
 /**
  * @swagger
- * /users/find/all:
+ * /user/find/all:
  *   get:
  *     summary: Returns the list of all the userActivity
  *     tags: [UserActivity]
@@ -100,7 +100,7 @@ router.get(
 
 /**
  * @swagger
- * /users/{id}/posts:
+ * /user/{id}/posts:
  *   get:
  *     summary: Returns the list of all the posts by user id
  *     tags: [UserActivity]
@@ -130,7 +130,7 @@ router.get(
 
 /**
  * @swagger
- * /users/{id}/comments:
+ * /user/{id}/comments:
  *   get:
  *     summary: Returns the list of all the comments by user id
  *     tags: [UserActivity]

@@ -45,7 +45,7 @@ import authenticate from "../middleware/auth_middleware";
 
 /**
  * @swagger
- * /comments/{id}/getComment/{postId}:
+ * /posts/comments/{id}/getComment/{postId}:
  *  get:
  *   summary: get the comment by id
  *   description: this route can only be accessed by the registered users.
@@ -87,7 +87,7 @@ router.get(
 
 /**
  * @swagger
- * /comments/AllComments:
+ * /posts/comments/AllComments:
  *  get:
  *   summary: Get all the comments for post
  *   description: this route can only be accessed by the registered users.
@@ -113,7 +113,7 @@ router.get("/AllComments", CommentsController.get.bind(CommentsController));
 
 /**
  * @swagger
- * /comments/{id}/createComment:
+ *  /posts/comments/{id}/createComment:
  *   post:
  *     summary: create a new comment
  *     description: this route can only be accessed by the registered users.
@@ -161,7 +161,7 @@ router.post(
 
 /**
  * @swagger
- * /comments/{id}/updateComment/{postId}:
+ * /posts/comments/{id}/updateComment/{postId}:
  *  put:
  *   summary: update the comment by id
  *   description: this route can only be accessed by the registered users.
@@ -179,8 +179,7 @@ router.post(
  *         type: string
  *         description: The body of the comment
  *         required: true
- *         example:
- *          body: This is an updated comment
+ *         example: "This is an updated comment"
  *   responses:
  *    200:
  *     description: Updated
@@ -219,7 +218,7 @@ export default router;
 
 /**
  * @swagger
- * /comments/{id}/deleteComment/{postId}:
+ * /posts/comments/{id}/deleteComment/{postId}:
  *  delete:
  *   summary: delete the comment by id
  *   description: this route can only be accessed by the registered users.

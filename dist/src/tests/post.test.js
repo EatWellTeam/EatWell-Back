@@ -136,13 +136,13 @@ describe("Post Module", () => {
             .set("Authorization", `JWT ${accessToken}`);
         expect(response.statusCode).toEqual(404);
     }));
-    // test("TEST 14: DELETE /:id", async () => {
-    //   const response = await request(app)
-    //     .delete(`/posts/${postId}`)
-    //     .set("Authorization", `JWT ${accessToken}`);
-    //   expect(response.statusCode).toEqual(200);
-    //   expect(response.body.message).toEqual("Deleted successfully");
-    // });
+    test("TEST 14: DELETE /:id", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app)
+            .delete(`/posts/${postId}`)
+            .set("Authorization", `JWT ${accessToken}`);
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.message).toEqual("Deleted successfully");
+    }));
     test("TEST 15: DELETE /:id empty DB", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .delete(`/posts/65a3f0c6c1d5cafa959dcf32`)
@@ -154,7 +154,7 @@ describe("Post Module", () => {
             .post("/posts/addPost")
             .send(postForNotRegisteredUser)
             .set("Authorization", `JWT ${accessToken}`);
-        expect(response.statusCode).toEqual(402);
+        expect(response.statusCode).toEqual(400);
         expect(response.text).toEqual("User not found");
     }));
 });

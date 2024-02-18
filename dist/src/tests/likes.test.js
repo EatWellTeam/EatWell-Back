@@ -101,14 +101,14 @@ describe("Tests for Like Posts", () => {
         expect(response.statusCode).toEqual(200);
         expect(response.body.message).toEqual("Post liked");
     }));
-    // test("TEST 8: DELETE Post Like", async () => {
-    //   const response = await request(app)
-    //     .delete(`/posts/${postId}/like`)
-    //     .send(user)
-    //     .set("Authorization", `JWT ${accessToken}`);
-    //   expect(response.statusCode).toEqual(200);
-    //   expect(response.body.message).toEqual("Post unliked");
-    // });
+    test("TEST 8: DELETE Post Like", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app)
+            .delete(`/posts/${postId}/like`)
+            .send(user)
+            .set("Authorization", `JWT ${accessToken}`);
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.message).toEqual("Post unliked");
+    }));
     test("TEST 8: DELETE Post Like - Like not found", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .delete(`/posts/${postId}/like`)
