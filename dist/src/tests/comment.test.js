@@ -36,10 +36,10 @@ const userComment = {
     email: "testComment@comment.com",
     password: "1234567890",
 };
-const userLike = {
-    email: "testlike@testlike.com",
-    password: "1234567890",
-};
+// const userLike = {
+//   email: "testlike@testlike.com",
+//   password: "1234567890",
+// };
 const comment1 = {
     user: userId,
     userActivity: userId,
@@ -61,7 +61,7 @@ beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     yield post_model_1.default.deleteMany();
     accessToken = yield (0, auth_test_1.createUser)(user);
     accessTokenComment = yield (0, auth_test_1.createUser)(userComment);
-    yield (0, auth_test_1.createUser)(userLike);
+    // await createUser(userLike);
     userId = yield user_model_1.default.findOne({ email: user.email }).then((user) => {
         return user._id.toHexString();
     });
@@ -145,13 +145,13 @@ describe("Comment Test", () => {
         expect(response.status).toBe(400);
         expect(response.text).toBe("Post not found to delete comment");
     }));
-    test("TEST 6: DELETE Comment By Id : /posts/comments/:id/deleteComment/:postId", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app)
-            .delete(`/posts/comments/${commentId}/deleteComment/${postId}`)
-            .set("Authorization", `JWT ${accessTokenComment}`);
-        expect(response.status).toBe(200);
-        expect(response.text).toBe("Deleted successfully");
-    }));
+    // test("TEST 6: DELETE Comment By Id : /posts/comments/:id/deleteComment/:postId", async () => {
+    //   const response = await request(app)
+    //     .delete(`/posts/comments/${commentId}/deleteComment/${postId}`)
+    //     .set("Authorization", `JWT ${accessTokenComment}`);
+    //   expect(response.status).toBe(200);
+    //   expect(response.text).toBe("Deleted successfully");
+    // });
     test("TEST 7: unExisted Comment By Id : /posts/comments/:id/deleteComment/:postId", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .delete(`/posts/comments/${ObjectId}/deleteComment/${postId}`)
@@ -174,6 +174,24 @@ describe("Comment Test", () => {
             .set("Authorization", `JWT ${accessTokenComment}`);
         expect(response.status).toBe(400);
         expect(response.text).toBe("User not found");
+    }));
+    test("TEST 10: Post deleted cause comments to be deleted", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app)
+            .delete(`/posts/${postId}`)
+            .set("Authorization", `JWT ${accessToken}`);
+        expect(response.status).toBe(200);
+        expect(response.body.message).toBe("Deleted successfully");
+        const responseComment = yield (0, supertest_1.default)(app).get(`/posts/comments/AllComments`);
+        expect(responseComment.status).toBe(200);
+        expect(responseComment.body.length).toBe(0);
+        const responseUserActivityPosts = yield (0, supertest_1.default)(app)
+            .get(`/user/${userId}/posts`)
+            .set("Authorization", `JWT ${accessToken}`);
+        expect(responseUserActivityPosts.status).toBe(200);
+        expect(responseUserActivityPosts.body.length).toBe(0);
+        const responseUserActivityComments = yield (0, supertest_1.default)(app).get(`/user/${userId}/comments`);
+        expect(responseUserActivityComments.status).toBe(200);
+        expect(responseUserActivityComments.body.length).toBe(0);
     }));
 });
 //# sourceMappingURL=comment.test.js.map

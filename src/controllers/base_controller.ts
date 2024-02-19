@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
-import mongoose, { Model } from "mongoose";
-import UserActivity from "../models/userActivity_model";
-import CommentModel from "../models/post_model";
+import { Model } from "mongoose";
+
 export class BaseController<ModelType> {
   model: Model<ModelType>;
 
@@ -74,20 +73,6 @@ export class BaseController<ModelType> {
       if (!deletedItem) {
         res.status(404).json({ message: "Not Found" });
         return;
-      }
-      const modelName = this.model.modelName;
-      if (modelName === "Post") {
-        const ObjectId = mongoose.Types.ObjectId;
-        const userActivity = await UserActivity.findOne({
-          post: new ObjectId(req.params.id),
-        });
-        if (userActivity) {
-          await UserActivity.findOneAndUpdate(
-            { post: new ObjectId(req.params.id) },
-            { $set: { post: null } }
-          );
-        }
-        await CommentModel.deleteMany({ post: new ObjectId(req.params.id) });
       }
       res.status(200).json({ message: "Deleted successfully" });
     } catch (err) {

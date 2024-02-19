@@ -47,7 +47,7 @@ const auth_middleware_1 = __importDefault(require("../middleware/auth_middleware
  */
 /**
  * @swagger
- * /comments/{id}/getComment/{postId}:
+ * /posts/comments/{id}/getComment/{postId}:
  *  get:
  *   summary: get the comment by id
  *   description: this route can only be accessed by the registered users.
@@ -85,7 +85,7 @@ const auth_middleware_1 = __importDefault(require("../middleware/auth_middleware
 router.get("/:id/getComment/:postId", comment_controller_1.default.getById.bind(comment_controller_1.default));
 /**
  * @swagger
- * /comments/AllComments:
+ * /posts/comments/AllComments:
  *  get:
  *   summary: Get all the comments for post
  *   description: this route can only be accessed by the registered users.
@@ -109,7 +109,7 @@ router.get("/:id/getComment/:postId", comment_controller_1.default.getById.bind(
 router.get("/AllComments", comment_controller_1.default.get.bind(comment_controller_1.default));
 /**
  * @swagger
- * /comments/{id}/createComment:
+ *  /posts/comments/{id}/createComment:
  *   post:
  *     summary: create a new comment
  *     description: this route can only be accessed by the registered users.
@@ -151,7 +151,7 @@ router.get("/AllComments", comment_controller_1.default.get.bind(comment_control
 router.post("/:id/createComment", auth_middleware_1.default, comment_controller_1.default.post.bind(comment_controller_1.default));
 /**
  * @swagger
- * /comments/{id}/updateComment/{postId}:
+ * /posts/comments/{id}/updateComment/{postId}:
  *  put:
  *   summary: update the comment by id
  *   description: this route can only be accessed by the registered users.
@@ -169,8 +169,7 @@ router.post("/:id/createComment", auth_middleware_1.default, comment_controller_
  *         type: string
  *         description: The body of the comment
  *         required: true
- *         example:
- *          body: This is an updated comment
+ *         example: "This is an updated comment"
  *   responses:
  *    200:
  *     description: Updated
@@ -203,7 +202,7 @@ router.put("/:id/updateComment/:postId", auth_middleware_1.default, comment_cont
 exports.default = router;
 /**
  * @swagger
- * /comments/{id}/deleteComment/{postId}:
+ * /posts/comments/{id}/deleteComment/{postId}:
  *  delete:
  *   summary: delete the comment by id
  *   description: this route can only be accessed by the registered users.

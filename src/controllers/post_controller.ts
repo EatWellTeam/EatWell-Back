@@ -2,6 +2,7 @@ import Post, { IPost } from "../models/post_model";
 import { BaseController } from "./base_controller";
 import { Request, Response } from "express";
 import UserActivity from "../models/userActivity_model";
+import CommentModel from "../models/comments_model";
 class PostController extends BaseController<IPost> {
   constructor() {
     super(Post);
@@ -63,7 +64,7 @@ class PostController extends BaseController<IPost> {
       if (post) {
         const userActivity = await UserActivity.findOneAndUpdate(
           { user: post.user },
-          { post: post._id },
+          { $push: { post: post._id } },
           { upsert: true }
         );
         if (userActivity) {
@@ -77,5 +78,31 @@ class PostController extends BaseController<IPost> {
       res.status(500).json({ message: "Internal Server Error" });
     }
   }
+
+  async deleteById(req: Request, res: Response) {
+    try {
+      const post = await Post.findById(req.params.id);
+      if (!post) {
+        res.status(404).json({ message: "Not Found" });
+        return;
+      }
+      const userActivity = await UserActivity.findOne({ post: post._id });
+      if (userActivity) {
+        await UserActivity.updateMany({ post: post._id }, { comment: [] });
+        await UserActivity.findOneAndUpdate(
+          { user: post.user },
+          { $pull: { post: post._id } }
+        );
+        await CommentModel.deleteMany({ post: post._id });
+        await Post.findByIdAndDelete(req.params.id);
+        res.status(200).json({ message: "Deleted successfully" });
+        return;
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
 }
+
 export default new PostController();

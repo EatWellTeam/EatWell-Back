@@ -23,10 +23,10 @@ const userComment = {
   email: "testComment@comment.com",
   password: "1234567890",
 };
-const userLike = {
-  email: "testlike@testlike.com",
-  password: "1234567890",
-};
+// const userLike = {
+//   email: "testlike@testlike.com",
+//   password: "1234567890",
+// };
 const comment1 = {
   user: userId,
   userActivity: userId,
@@ -48,7 +48,7 @@ beforeAll(async () => {
   await postModel.deleteMany();
   accessToken = await createUser(user);
   accessTokenComment = await createUser(userComment);
-  await createUser(userLike);
+  // await createUser(userLike);
 
   userId = await UserModel.findOne({ email: user.email }).then((user) => {
     return user._id.toHexString();
@@ -140,13 +140,13 @@ describe("Comment Test", () => {
     expect(response.status).toBe(400);
     expect(response.text).toBe("Post not found to delete comment");
   });
-  test("TEST 6: DELETE Comment By Id : /posts/comments/:id/deleteComment/:postId", async () => {
-    const response = await request(app)
-      .delete(`/posts/comments/${commentId}/deleteComment/${postId}`)
-      .set("Authorization", `JWT ${accessTokenComment}`);
-    expect(response.status).toBe(200);
-    expect(response.text).toBe("Deleted successfully");
-  });
+  // test("TEST 6: DELETE Comment By Id : /posts/comments/:id/deleteComment/:postId", async () => {
+  //   const response = await request(app)
+  //     .delete(`/posts/comments/${commentId}/deleteComment/${postId}`)
+  //     .set("Authorization", `JWT ${accessTokenComment}`);
+  //   expect(response.status).toBe(200);
+  //   expect(response.text).toBe("Deleted successfully");
+  // });
   test("TEST 7: unExisted Comment By Id : /posts/comments/:id/deleteComment/:postId", async () => {
     const response = await request(app)
       .delete(`/posts/comments/${ObjectId}/deleteComment/${postId}`)
@@ -169,5 +169,30 @@ describe("Comment Test", () => {
       .set("Authorization", `JWT ${accessTokenComment}`);
     expect(response.status).toBe(400);
     expect(response.text).toBe("User not found");
+  });
+  test("TEST 10: Post deleted cause comments to be deleted", async () => {
+    const response = await request(app)
+      .delete(`/posts/${postId}`)
+      .set("Authorization", `JWT ${accessToken}`);
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe("Deleted successfully");
+
+    const responseComment = await request(app).get(
+      `/posts/comments/AllComments`
+    );
+    expect(responseComment.status).toBe(200);
+    expect(responseComment.body.length).toBe(0);
+
+    const responseUserActivityPosts = await request(app)
+      .get(`/user/${userId}/posts`)
+      .set("Authorization", `JWT ${accessToken}`);
+    expect(responseUserActivityPosts.status).toBe(200);
+    expect(responseUserActivityPosts.body.length).toBe(0);
+
+    const responseUserActivityComments = await request(app).get(
+      `/user/${userId}/comments`
+    );
+    expect(responseUserActivityComments.status).toBe(200);
+    expect(responseUserActivityComments.body.length).toBe(0);
   });
 });

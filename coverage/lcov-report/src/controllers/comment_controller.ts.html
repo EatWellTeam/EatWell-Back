@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.66% </span>
+                <span class="strong">73.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>39/45</span>
+                <span class='fraction'>33/45</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.66% </span>
+                <span class="strong">73.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>39/45</span>
+                <span class='fraction'>33/45</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -191,12 +191,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -204,14 +199,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -253,7 +253,7 @@ class CommentsController extends BaseController&lt;IComment&gt; {
           await post.save();
           await UserActivity.findOneAndUpdate(
             { user: comment.user },
-            { comment: comment._id },
+            { $push: { comment: comment._id } },
             { upsert: true }
           );
           res.status(201).send(comment);
@@ -280,16 +280,16 @@ class CommentsController extends BaseController&lt;IComment&gt; {
         res.status(404).send("Comment not found");
         return;
       }
-      post.comments = post.comments.filter(
-        (id) =&gt; id.toString() !== req.params.id
+<span class="cstat-no" title="statement not covered" >      post.comments = post.comments.filter(</span>
+<span class="fstat-no" title="function not covered" >        (i</span>d) =&gt; <span class="cstat-no" title="statement not covered" >id.toString() !== req.params.id</span>
       );
-      await post.save();
-      const ObjectId = mongoose.Types.ObjectId;
-      await UserActivity.findOneAndUpdate(
+<span class="cstat-no" title="statement not covered" >      await post.save();</span>
+      const ObjectId = <span class="cstat-no" title="statement not covered" >mongoose.Types.ObjectId;</span>
+<span class="cstat-no" title="statement not covered" >      await UserActivity.findOneAndUpdate(</span>
         { comment: new ObjectId(req.params.id) },
-        { $set: { comment: null } }
+        { $set: { comment: [] } }
       );
-      res.status(200).send("Deleted successfully");
+<span class="cstat-no" title="statement not covered" >      res.status(200).send("Deleted successfully");</span>
     } catch (err) {
 <span class="cstat-no" title="statement not covered" >      console.error(err.message);</span>
 <span class="cstat-no" title="statement not covered" >      res.status(500).send("Internal Server Error");</span>
@@ -304,7 +304,7 @@ export default new CommentsController();
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-02-17T17:15:45.858Z
+                at 2024-02-19T15:02:09.827Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

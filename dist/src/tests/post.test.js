@@ -51,7 +51,6 @@ beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     yield comments_model_1.default.deleteMany();
     yield userActivity_model_1.default.deleteMany();
     yield user_model_1.default.deleteMany();
-    (0, auth_test_1.createUser)(user);
     accessToken = yield (0, auth_test_1.createUser)(user);
     userId = yield user_model_1.default.findOne({ email: user.email }).then((user) => {
         return user._id.toHexString();

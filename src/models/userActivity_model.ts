@@ -16,11 +16,14 @@ const userActivitySchema = new mongoose.Schema<IUserActivity>({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   email: { type: String, required: true },
   profileImage: { type: String, required: false },
-  post: { type: mongoose.Schema.Types.ObjectId, ref: "Post" },
-  comment:{ type: mongoose.Schema.Types.ObjectId, ref: "Comment"},
+  post: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
+  comment: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
   createdAt: { type: Date, default: Date.now },
 });
 
-const UserActivityModel = mongoose.model<IUserActivity>("UserActivity",userActivitySchema);
+const UserActivityModel = mongoose.model<IUserActivity>(
+  "UserActivity",
+  userActivitySchema
+);
 
 export default UserActivityModel;

@@ -43,7 +43,7 @@ class CommentsController extends base_controller_1.BaseController {
                     if (comment) {
                         post.comments.push(comment._id);
                         yield post.save();
-                        yield userActivity_model_1.default.findOneAndUpdate({ user: comment.user }, { comment: comment._id }, { upsert: true });
+                        yield userActivity_model_1.default.findOneAndUpdate({ user: comment.user }, { $push: { comment: comment._id } }, { upsert: true });
                         res.status(201).send(comment);
                     }
                     else {
@@ -74,7 +74,7 @@ class CommentsController extends base_controller_1.BaseController {
                 post.comments = post.comments.filter((id) => id.toString() !== req.params.id);
                 yield post.save();
                 const ObjectId = mongoose_1.default.Types.ObjectId;
-                yield userActivity_model_1.default.findOneAndUpdate({ comment: new ObjectId(req.params.id) }, { $set: { comment: null } });
+                yield userActivity_model_1.default.findOneAndUpdate({ comment: new ObjectId(req.params.id) }, { $set: { comment: [] } });
                 res.status(200).send("Deleted successfully");
             }
             catch (err) {

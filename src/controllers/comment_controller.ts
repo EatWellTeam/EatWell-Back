@@ -32,7 +32,7 @@ class CommentsController extends BaseController<IComment> {
           await post.save();
           await UserActivity.findOneAndUpdate(
             { user: comment.user },
-            { comment: comment._id },
+            { $push: { comment: comment._id } },
             { upsert: true }
           );
           res.status(201).send(comment);
@@ -66,7 +66,7 @@ class CommentsController extends BaseController<IComment> {
       const ObjectId = mongoose.Types.ObjectId;
       await UserActivity.findOneAndUpdate(
         { comment: new ObjectId(req.params.id) },
-        { $set: { comment: null } }
+        { $set: { comment: [] } }
       );
       res.status(200).send("Deleted successfully");
     } catch (err) {

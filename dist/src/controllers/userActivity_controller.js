@@ -22,8 +22,12 @@ class UserActivityController extends base_controller_1.BaseController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id } = req.params;
-                const userPosts = yield userActivity_model_1.default.find({ user: id }).populate("post");
-                res.status(200).json(userPosts.map((post) => post.post));
+                const userPosts = yield userActivity_model_1.default.findOne({ user: id }).populate("post");
+                if (!userPosts) {
+                    res.status(404).json({ message: "User not found" });
+                    return;
+                }
+                res.status(200).json(userPosts.post);
             }
             catch (error) {
                 res.status(500).json({ message: error.message });
@@ -34,8 +38,12 @@ class UserActivityController extends base_controller_1.BaseController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id } = req.params;
-                const userComments = yield userActivity_model_1.default.find({ user: id }).populate("comment");
-                res.status(200).json(userComments.map((comment) => comment.comment));
+                const userComments = yield userActivity_model_1.default.findOne({ user: id }).populate("comment");
+                if (!userComments) {
+                    res.status(404).json({ message: "User not found" });
+                    return;
+                }
+                res.status(200).json(userComments.comment);
             }
             catch (error) {
                 res.status(500).json({ message: error.message });

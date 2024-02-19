@@ -43,7 +43,6 @@ beforeAll(async () => {
   await CommentModel.deleteMany();
   await UserActivity.deleteMany();
   await UserModel.deleteMany();
-  createUser(user);
   accessToken = await createUser(user);
   userId = await UserModel.findOne({ email: user.email }).then((user) => {
     return user._id.toHexString();

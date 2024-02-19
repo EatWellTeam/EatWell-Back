@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const post_model_1 = __importDefault(require("../models/post_model"));
 const base_controller_1 = require("./base_controller");
 const userActivity_model_1 = __importDefault(require("../models/userActivity_model"));
+const comments_model_1 = __importDefault(require("../models/comments_model"));
 class PostController extends base_controller_1.BaseController {
     constructor() {
         super(post_model_1.default);
@@ -54,6 +55,10 @@ class PostController extends base_controller_1.BaseController {
                 }
                 const post = yield post_model_1.default.findById(req.params.id);
                 if (post) {
+                    if (post.likes.includes(req.body.email)) {
+                        res.status(402).json({ message: "Post already liked" });
+                        return;
+                    }
                     post.likes.push(req.body.email);
                     yield post.save();
                     res.status(200).json({ message: "Post liked" });
@@ -77,7 +82,7 @@ class PostController extends base_controller_1.BaseController {
             try {
                 const post = yield post_model_1.default.create(req.body);
                 if (post) {
-                    const userActivity = yield userActivity_model_1.default.findOneAndUpdate({ user: post.user }, { post: post._id }, { upsert: true });
+                    const userActivity = yield userActivity_model_1.default.findOneAndUpdate({ user: post.user }, { $push: { post: post._id } }, { upsert: true });
                     if (userActivity) {
                         res.status(201).send(post);
                     }
@@ -88,6 +93,30 @@ class PostController extends base_controller_1.BaseController {
             }
             catch (err) {
                 console.error(err.message);
+                res.status(500).json({ message: "Internal Server Error" });
+            }
+        });
+    }
+    deleteById(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const post = yield post_model_1.default.findById(req.params.id);
+                if (!post) {
+                    res.status(404).json({ message: "Not Found" });
+                    return;
+                }
+                const userActivity = yield userActivity_model_1.default.findOne({ post: post._id });
+                if (userActivity) {
+                    yield userActivity_model_1.default.updateMany({ post: post._id }, { comment: [] });
+                    yield userActivity_model_1.default.findOneAndUpdate({ user: post.user }, { $pull: { post: post._id } });
+                    yield comments_model_1.default.deleteMany({ post: post._id });
+                    yield post_model_1.default.findByIdAndDelete(req.params.id);
+                    res.status(200).json({ message: "Deleted successfully" });
+                    return;
+                }
+            }
+            catch (err) {
+                console.error(err);
                 res.status(500).json({ message: "Internal Server Error" });
             }
         });

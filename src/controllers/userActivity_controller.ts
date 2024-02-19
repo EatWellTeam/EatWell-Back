@@ -9,8 +9,14 @@ class UserActivityController extends BaseController<IUserActivity> {
   async getUserPosts(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const userPosts = await UserActivity.find({ user: id }).populate("post");
-      res.status(200).json(userPosts.map((post) => post.post));
+      const userPosts = await UserActivity.findOne({ user: id }).populate(
+        "post"
+      );
+      if (!userPosts) {
+        res.status(404).json({ message: "User not found" });
+        return;
+      }
+      res.status(200).json(userPosts.post);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
@@ -18,10 +24,14 @@ class UserActivityController extends BaseController<IUserActivity> {
   async getUserComments(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const userComments = await UserActivity.find({ user: id }).populate(
+      const userComments = await UserActivity.findOne({ user: id }).populate(
         "comment"
       );
-      res.status(200).json(userComments.map((comment) => comment.comment));
+      if (!userComments) {
+        res.status(404).json({ message: "User not found" });
+        return;
+      }
+      res.status(200).json(userComments.comment);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
