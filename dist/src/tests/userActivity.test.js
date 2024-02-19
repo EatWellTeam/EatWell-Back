@@ -73,6 +73,16 @@ describe("User Activity Test", () => {
         console.log("User Comments : ", response.body);
         expect(response.status).toBe(200);
     }));
+    test("user not found for getting posts", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app).get(`/user/${ObjectId}/posts`);
+        expect(response.status).toBe(404);
+        expect(response.body.message).toBe("User not found");
+    }));
+    test("user not found for getting comments", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app).get(`/user/${ObjectId}/comments`);
+        expect(response.status).toBe(404);
+        expect(response.body.message).toBe("User not found");
+    }));
     test("should not get user activity by id", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app).get(`/user/${ObjectId}`);
         expect(response.status).toBe(404);

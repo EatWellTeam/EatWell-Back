@@ -140,13 +140,13 @@ describe("Comment Test", () => {
     expect(response.status).toBe(400);
     expect(response.text).toBe("Post not found to delete comment");
   });
-  // test("TEST 6: DELETE Comment By Id : /posts/comments/:id/deleteComment/:postId", async () => {
-  //   const response = await request(app)
-  //     .delete(`/posts/comments/${commentId}/deleteComment/${postId}`)
-  //     .set("Authorization", `JWT ${accessTokenComment}`);
-  //   expect(response.status).toBe(200);
-  //   expect(response.text).toBe("Deleted successfully");
-  // });
+  test("TEST 6: DELETE Comment By Id : /posts/comments/:id/deleteComment/:postId", async () => {
+    const response = await request(app)
+      .delete(`/posts/comments/${commentId}/deleteComment/${postId}`)
+      .set("Authorization", `JWT ${accessTokenComment}`);
+    expect(response.status).toBe(200);
+    expect(response.text).toBe("Deleted successfully");
+  });
   test("TEST 7: unExisted Comment By Id : /posts/comments/:id/deleteComment/:postId", async () => {
     const response = await request(app)
       .delete(`/posts/comments/${ObjectId}/deleteComment/${postId}`)

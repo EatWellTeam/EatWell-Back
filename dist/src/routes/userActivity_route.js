@@ -115,6 +115,8 @@ router.get("/find/all", userActivity_controller_1.default.get.bind(userActivity_
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Post'
+ *       404:
+ *        description: The user not found
  *       500:
  *         description: Internal server error
  */
@@ -141,6 +143,8 @@ router.get("/:id/posts", userActivity_controller_1.default.getUserPosts.bind(use
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Comment'
+ *       404:
+ *        description: The user not found
  *       500:
  *         description: Internal server error
  */

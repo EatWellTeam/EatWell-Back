@@ -120,6 +120,8 @@ router.get(
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Post'
+ *       404:
+ *        description: The user not found
  *       500:
  *         description: Internal server error
  */
@@ -150,6 +152,8 @@ router.get(
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Comment'
+ *       404:
+ *        description: The user not found
  *       500:
  *         description: Internal server error
  */
