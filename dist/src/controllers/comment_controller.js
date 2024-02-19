@@ -15,37 +15,40 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const comments_model_1 = __importDefault(require("../models/comments_model"));
 const base_controller_1 = require("./base_controller");
 const post_model_1 = __importDefault(require("../models/post_model"));
+const userActivity_model_1 = __importDefault(require("../models/userActivity_model"));
+const mongoose_1 = __importDefault(require("mongoose"));
 class CommentsController extends base_controller_1.BaseController {
     constructor() {
         super(comments_model_1.default);
     }
     post(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("Post method in base controller ===> " + req.body);
-            console.log("Post method in base controller ===> " + req.params.id);
+            // console.log("Post method in base controller ===> " + req.body);
+            // console.log("Post method in base controller ===> " + req.params.id);
             try {
-                if (!req.params.id) {
-                    res.status(400).send("Post id is required to add comment");
+                const user = yield userActivity_model_1.default.findOne({ user: req.body.user });
+                if (!user) {
+                    res.status(400).send("User not found");
                     return;
                 }
                 const post = yield post_model_1.default.findById(req.params.id);
                 console.log(post);
                 if (!post) {
-                    res.status(401).send("Post not found to add comment");
+                    res.status(402).send("Post not found to add comment");
                     return;
                 }
                 else {
                     console.log("Post found");
-                    const comment = new comments_model_1.default({
-                        user: req.body.user,
-                        post: req.params.id,
-                        body: req.body.body,
-                    });
-                    console.log(comment);
-                    const result = yield comment.save();
-                    post.comments.push(result._id);
-                    yield post.save();
-                    res.status(201).send(result);
+                    const comment = yield comments_model_1.default.create(req.body);
+                    if (comment) {
+                        post.comments.push(comment._id);
+                        yield post.save();
+                        yield userActivity_model_1.default.findOneAndUpdate({ user: comment.user }, { $push: { comment: comment._id } }, { upsert: true });
+                        res.status(201).send(comment);
+                    }
+                    else {
+                        res.status(403).send("Error in creating object");
+                    }
                 }
             }
             catch (err) {
@@ -60,7 +63,7 @@ class CommentsController extends base_controller_1.BaseController {
             try {
                 const post = yield post_model_1.default.findById(req.params.postId);
                 if (!post) {
-                    res.status(404).send("Post not found to delete comment");
+                    res.status(400).send("Post not found to delete comment");
                     return;
                 }
                 const comment = yield comments_model_1.default.findByIdAndDelete(req.params.id);
@@ -70,6 +73,8 @@ class CommentsController extends base_controller_1.BaseController {
                 }
                 post.comments = post.comments.filter((id) => id.toString() !== req.params.id);
                 yield post.save();
+                const ObjectId = mongoose_1.default.Types.ObjectId;
+                yield userActivity_model_1.default.findOneAndUpdate({ comment: new ObjectId(req.params.id) }, { $set: { comment: [] } });
                 res.status(200).send("Deleted successfully");
             }
             catch (err) {

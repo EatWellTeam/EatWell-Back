@@ -7,6 +7,11 @@ const commentSchema = new mongoose_1.Schema({
         ref: "User",
         required: true,
     },
+    userActivity: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "UserActivity",
+        required: true,
+    },
     post: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: "Post",

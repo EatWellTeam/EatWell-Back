@@ -38,15 +38,10 @@ export class BaseController<ModelType> {
   }
 
   async post(req: Request, res: Response) {
-   
     try {
-      
       const obj = await this.model.create(req.body);
-      if(obj){
+      if (obj) {
         res.status(201).send(obj);
-      }
-      else{
-        res.status(402).send("Error in creating object");
       }
     } catch (err) {
       console.error(err.message);
@@ -88,7 +83,7 @@ export class BaseController<ModelType> {
 }
 
 const createController = <ModelType>(model: Model<ModelType>) => {
-  console.log("Create Controller ===> " + model);
+  //console.log("Create Controller ===> " + model);
 
   return new BaseController<ModelType>(model);
 };

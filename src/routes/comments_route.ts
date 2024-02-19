@@ -7,7 +7,7 @@ import authenticate from "../middleware/auth_middleware";
  * @swagger
  * tags:
  *   name: Comments
-  *   description: The comments managing API
+ *   description: The comments managing API
  */
 
 /**
@@ -36,15 +36,16 @@ import authenticate from "../middleware/auth_middleware";
  *      format: date-time
  *      description: The date of the creation of the comment
  *    example:
- *     user: 611f4f3f9b3f3e2f3c3f3f3f
- *     post: 611f4f3f9b3f3e2f3c3f3f3f
+ *     user: --user id--
+ *     userActivity: --userActivity id--
+ *     post: --post id--
  *     body: This is a new comment
  *     createdAt: 2021-08-25T12:00:00.000Z
  */
 
 /**
  * @swagger
- * /comments/{id}/getComment/{postId}:
+ * /posts/comments/{id}/getComment/{postId}:
  *  get:
  *   summary: get the comment by id
  *   description: this route can only be accessed by the registered users.
@@ -79,12 +80,14 @@ import authenticate from "../middleware/auth_middleware";
  *      description: The post id
  */
 //GET
-router.get('/:id/getComment/:postId', CommentsController.getById.bind(CommentsController));
-
+router.get(
+  "/:id/getComment/:postId",
+  CommentsController.getById.bind(CommentsController)
+);
 
 /**
  * @swagger
- * /comments/AllComments:
+ * /posts/comments/AllComments:
  *  get:
  *   summary: Get all the comments for post
  *   description: this route can only be accessed by the registered users.
@@ -106,52 +109,59 @@ router.get('/:id/getComment/:postId', CommentsController.getById.bind(CommentsCo
  *     description: Internal Server Error
  */
 
-router.get('/AllComments', CommentsController.get.bind(CommentsController));
+router.get("/AllComments", CommentsController.get.bind(CommentsController));
 
 /**
  * @swagger
- * /comments/{id}/createComment:
- *  post:
- *   summary: create a new comment
- *   description: this route can only be accessed by the registered users.
- *   security:
- *    - bearerAuth: []
- *   tags: [Comments]
- *   requestBody:
- *    required: true
- *    content:
- *     application/json:
- *      schema:
- *       $ref: '#/components/schemas/Comment'
- *   responses:
- *    201:
- *     description: Created
- *     content:
- *      application/json:
- *       schema:
- *        $ref: '#/components/schemas/Comment'
- *    400:
- *     description: post id is required to add comment
- *    401:
- *     description: Unauthorized
- *    500:
- *     description: Internal Server Error
- *   parameters:
- *    - in: path
- *      name: id
- *      required: true
- *      schema:
- *       type: string
- *      description: The post id
+ *  /posts/comments/{id}/createComment:
+ *   post:
+ *     summary: create a new comment
+ *     description: this route can only be accessed by the registered users.
+ *     security:
+ *       - bearerAuth: []
+ *     tags: [Comments]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Comment'
+ *     responses:
+ *       201:
+ *         description: Created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Comment'
+ *       400:
+ *         description: User not found
+ *       401:
+ *         description: Unauthorized
+ *       402:
+ *         description: Post not found to add comment
+ *       403:
+ *         description: Error in creating object
+ *       500:
+ *         description: Internal Server Error
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The post id
  */
 
 //POST
-router.post('/:id/createComment',authenticate,CommentsController.post.bind(CommentsController));
-
+router.post(
+  "/:id/createComment",
+  authenticate,
+  CommentsController.post.bind(CommentsController)
+);
 
 /**
  * @swagger
- * /comments/{id}/updateComment/{postId}:
+ * /posts/comments/{id}/updateComment/{postId}:
  *  put:
  *   summary: update the comment by id
  *   description: this route can only be accessed by the registered users.
@@ -169,8 +179,7 @@ router.post('/:id/createComment',authenticate,CommentsController.post.bind(Comme
  *         type: string
  *         description: The body of the comment
  *         required: true
- *         example:
- *          body: This is an updated comment 
+ *         example: "This is an updated comment"
  *   responses:
  *    200:
  *     description: Updated
@@ -200,12 +209,16 @@ router.post('/:id/createComment',authenticate,CommentsController.post.bind(Comme
  */
 
 //PUT
-router.put('/:id/updateComment/:postId',authenticate,CommentsController.putById.bind(CommentsController));
+router.put(
+  "/:id/updateComment/:postId",
+  authenticate,
+  CommentsController.putById.bind(CommentsController)
+);
 export default router;
 
 /**
  * @swagger
- * /comments/{id}/deleteComment/{postId}:
+ * /posts/comments/{id}/deleteComment/{postId}:
  *  delete:
  *   summary: delete the comment by id
  *   description: this route can only be accessed by the registered users.
@@ -215,10 +228,12 @@ export default router;
  *   responses:
  *    200:
  *     description: Deleted successfully
+ *    400:
+ *     description: Post not found to delete comment
  *    401:
  *     description: Unauthorized
  *    404:
- *     description: Not Found
+ *     description: Comment not found
  *    500:
  *     description: Internal Server Error
  *   parameters:
@@ -237,5 +252,8 @@ export default router;
  */
 
 //DELETE
- router.delete('/:id/deleteComment/:postId',authenticate,CommentsController.deleteById.bind(CommentsController));
-
+router.delete(
+  "/:id/deleteComment/:postId",
+  authenticate,
+  CommentsController.deleteById.bind(CommentsController)
+);

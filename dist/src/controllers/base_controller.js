@@ -53,9 +53,6 @@ class BaseController {
                 if (obj) {
                     res.status(201).send(obj);
                 }
-                else {
-                    res.status(402).send("Error in creating object");
-                }
             }
             catch (err) {
                 console.error(err.message);
@@ -74,7 +71,8 @@ class BaseController {
                 res.status(200).send(updatedItem);
             }
             catch (err) {
-                // this.handleServerError(res, err);
+                console.error(err);
+                res.status(500).json({ message: "Internal Server Error" });
             }
         });
     }
@@ -89,14 +87,15 @@ class BaseController {
                 res.status(200).json({ message: "Deleted successfully" });
             }
             catch (err) {
-                // this.handleServerError(res, err);
+                console.error(err);
+                res.status(500).json({ message: "Internal Server Error" });
             }
         });
     }
 }
 exports.BaseController = BaseController;
 const createController = (model) => {
-    console.log("Create Controller ===> " + model);
+    //console.log("Create Controller ===> " + model);
     return new BaseController(model);
 };
 exports.default = createController;

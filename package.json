@@ -5,11 +5,13 @@
   "main": "app.js",
   "scripts": {
     "build": "tsc",
-    "test": "tsc && jest --detectOpenHandles --forceExit",
-    "testAuth": "tsc && jest --detectOpenHandles --forceExit ./src/tests/auth.test.ts",
+    "test": "tsc && jest --detectOpenHandles --forceExit --runInBand --coverage ./src/tests",
+    "testAuth": "tsc && jest --detectOpenHandles --forceExit --runInBand --coverage ./src/tests/auth.test.ts",
     "testPost": "tsc && jest --detectOpenHandles --forceExit --runInBand --coverage ./src/tests/post.test.ts",
-    "testComment": "tsc && jest --detectOpenHandles --forceExit --runInBand --coverage ./src/tests/comment.test.ts",
-    "testLike": "tsc && jest --detectOpenHandles --forceExit --runInBand ./src/tests/like.test.ts",
+    "testComment": "tsc && jest --detectOpenHandles --forceExit --coverage --runInBand ./src/tests/comment.test.ts",
+    "testLikes": "tsc && jest --detectOpenHandles --forceExit --coverage --runInBand ./src/tests/likes.test.ts",
+    "testUserActivity": "tsc && jest --detectOpenHandles --forceExit --coverage --runInBand ./src/tests/userActivity.test.ts",
+    
     "start": "tsc && node ./dist/src/server.js",
     "dev": "nodemon ./src/server.ts",
     "prod": "cp .envprod .env && tsc -p tsconfig_prod.json && pm2 restart ecosystem.config.js --env production"
