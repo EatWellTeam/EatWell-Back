@@ -13,6 +13,7 @@ const main_route_1 = __importDefault(require("./routes/main_route"));
 const comments_route_1 = __importDefault(require("./routes/comments_route"));
 const post_route_1 = __importDefault(require("./routes/post_route"));
 const userActivity_route_1 = __importDefault(require("./routes/userActivity_route"));
+const files_route_1 = __importDefault(require("./routes/files_route"));
 // import likeRoute from "./routes/likes_route";
 const initApp = () => {
     const promise = new Promise((resolve) => {
@@ -29,7 +30,9 @@ const initApp = () => {
             app.use("/posts", post_route_1.default);
             app.use("/posts/comments", comments_route_1.default);
             app.use("/user", userActivity_route_1.default);
-            // app.use("/likes", likeRoute);
+            //TODO: add upload route
+            app.use("/file", files_route_1.default);
+            app.use("/public", express_1.default.static("public"));
             resolve(app);
         });
     });
