@@ -20,6 +20,7 @@ const user_model_1 = __importDefault(require("../models/user_model"));
 const userActivity_model_1 = __importDefault(require("../models/userActivity_model"));
 const auth_test_1 = require("./auth.test");
 const comments_model_1 = __importDefault(require("../models/comments_model"));
+const path_1 = __importDefault(require("path"));
 let accessToken;
 let app;
 let postId;
@@ -33,6 +34,15 @@ const post1 = {
     userActivity: userId,
     title: "Test Post",
     body: "This is a test post",
+    comments: [],
+    likes: [],
+};
+const postwithPicture = {
+    user: userId,
+    userActivity: userId,
+    title: "Test Post",
+    body: "This is a test post",
+    picture: "batman.png",
     comments: [],
     likes: [],
 };
@@ -57,6 +67,8 @@ beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     });
     post1.user = userId;
     post1.userActivity = userId;
+    postwithPicture.user = userId;
+    postwithPicture.userActivity = userId;
 }));
 afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
     yield mongoose_1.default.disconnect();
@@ -155,6 +167,17 @@ describe("Post Module", () => {
             .set("Authorization", `JWT ${accessToken}`);
         expect(response.statusCode).toEqual(400);
         expect(response.text).toEqual("User not found");
+    }));
+    test("TEST 17: Post - with picture", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app)
+            .post("/posts/addPost")
+            .set("Authorization", `JWT ${accessToken}`)
+            .field("user", userId)
+            .field("userActivity", userId)
+            .field("title", "Test Post")
+            .field("body", "This is a test post")
+            .attach("picture", path_1.default.join(__dirname, "batman.png"));
+        expect(response.statusCode).toEqual(201);
     }));
 });
 exports.default = post1;

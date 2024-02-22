@@ -7,6 +7,7 @@ import UserModel from "../models/user_model";
 import UserActivity from "../models/userActivity_model";
 import { createUser } from "./auth.test";
 import CommentModel from "../models/comments_model";
+import path from "path";
 let accessToken: string;
 let app: Express;
 let postId: string;
@@ -25,7 +26,15 @@ const post1 = {
   comments: [],
   likes: [],
 };
-
+const postwithPicture = {
+  user: userId,
+  userActivity: userId,
+  title: "Test Post",
+  body: "This is a test post",
+  picture: "batman.png",
+  comments: [],
+  likes: [],
+};
 const postForNotRegisteredUser = {
   user: new mongoose.Types.ObjectId().toHexString(),
   userActivity: new mongoose.Types.ObjectId().toHexString(),
@@ -49,6 +58,8 @@ beforeAll(async () => {
   });
   post1.user = userId;
   post1.userActivity = userId;
+  postwithPicture.user = userId;
+  postwithPicture.userActivity = userId;
 });
 afterAll(async () => {
   await mongoose.disconnect();
@@ -156,6 +167,18 @@ describe("Post Module", () => {
       .set("Authorization", `JWT ${accessToken}`);
     expect(response.statusCode).toEqual(400);
     expect(response.text).toEqual("User not found");
+  });
+
+  test("TEST 17: Post - with picture", async () => {
+    const response = await request(app)
+      .post("/posts/addPost")
+      .set("Authorization", `JWT ${accessToken}`)
+      .field("user", userId)
+      .field("userActivity", userId)
+      .field("title", "Test Post")
+      .field("body", "This is a test post")
+      .attach("picture", path.join(__dirname, "batman.png"));
+    expect(response.statusCode).toEqual(201);
   });
 });
 

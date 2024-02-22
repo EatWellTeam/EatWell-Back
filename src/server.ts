@@ -4,7 +4,6 @@ import http from "http";
 import fs from "fs";
 import swaggerUI from "swagger-ui-express";
 import swaggerJsDoc from "swagger-jsdoc";
-// const path = require("path");
 
 const clientKey = process.cwd() + "/client-key.pem";
 const clientCert = process.cwd() + "/client-cert.pem";

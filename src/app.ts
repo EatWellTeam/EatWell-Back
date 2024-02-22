@@ -9,7 +9,6 @@ import commentRoute from "./routes/comments_route";
 import postRoute from "./routes/post_route";
 import userActivityRoute from "./routes/userActivity_route";
 import fileRoute from "./routes/files_route";
-// import likeRoute from "./routes/likes_route";
 
 const initApp = (): Promise<Express> => {
   const promise = new Promise<Express>((resolve) => {
@@ -28,8 +27,8 @@ const initApp = (): Promise<Express> => {
       app.use("/posts/comments", commentRoute);
       app.use("/user", userActivityRoute);
       //TODO: add upload route
+      app.use(express.static("public"));
       app.use("/file", fileRoute);
-      app.use("/public", express.static("public"));
       resolve(app);
     });
   });

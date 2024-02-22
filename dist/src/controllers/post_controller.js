@@ -80,6 +80,10 @@ class PostController extends base_controller_1.BaseController {
                 return;
             }
             try {
+                if (req.file) {
+                    req.body.picture = req.file.path;
+                    console.log("req.body.picture: " + req.body.picture);
+                }
                 const post = yield post_model_1.default.create(req.body);
                 if (post) {
                     const userActivity = yield userActivity_model_1.default.findOneAndUpdate({ user: post.user }, { $push: { post: post._id } }, { upsert: true });

@@ -60,6 +60,10 @@ class PostController extends BaseController<IPost> {
       return;
     }
     try {
+      if (req.file) {
+        req.body.picture = req.file.path;
+        console.log("req.body.picture: " + req.body.picture);
+      }
       const post = await Post.create(req.body);
       if (post) {
         const userActivity = await UserActivity.findOneAndUpdate(

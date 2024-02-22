@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const post_controller_1 = __importDefault(require("../controllers/post_controller"));
 const auth_middleware_1 = __importDefault(require("../middleware/auth_middleware"));
+const multer_1 = __importDefault(require("multer"));
+const path_1 = __importDefault(require("path"));
 const router = express_1.default.Router();
 /**
  * @swagger
@@ -139,8 +141,17 @@ router.get("/:id", post_controller_1.default.getById.bind(post_controller_1.defa
  *       500:
  *         description: Internal server error
  */
+const storage = multer_1.default.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, path_1.default.join(__dirname, "../public"));
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path_1.default.extname(file.originalname));
+    },
+});
+const upload = (0, multer_1.default)({ storage: storage });
 //POST
-router.post("/addPost", auth_middleware_1.default, post_controller_1.default.post.bind(post_controller_1.default));
+router.post("/addPost", auth_middleware_1.default, upload.single("file"), post_controller_1.default.post.bind(post_controller_1.default));
 /**
  * @swagger
  * /posts/{id}/like:

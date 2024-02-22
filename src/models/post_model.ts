@@ -5,6 +5,7 @@ export interface IPost extends Document {
   userActivity: Types.ObjectId;
   title: string;
   body: string;
+  picture: string;
   comments: string[];
   likes: string[];
   createdAt: Date;
@@ -19,6 +20,7 @@ const postSchema = new Schema<IPost>({
   },
   title: { type: String, required: true, min: 4 },
   body: { type: String, required: true },
+  picture: { type: String, required: false },
   comments: { type: [String], required: false },
   likes: { type: [String], required: false },
   createdAt: { type: Date, default: Date.now },

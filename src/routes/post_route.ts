@@ -1,6 +1,8 @@
 import express from "express";
 import PostController from "../controllers/post_controller";
 import authenticate from "../middleware/auth_middleware";
+import multer from "multer";
+import path from "path";
 const router = express.Router();
 
 /**
@@ -140,9 +142,23 @@ router.get("/:id", PostController.getById.bind(PostController));
  *       500:
  *         description: Internal server error
  */
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "../public"));
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
 
+const upload = multer({ storage: storage });
 //POST
-router.post("/addPost", authenticate, PostController.post.bind(PostController));
+router.post(
+  "/addPost",
+  authenticate,
+  upload.single("file"),
+  PostController.post.bind(PostController)
+);
 
 /**
  * @swagger

@@ -9,7 +9,6 @@ const http_1 = __importDefault(require("http"));
 const fs_1 = __importDefault(require("fs"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
-// const path = require("path");
 const clientKey = process.cwd() + "/client-key.pem";
 const clientCert = process.cwd() + "/client-cert.pem";
 const port = process.env.PORT || 3001;
