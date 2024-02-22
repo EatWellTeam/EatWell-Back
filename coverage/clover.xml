@@ -1,157 +1,157 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1708538020944" clover="3.2.0">
-  <project timestamp="1708538020944" name="All files">
-    <metrics statements="388" coveredstatements="254" conditionals="61" coveredconditionals="32" methods="47" coveredmethods="29" elements="496" coveredelements="315" complexity="0" loc="388" ncloc="388" packages="5" files="18" classes="18"/>
-    <package name="src">
+<coverage generated="1708638022464" clover="3.2.0">
+  <project timestamp="1708638022465" name="All files">
+    <metrics statements="388" coveredstatements="329" conditionals="61" coveredconditionals="48" methods="47" coveredmethods="40" elements="496" coveredelements="417" complexity="0" loc="388" ncloc="388" packages="5" files="18" classes="18"/>
+    <package name="backend">
       <metrics statements="31" coveredstatements="31" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="4"/>
-      <file name="app.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\src\app.ts">
+      <file name="app.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\backend\app.ts">
         <metrics statements="31" coveredstatements="31" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="4"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="14" count="2" type="stmt"/>
-        <line num="15" count="2" type="stmt"/>
-        <line num="16" count="2" type="stmt"/>
-        <line num="17" count="2" type="stmt"/>
-        <line num="18" count="2" type="stmt"/>
-        <line num="19" count="2" type="stmt"/>
-        <line num="20" count="2" type="stmt"/>
-        <line num="22" count="2" type="stmt"/>
-        <line num="23" count="2" type="stmt"/>
-        <line num="24" count="2" type="stmt"/>
-        <line num="25" count="2" type="stmt"/>
-        <line num="26" count="2" type="stmt"/>
-        <line num="27" count="2" type="stmt"/>
-        <line num="28" count="2" type="stmt"/>
-        <line num="30" count="2" type="stmt"/>
-        <line num="31" count="2" type="stmt"/>
-        <line num="32" count="2" type="stmt"/>
-        <line num="35" count="2" type="stmt"/>
-        <line num="38" count="1" type="stmt"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="3" count="6" type="stmt"/>
+        <line num="4" count="6" type="stmt"/>
+        <line num="5" count="6" type="stmt"/>
+        <line num="6" count="6" type="stmt"/>
+        <line num="7" count="6" type="stmt"/>
+        <line num="8" count="6" type="stmt"/>
+        <line num="9" count="6" type="stmt"/>
+        <line num="10" count="6" type="stmt"/>
+        <line num="11" count="6" type="stmt"/>
+        <line num="13" count="6" type="stmt"/>
+        <line num="14" count="12" type="stmt"/>
+        <line num="15" count="12" type="stmt"/>
+        <line num="16" count="12" type="stmt"/>
+        <line num="17" count="12" type="stmt"/>
+        <line num="18" count="12" type="stmt"/>
+        <line num="19" count="12" type="stmt"/>
+        <line num="20" count="12" type="stmt"/>
+        <line num="22" count="12" type="stmt"/>
+        <line num="23" count="12" type="stmt"/>
+        <line num="24" count="12" type="stmt"/>
+        <line num="25" count="12" type="stmt"/>
+        <line num="26" count="12" type="stmt"/>
+        <line num="27" count="12" type="stmt"/>
+        <line num="28" count="12" type="stmt"/>
+        <line num="30" count="12" type="stmt"/>
+        <line num="31" count="12" type="stmt"/>
+        <line num="32" count="12" type="stmt"/>
+        <line num="35" count="12" type="stmt"/>
+        <line num="38" count="6" type="stmt"/>
       </file>
     </package>
-    <package name="src.controllers">
-      <metrics statements="265" coveredstatements="141" conditionals="55" coveredconditionals="30" methods="35" coveredmethods="23"/>
-      <file name="auth_controller.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\src\controllers\auth_controller.ts">
+    <package name="backend.controllers">
+      <metrics statements="265" coveredstatements="210" conditionals="55" coveredconditionals="44" methods="35" coveredmethods="31"/>
+      <file name="auth_controller.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\backend\controllers\auth_controller.ts">
         <metrics statements="90" coveredstatements="76" conditionals="26" coveredconditionals="22" methods="14" coveredmethods="14"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="7" count="5" type="stmt"/>
-        <line num="8" count="5" type="stmt"/>
-        <line num="9" count="5" type="stmt"/>
-        <line num="10" count="5" type="cond" truecount="3" falsecount="0"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="13" count="4" type="stmt"/>
-        <line num="14" count="4" type="stmt"/>
-        <line num="15" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="16" count="1" type="stmt"/>
-        <line num="18" count="3" type="stmt"/>
-        <line num="19" count="3" type="stmt"/>
-        <line num="20" count="3" type="stmt"/>
-        <line num="24" count="3" type="stmt"/>
-        <line num="26" count="3" type="stmt"/>
-        <line num="27" count="3" type="stmt"/>
-        <line num="28" count="3" type="stmt"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="3" count="6" type="stmt"/>
+        <line num="4" count="6" type="stmt"/>
+        <line num="5" count="6" type="stmt"/>
+        <line num="7" count="28" type="stmt"/>
+        <line num="8" count="28" type="stmt"/>
+        <line num="9" count="28" type="stmt"/>
+        <line num="10" count="28" type="cond" truecount="3" falsecount="0"/>
+        <line num="11" count="5" type="stmt"/>
+        <line num="13" count="23" type="stmt"/>
+        <line num="14" count="23" type="stmt"/>
+        <line num="15" count="23" type="cond" truecount="1" falsecount="0"/>
+        <line num="16" count="6" type="stmt"/>
+        <line num="18" count="17" type="stmt"/>
+        <line num="19" count="17" type="stmt"/>
+        <line num="20" count="17" type="stmt"/>
+        <line num="24" count="17" type="stmt"/>
+        <line num="26" count="17" type="stmt"/>
+        <line num="27" count="17" type="stmt"/>
+        <line num="28" count="17" type="stmt"/>
         <line num="30" count="0" type="stmt"/>
         <line num="31" count="0" type="stmt"/>
-        <line num="35" count="6" type="stmt"/>
-        <line num="36" count="6" type="stmt"/>
-        <line num="37" count="6" type="stmt"/>
-        <line num="38" count="6" type="cond" truecount="3" falsecount="0"/>
-        <line num="39" count="1" type="stmt"/>
-        <line num="41" count="5" type="stmt"/>
-        <line num="42" count="5" type="stmt"/>
-        <line num="43" count="5" type="cond" truecount="1" falsecount="0"/>
-        <line num="44" count="1" type="stmt"/>
-        <line num="46" count="4" type="stmt"/>
-        <line num="47" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="48" count="1" type="stmt"/>
-        <line num="51" count="3" type="stmt"/>
-        <line num="54" count="3" type="stmt"/>
-        <line num="58" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="35" count="33" type="stmt"/>
+        <line num="36" count="33" type="stmt"/>
+        <line num="37" count="33" type="stmt"/>
+        <line num="38" count="33" type="cond" truecount="3" falsecount="0"/>
+        <line num="39" count="5" type="stmt"/>
+        <line num="41" count="28" type="stmt"/>
+        <line num="42" count="28" type="stmt"/>
+        <line num="43" count="28" type="cond" truecount="1" falsecount="0"/>
+        <line num="44" count="5" type="stmt"/>
+        <line num="46" count="23" type="stmt"/>
+        <line num="47" count="23" type="cond" truecount="1" falsecount="0"/>
+        <line num="48" count="5" type="stmt"/>
+        <line num="51" count="18" type="stmt"/>
+        <line num="54" count="18" type="stmt"/>
+        <line num="58" count="18" type="cond" truecount="1" falsecount="1"/>
         <line num="59" count="0" type="stmt"/>
-        <line num="61" count="3" type="stmt"/>
-        <line num="63" count="3" type="stmt"/>
-        <line num="65" count="3" type="stmt"/>
-        <line num="66" count="3" type="stmt"/>
+        <line num="61" count="18" type="stmt"/>
+        <line num="63" count="18" type="stmt"/>
+        <line num="65" count="18" type="stmt"/>
+        <line num="66" count="18" type="stmt"/>
         <line num="71" count="0" type="stmt"/>
         <line num="72" count="0" type="stmt"/>
-        <line num="76" count="2" type="stmt"/>
-        <line num="77" count="2" type="stmt"/>
-        <line num="79" count="2" type="stmt"/>
-        <line num="81" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="82" count="2" type="cond" truecount="1" falsecount="0"/>
-        <line num="83" count="1" type="stmt"/>
-        <line num="86" count="1" type="stmt"/>
-        <line num="87" count="1" type="stmt"/>
-        <line num="88" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="76" count="10" type="stmt"/>
+        <line num="77" count="10" type="stmt"/>
+        <line num="79" count="10" type="stmt"/>
+        <line num="81" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="82" count="10" type="cond" truecount="1" falsecount="0"/>
+        <line num="83" count="5" type="stmt"/>
+        <line num="86" count="5" type="stmt"/>
+        <line num="87" count="5" type="stmt"/>
+        <line num="88" count="5" type="cond" truecount="0" falsecount="1"/>
         <line num="89" count="0" type="stmt"/>
         <line num="90" count="0" type="stmt"/>
-        <line num="92" count="1" type="stmt"/>
-        <line num="93" count="1" type="stmt"/>
-        <line num="94" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="92" count="5" type="stmt"/>
+        <line num="93" count="5" type="stmt"/>
+        <line num="94" count="5" type="cond" truecount="1" falsecount="1"/>
         <line num="98" count="0" type="stmt"/>
         <line num="99" count="0" type="stmt"/>
         <line num="100" count="0" type="stmt"/>
-        <line num="102" count="1" type="stmt"/>
-        <line num="103" count="1" type="stmt"/>
-        <line num="105" count="1" type="stmt"/>
-        <line num="106" count="1" type="stmt"/>
+        <line num="102" count="5" type="stmt"/>
+        <line num="103" count="9" type="stmt"/>
+        <line num="105" count="5" type="stmt"/>
+        <line num="106" count="5" type="stmt"/>
         <line num="109" count="0" type="stmt"/>
-        <line num="115" count="5" type="stmt"/>
-        <line num="116" count="5" type="stmt"/>
-        <line num="117" count="5" type="cond" truecount="2" falsecount="0"/>
-        <line num="118" count="5" type="cond" truecount="1" falsecount="0"/>
-        <line num="119" count="4" type="stmt"/>
-        <line num="122" count="4" type="stmt"/>
-        <line num="123" count="4" type="cond" truecount="0" falsecount="1"/>
+        <line num="115" count="25" type="stmt"/>
+        <line num="116" count="25" type="stmt"/>
+        <line num="117" count="25" type="cond" truecount="2" falsecount="0"/>
+        <line num="118" count="25" type="cond" truecount="1" falsecount="0"/>
+        <line num="119" count="20" type="stmt"/>
+        <line num="122" count="20" type="stmt"/>
+        <line num="123" count="20" type="cond" truecount="0" falsecount="1"/>
         <line num="124" count="0" type="stmt"/>
         <line num="125" count="0" type="stmt"/>
-        <line num="127" count="4" type="stmt"/>
-        <line num="128" count="4" type="stmt"/>
-        <line num="129" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="133" count="2" type="stmt"/>
-        <line num="134" count="2" type="stmt"/>
-        <line num="135" count="2" type="stmt"/>
-        <line num="137" count="2" type="stmt"/>
-        <line num="142" count="2" type="stmt"/>
-        <line num="146" count="2" type="stmt"/>
-        <line num="147" count="3" type="stmt"/>
-        <line num="149" count="2" type="stmt"/>
-        <line num="150" count="2" type="stmt"/>
-        <line num="151" count="2" type="stmt"/>
+        <line num="127" count="20" type="stmt"/>
+        <line num="128" count="20" type="stmt"/>
+        <line num="129" count="20" type="cond" truecount="1" falsecount="0"/>
+        <line num="133" count="10" type="stmt"/>
+        <line num="134" count="10" type="stmt"/>
+        <line num="135" count="10" type="stmt"/>
+        <line num="137" count="10" type="stmt"/>
+        <line num="142" count="10" type="stmt"/>
+        <line num="146" count="10" type="stmt"/>
+        <line num="147" count="20" type="stmt"/>
+        <line num="149" count="10" type="stmt"/>
+        <line num="150" count="10" type="stmt"/>
+        <line num="151" count="10" type="stmt"/>
         <line num="156" count="0" type="stmt"/>
-        <line num="162" count="1" type="stmt"/>
+        <line num="162" count="6" type="stmt"/>
       </file>
-      <file name="base_controller.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\src\controllers\base_controller.ts">
+      <file name="base_controller.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\backend\controllers\base_controller.ts">
         <metrics statements="43" coveredstatements="22" conditionals="6" coveredconditionals="3" methods="7" coveredmethods="4"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="8" count="3" type="stmt"/>
-        <line num="9" count="3" type="stmt"/>
-        <line num="10" count="3" type="stmt"/>
-        <line num="16" count="1" type="stmt"/>
-        <line num="17" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
+        <line num="4" count="6" type="stmt"/>
+        <line num="8" count="18" type="stmt"/>
+        <line num="9" count="18" type="stmt"/>
+        <line num="10" count="18" type="stmt"/>
+        <line num="16" count="6" type="stmt"/>
+        <line num="17" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="18" count="6" type="stmt"/>
+        <line num="19" count="6" type="stmt"/>
         <line num="21" count="0" type="stmt"/>
         <line num="22" count="0" type="stmt"/>
-        <line num="27" count="3" type="stmt"/>
-        <line num="28" count="3" type="stmt"/>
-        <line num="29" count="3" type="cond" truecount="1" falsecount="0"/>
-        <line num="30" count="2" type="stmt"/>
-        <line num="31" count="2" type="stmt"/>
-        <line num="33" count="1" type="stmt"/>
+        <line num="27" count="12" type="stmt"/>
+        <line num="28" count="12" type="stmt"/>
+        <line num="29" count="12" type="cond" truecount="1" falsecount="0"/>
+        <line num="30" count="7" type="stmt"/>
+        <line num="31" count="7" type="stmt"/>
+        <line num="33" count="5" type="stmt"/>
         <line num="35" count="0" type="stmt"/>
         <line num="36" count="0" type="stmt"/>
         <line num="41" count="0" type="stmt"/>
@@ -160,12 +160,12 @@
         <line num="44" count="0" type="stmt"/>
         <line num="47" count="0" type="stmt"/>
         <line num="48" count="0" type="stmt"/>
-        <line num="53" count="3" type="stmt"/>
-        <line num="54" count="3" type="stmt"/>
-        <line num="59" count="3" type="cond" truecount="1" falsecount="0"/>
-        <line num="60" count="2" type="stmt"/>
-        <line num="61" count="2" type="stmt"/>
-        <line num="63" count="1" type="stmt"/>
+        <line num="53" count="11" type="stmt"/>
+        <line num="54" count="11" type="stmt"/>
+        <line num="59" count="11" type="cond" truecount="1" falsecount="0"/>
+        <line num="60" count="7" type="stmt"/>
+        <line num="61" count="7" type="stmt"/>
+        <line num="63" count="4" type="stmt"/>
         <line num="65" count="0" type="stmt"/>
         <line num="66" count="0" type="stmt"/>
         <line num="71" count="0" type="stmt"/>
@@ -176,287 +176,287 @@
         <line num="77" count="0" type="stmt"/>
         <line num="79" count="0" type="stmt"/>
         <line num="80" count="0" type="stmt"/>
-        <line num="85" count="1" type="stmt"/>
+        <line num="85" count="6" type="stmt"/>
         <line num="88" count="0" type="stmt"/>
-        <line num="91" count="1" type="stmt"/>
+        <line num="91" count="6" type="stmt"/>
       </file>
-      <file name="comment_controller.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\src\controllers\comment_controller.ts">
-        <metrics statements="45" coveredstatements="7" conditionals="7" coveredconditionals="0" methods="4" coveredmethods="1"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="24" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="30" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
+      <file name="comment_controller.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\backend\controllers\comment_controller.ts">
+        <metrics statements="45" coveredstatements="39" conditionals="7" coveredconditionals="6" methods="4" coveredmethods="4"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="4" count="6" type="stmt"/>
+        <line num="5" count="6" type="stmt"/>
+        <line num="6" count="6" type="stmt"/>
+        <line num="10" count="6" type="stmt"/>
+        <line num="16" count="4" type="stmt"/>
+        <line num="17" count="4" type="stmt"/>
+        <line num="18" count="4" type="cond" truecount="1" falsecount="0"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="22" count="3" type="stmt"/>
+        <line num="23" count="3" type="stmt"/>
+        <line num="24" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="30" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
         <line num="40" count="0" type="stmt"/>
         <line num="44" count="0" type="stmt"/>
         <line num="45" count="0" type="stmt"/>
         <line num="46" count="0" type="stmt"/>
-        <line num="51" count="0" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
-        <line num="53" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="57" count="0" type="stmt"/>
-        <line num="58" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="59" count="0" type="stmt"/>
-        <line num="60" count="0" type="stmt"/>
-        <line num="62" count="0" type="stmt"/>
-        <line num="63" count="0" type="stmt"/>
-        <line num="65" count="0" type="stmt"/>
-        <line num="66" count="0" type="stmt"/>
-        <line num="67" count="0" type="stmt"/>
-        <line num="71" count="0" type="stmt"/>
-        <line num="73" count="0" type="stmt"/>
-        <line num="74" count="0" type="stmt"/>
-        <line num="78" count="1" type="stmt"/>
-      </file>
-      <file name="main_controller.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\src\controllers\main_controller.ts">
-        <metrics statements="3" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="0" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-      </file>
-      <file name="post_controller.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\src\controllers\post_controller.ts">
-        <metrics statements="64" coveredstatements="30" conditionals="14" coveredconditionals="5" methods="6" coveredmethods="3"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="13" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="35" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="40" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="41" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="43" count="0" type="stmt"/>
-        <line num="45" count="0" type="stmt"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="47" count="0" type="stmt"/>
-        <line num="49" count="0" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
+        <line num="51" count="3" type="stmt"/>
+        <line num="52" count="3" type="stmt"/>
+        <line num="53" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="55" count="1" type="stmt"/>
         <line num="57" count="2" type="stmt"/>
         <line num="58" count="2" type="cond" truecount="1" falsecount="0"/>
         <line num="59" count="1" type="stmt"/>
         <line num="60" count="1" type="stmt"/>
         <line num="62" count="1" type="stmt"/>
-        <line num="63" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="63" count="1" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="71" count="1" type="stmt"/>
+        <line num="73" count="0" type="stmt"/>
+        <line num="74" count="0" type="stmt"/>
+        <line num="78" count="6" type="stmt"/>
+      </file>
+      <file name="main_controller.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\backend\controllers\main_controller.ts">
+        <metrics statements="3" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="3" count="6" type="stmt"/>
+        <line num="4" count="0" type="stmt"/>
+        <line num="7" count="6" type="stmt"/>
+      </file>
+      <file name="post_controller.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\backend\controllers\post_controller.ts">
+        <metrics statements="64" coveredstatements="53" conditionals="14" coveredconditionals="11" methods="6" coveredmethods="6"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="4" count="6" type="stmt"/>
+        <line num="5" count="6" type="stmt"/>
+        <line num="8" count="6" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="13" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="16" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="31" count="3" type="stmt"/>
+        <line num="32" count="3" type="stmt"/>
+        <line num="35" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="39" count="2" type="stmt"/>
+        <line num="40" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="41" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="57" count="9" type="stmt"/>
+        <line num="58" count="9" type="cond" truecount="1" falsecount="0"/>
+        <line num="59" count="3" type="stmt"/>
+        <line num="60" count="3" type="stmt"/>
+        <line num="62" count="6" type="stmt"/>
+        <line num="63" count="6" type="cond" truecount="0" falsecount="1"/>
         <line num="64" count="0" type="stmt"/>
         <line num="65" count="0" type="stmt"/>
-        <line num="67" count="1" type="stmt"/>
-        <line num="68" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="69" count="1" type="stmt"/>
-        <line num="74" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="75" count="1" type="stmt"/>
+        <line num="67" count="6" type="stmt"/>
+        <line num="68" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="69" count="6" type="stmt"/>
+        <line num="74" count="6" type="cond" truecount="1" falsecount="0"/>
+        <line num="75" count="6" type="stmt"/>
         <line num="78" count="0" type="stmt"/>
         <line num="81" count="0" type="stmt"/>
         <line num="82" count="0" type="stmt"/>
-        <line num="87" count="3" type="stmt"/>
-        <line num="88" count="3" type="stmt"/>
-        <line num="89" count="3" type="cond" truecount="1" falsecount="0"/>
-        <line num="90" count="2" type="stmt"/>
-        <line num="91" count="2" type="stmt"/>
-        <line num="93" count="1" type="stmt"/>
-        <line num="94" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="95" count="1" type="stmt"/>
-        <line num="96" count="1" type="stmt"/>
-        <line num="100" count="1" type="stmt"/>
-        <line num="101" count="1" type="stmt"/>
-        <line num="102" count="1" type="stmt"/>
-        <line num="103" count="1" type="stmt"/>
+        <line num="87" count="10" type="stmt"/>
+        <line num="88" count="10" type="stmt"/>
+        <line num="89" count="10" type="cond" truecount="1" falsecount="0"/>
+        <line num="90" count="6" type="stmt"/>
+        <line num="91" count="6" type="stmt"/>
+        <line num="93" count="4" type="stmt"/>
+        <line num="94" count="4" type="cond" truecount="1" falsecount="0"/>
+        <line num="95" count="4" type="stmt"/>
+        <line num="96" count="4" type="stmt"/>
+        <line num="100" count="4" type="stmt"/>
+        <line num="101" count="4" type="stmt"/>
+        <line num="102" count="4" type="stmt"/>
+        <line num="103" count="4" type="stmt"/>
         <line num="106" count="0" type="stmt"/>
         <line num="107" count="0" type="stmt"/>
-        <line num="112" count="1" type="stmt"/>
+        <line num="112" count="6" type="stmt"/>
       </file>
-      <file name="userActivity_controller.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\src\controllers\userActivity_controller.ts">
-        <metrics statements="20" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="1"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="15" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
+      <file name="userActivity_controller.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\backend\controllers\userActivity_controller.ts">
+        <metrics statements="20" coveredstatements="18" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="3" count="6" type="stmt"/>
+        <line num="7" count="6" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="15" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
         <line num="21" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="30" count="0" type="cond" truecount="0" falsecount="1"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
+        <line num="25" count="3" type="stmt"/>
+        <line num="26" count="3" type="stmt"/>
+        <line num="27" count="3" type="stmt"/>
+        <line num="30" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="34" count="2" type="stmt"/>
         <line num="36" count="0" type="stmt"/>
-        <line num="40" count="1" type="stmt"/>
+        <line num="40" count="6" type="stmt"/>
       </file>
     </package>
-    <package name="src.middleware">
-      <metrics statements="10" coveredstatements="10" conditionals="4" coveredconditionals="2" methods="2" coveredmethods="2"/>
-      <file name="auth_middleware.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\src\middleware\auth_middleware.ts">
-        <metrics statements="10" coveredstatements="10" conditionals="4" coveredconditionals="2" methods="2" coveredmethods="2"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="12" count="9" type="stmt"/>
-        <line num="13" count="9" type="cond" truecount="2" falsecount="0"/>
-        <line num="14" count="9" type="cond" truecount="0" falsecount="1"/>
-        <line num="15" count="9" type="stmt"/>
-        <line num="16" count="9" type="cond" truecount="0" falsecount="1"/>
-        <line num="17" count="9" type="stmt"/>
-        <line num="18" count="9" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
+    <package name="backend.middleware">
+      <metrics statements="10" coveredstatements="10" conditionals="4" coveredconditionals="3" methods="2" coveredmethods="2"/>
+      <file name="auth_middleware.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\backend\middleware\auth_middleware.ts">
+        <metrics statements="10" coveredstatements="10" conditionals="4" coveredconditionals="3" methods="2" coveredmethods="2"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="7" count="6" type="stmt"/>
+        <line num="12" count="47" type="stmt"/>
+        <line num="13" count="47" type="cond" truecount="2" falsecount="0"/>
+        <line num="14" count="47" type="cond" truecount="0" falsecount="1"/>
+        <line num="15" count="47" type="stmt"/>
+        <line num="16" count="47" type="cond" truecount="1" falsecount="0"/>
+        <line num="17" count="46" type="stmt"/>
+        <line num="18" count="46" type="stmt"/>
+        <line num="22" count="6" type="stmt"/>
       </file>
     </package>
-    <package name="src.models">
+    <package name="backend.models">
       <metrics statements="16" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="comments_model.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\src\models\comments_model.ts">
+      <file name="comments_model.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\backend\models\comments_model.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="37" count="1" type="stmt"/>
-        <line num="39" count="1" type="stmt"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="11" count="6" type="stmt"/>
+        <line num="37" count="6" type="stmt"/>
+        <line num="39" count="6" type="stmt"/>
       </file>
-      <file name="post_model.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\src\models\post_model.ts">
+      <file name="post_model.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\backend\models\post_model.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="29" count="1" type="stmt"/>
-        <line num="30" count="1" type="stmt"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="14" count="6" type="stmt"/>
+        <line num="29" count="6" type="stmt"/>
+        <line num="30" count="6" type="stmt"/>
       </file>
-      <file name="userActivity_model.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\src\models\userActivity_model.ts">
+      <file name="userActivity_model.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\backend\models\userActivity_model.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="29" count="1" type="stmt"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="15" count="6" type="stmt"/>
+        <line num="24" count="6" type="stmt"/>
+        <line num="29" count="6" type="stmt"/>
       </file>
-      <file name="user_model.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\src\models\user_model.ts">
+      <file name="user_model.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\backend\models\user_model.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="35" count="1" type="stmt"/>
-        <line num="37" count="1" type="stmt"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="12" count="6" type="stmt"/>
+        <line num="35" count="6" type="stmt"/>
+        <line num="37" count="6" type="stmt"/>
       </file>
     </package>
-    <package name="src.routes">
-      <metrics statements="66" coveredstatements="56" conditionals="2" coveredconditionals="0" methods="5" coveredmethods="0"/>
-      <file name="auth_route.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\src\routes\auth_route.ts">
+    <package name="backend.routes">
+      <metrics statements="66" coveredstatements="62" conditionals="2" coveredconditionals="1" methods="5" coveredmethods="3"/>
+      <file name="auth_route.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\backend\routes\auth_route.ts">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="93" count="1" type="stmt"/>
-        <line num="123" count="1" type="stmt"/>
-        <line num="144" count="1" type="stmt"/>
-        <line num="165" count="1" type="stmt"/>
-        <line num="167" count="1" type="stmt"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="3" count="6" type="stmt"/>
+        <line num="93" count="6" type="stmt"/>
+        <line num="123" count="6" type="stmt"/>
+        <line num="144" count="6" type="stmt"/>
+        <line num="165" count="6" type="stmt"/>
+        <line num="167" count="6" type="stmt"/>
       </file>
-      <file name="comments_route.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\src\routes\comments_route.ts">
+      <file name="comments_route.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\backend\routes\comments_route.ts">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="83" count="1" type="stmt"/>
-        <line num="112" count="1" type="stmt"/>
-        <line num="156" count="1" type="stmt"/>
-        <line num="212" count="1" type="stmt"/>
-        <line num="217" count="1" type="stmt"/>
-        <line num="255" count="1" type="stmt"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="3" count="6" type="stmt"/>
+        <line num="4" count="6" type="stmt"/>
+        <line num="83" count="6" type="stmt"/>
+        <line num="112" count="6" type="stmt"/>
+        <line num="156" count="6" type="stmt"/>
+        <line num="212" count="6" type="stmt"/>
+        <line num="217" count="6" type="stmt"/>
+        <line num="255" count="6" type="stmt"/>
       </file>
-      <file name="files_route.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\src\routes\files_route.ts">
-        <metrics statements="17" coveredstatements="9" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="cond" truecount="0" falsecount="2"/>
+      <file name="files_route.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\backend\routes\files_route.ts">
+        <metrics statements="17" coveredstatements="15" conditionals="2" coveredconditionals="1" methods="3" coveredmethods="3"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="3" count="6" type="stmt"/>
+        <line num="5" count="6" type="stmt"/>
+        <line num="6" count="6" type="stmt"/>
+        <line num="7" count="6" type="stmt"/>
+        <line num="8" count="6" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="18" count="6" type="stmt"/>
+        <line num="20" count="6" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="23" count="0" type="stmt"/>
         <line num="24" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="31" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="31" count="6" type="stmt"/>
       </file>
-      <file name="main_route.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\src\routes\main_route.ts">
+      <file name="main_route.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\backend\routes\main_route.ts">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="3" count="6" type="stmt"/>
+        <line num="5" count="6" type="stmt"/>
+        <line num="7" count="6" type="stmt"/>
       </file>
-      <file name="post_route.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\src\routes\post_route.ts">
+      <file name="post_route.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\backend\routes\post_route.ts">
         <metrics statements="18" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="81" count="1" type="stmt"/>
-        <line num="112" count="1" type="stmt"/>
-        <line num="145" count="1" type="stmt"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="3" count="6" type="stmt"/>
+        <line num="4" count="6" type="stmt"/>
+        <line num="5" count="6" type="stmt"/>
+        <line num="6" count="6" type="stmt"/>
+        <line num="81" count="6" type="stmt"/>
+        <line num="112" count="6" type="stmt"/>
+        <line num="145" count="6" type="stmt"/>
         <line num="147" count="0" type="stmt"/>
         <line num="150" count="0" type="stmt"/>
-        <line num="154" count="1" type="stmt"/>
-        <line num="156" count="1" type="stmt"/>
-        <line num="204" count="1" type="stmt"/>
-        <line num="255" count="1" type="stmt"/>
-        <line num="303" count="1" type="stmt"/>
-        <line num="336" count="1" type="stmt"/>
-        <line num="342" count="1" type="stmt"/>
+        <line num="154" count="6" type="stmt"/>
+        <line num="156" count="6" type="stmt"/>
+        <line num="204" count="6" type="stmt"/>
+        <line num="255" count="6" type="stmt"/>
+        <line num="303" count="6" type="stmt"/>
+        <line num="336" count="6" type="stmt"/>
+        <line num="342" count="6" type="stmt"/>
       </file>
-      <file name="userActivity_route.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\src\routes\userActivity_route.ts">
+      <file name="userActivity_route.ts" path="C:\Users\dolev\OneDrive\שולחן העבודה\college of managemant\Programming languages\פיתוח אפליקציות אפליקציות אינטרנטיות\Social_Netwrok\backend\routes\userActivity_route.ts">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="75" count="1" type="stmt"/>
-        <line num="96" count="1" type="stmt"/>
-        <line num="128" count="1" type="stmt"/>
-        <line num="160" count="1" type="stmt"/>
-        <line num="166" count="1" type="stmt"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="5" count="6" type="stmt"/>
+        <line num="75" count="6" type="stmt"/>
+        <line num="96" count="6" type="stmt"/>
+        <line num="128" count="6" type="stmt"/>
+        <line num="160" count="6" type="stmt"/>
+        <line num="166" count="6" type="stmt"/>
       </file>
     </package>
   </project>

@@ -5,15 +5,15 @@
   "main": "app.js",
   "scripts": {
     "build": "tsc",
-    "test": "tsc && jest --detectOpenHandles --forceExit --runInBand --coverage ./src/tests",
-    "testAuth": "tsc && jest --detectOpenHandles --forceExit --runInBand --coverage ./src/tests/auth.test.ts",
-    "testPost": "tsc && jest --detectOpenHandles --forceExit --runInBand --coverage ./src/tests/post.test.ts",
-    "testComment": "tsc && jest --detectOpenHandles --forceExit --coverage --runInBand ./src/tests/comment.test.ts",
-    "testLikes": "tsc && jest --detectOpenHandles --forceExit --coverage --runInBand ./src/tests/likes.test.ts",
-    "testUserActivity": "tsc && jest --detectOpenHandles --forceExit --coverage --runInBand ./src/tests/userActivity.test.ts",
-    "testFiles": "tsc && jest --detectOpenHandles --forceExit --runInBand ./src/tests/files.test.ts",
+    "test": "tsc && jest --detectOpenHandles --forceExit --runInBand --coverage ./backend/tests",
+    "testAuth": "tsc && jest --detectOpenHandles --forceExit --runInBand --coverage ./backend/tests/auth.test.ts",
+    "testPost": "tsc && jest --detectOpenHandles --forceExit --runInBand --coverage ./backend/tests/post.test.ts",
+    "testComment": "tsc && jest --detectOpenHandles --forceExit --coverage --runInBand ./backend/tests/comment.test.ts",
+    "testLikes": "tsc && jest --detectOpenHandles --forceExit --coverage --runInBand ./backend/tests/likes.test.ts",
+    "testUserActivity": "tsc && jest --detectOpenHandles --forceExit --coverage --runInBand ./backend/tests/userActivity.test.ts",
+    "testFiles": "tsc && jest --detectOpenHandles --forceExit --runInBand ./backend/tests/files.test.ts",
     "start": "tsc && node ./dist/src/server.js",
-    "dev": "nodemon ./src/server.ts",
+    "dev": "nodemon ./backend/server.ts",
     "prod": "cp .envprod .env && tsc -p tsconfig_prod.json && pm2 restart ecosystem.config.js --env production"
   },
   "repository": {
