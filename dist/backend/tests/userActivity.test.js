@@ -22,6 +22,7 @@ const post_model_1 = __importDefault(require("../models/post_model"));
 const post_test_1 = __importDefault(require("./post.test"));
 let app;
 let userId;
+let userActivityId;
 let user;
 let ObjectId;
 let accessToken;
@@ -39,8 +40,11 @@ beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     userId = yield user_model_1.default.findOne({ email: user.email }).then((user) => {
         return user === null || user === void 0 ? void 0 : user._id.toHexString();
     });
+    userActivityId = yield userActivity_model_1.default.findOne({ email: user.email }).then((userActivity) => {
+        return userActivity === null || userActivity === void 0 ? void 0 : userActivity._id.toHexString();
+    });
     post_test_1.default.user = userId;
-    post_test_1.default.userActivity = userId;
+    post_test_1.default.userActivity = userActivityId;
     yield (0, supertest_1.default)(app)
         .post("/posts/addPost")
         .send(post_test_1.default)

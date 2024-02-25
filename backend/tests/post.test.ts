@@ -28,14 +28,6 @@ const post1 = {
   comments: [],
   likes: [],
 };
-const postwithPicture = {
-  user: userId,
-  userActivity: userActivityId,
-  title: "Test Post",
-  body: "This is a test post",
-  comments: [],
-  likes: [],
-};
 const postForNotRegisteredUser = {
   user: new mongoose.Types.ObjectId().toHexString(),
   userActivity: new mongoose.Types.ObjectId().toHexString(),
@@ -64,8 +56,8 @@ beforeAll(async () => {
   );
   post1.user = userId;
   post1.userActivity = userActivityId;
-  postwithPicture.user = userId;
-  postwithPicture.userActivity = userActivityId;
+  // postwithPicture.user = userId;
+  // postwithPicture.userActivity = userActivityId;
   console.log("userId-2", userId);
   console.log("userActivityId-2", userActivityId);
 });
@@ -183,8 +175,8 @@ describe("Post Module", () => {
     const response = await request(app)
       .post("/posts/addPost")
       .set("Authorization", `JWT ${accessToken}`)
-      .field("user", postwithPicture.user)
-      .field("userActivity", postwithPicture.userActivity)
+      .field("user", post1.user)
+      .field("userActivity", post1.userActivity)
       .field("title", "Test Post")
       .field("body", "This is a test post")
       .attach("file", path.join(__dirname, "batman.png"));

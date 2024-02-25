@@ -10,6 +10,7 @@ import post1 from "./post.test";
 
 let app: Express;
 let userId: string;
+let userActivityId: string;
 let user: { email: string; password: string };
 let ObjectId: mongoose.Types.ObjectId;
 let accessToken: Promise<string>;
@@ -27,8 +28,13 @@ beforeAll(async () => {
   userId = await UserModel.findOne({ email: user.email }).then((user) => {
     return user?._id.toHexString();
   });
+  userActivityId = await UserActivity.findOne({ email: user.email }).then(
+    (userActivity) => {
+      return userActivity?._id.toHexString();
+    }
+  );
   post1.user = userId;
-  post1.userActivity = userId;
+  post1.userActivity = userActivityId;
   await request(app)
     .post("/posts/addPost")
     .send(post1)

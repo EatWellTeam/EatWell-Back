@@ -16,6 +16,7 @@ const post_model_1 = __importDefault(require("../models/post_model"));
 const base_controller_1 = require("./base_controller");
 const userActivity_model_1 = __importDefault(require("../models/userActivity_model"));
 const comments_model_1 = __importDefault(require("../models/comments_model"));
+const user_model_1 = __importDefault(require("../models/user_model"));
 class PostController extends base_controller_1.BaseController {
     constructor() {
         super(post_model_1.default);
@@ -74,7 +75,7 @@ class PostController extends base_controller_1.BaseController {
     }
     post(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = yield userActivity_model_1.default.findOne({ user: req.body.user });
+            const user = yield user_model_1.default.findById(req.body.user);
             if (!user) {
                 res.status(401).send("User not found");
                 return;

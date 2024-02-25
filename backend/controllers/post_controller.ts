@@ -3,6 +3,7 @@ import { BaseController } from "./base_controller";
 import { Request, Response } from "express";
 import UserActivity from "../models/userActivity_model";
 import CommentModel from "../models/comments_model";
+import User from "../models/user_model";
 class PostController extends BaseController<IPost> {
   constructor() {
     super(Post);
@@ -54,7 +55,7 @@ class PostController extends BaseController<IPost> {
   }
 
   async post(req: Request, res: Response) {
-    const user = await UserActivity.findOne({ user: req.body.user });
+    const user = await User.findById(req.body.user);
     if (!user) {
       res.status(401).send("User not found");
       return;

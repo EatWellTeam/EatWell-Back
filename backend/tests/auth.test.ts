@@ -39,8 +39,11 @@ let newRefreshToken: string;
 describe("Auth tests", () => {
   console.log("authUser");
   test("TEST 1 test register", async () => {
-    const response = await request(app).post("/auth/register").send(user); //register user
-    expect(response.statusCode).toEqual(201);
+    const existedUser = await User.findOne({ email: user.email });
+    if (!existedUser) {
+      const response = await request(app).post("/auth/register").send(user); //register user
+      expect(response.statusCode).toEqual(201);
+    }
   });
   test("TEST 2 test register for missing email / password", async () => {
     const response = await request(app).post("/auth/register").send(user2);

@@ -4,9 +4,10 @@ import multer from "multer";
 import { Request } from "express";
 import path from "path";
 const router = express.Router();
-const base = "https://localhost:3000";
+const base = "http://localhost:3000";
 const storage = multer.diskStorage({
   destination: (req: Request, file: Express.Multer.File, cb: Callback) => {
+    console.log("destination: " + path.join(__dirname, "../public"));
     cb(null, path.join(__dirname, "../public"));
   },
 

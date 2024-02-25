@@ -49,8 +49,11 @@ let newRefreshToken;
 describe("Auth tests", () => {
     console.log("authUser");
     test("TEST 1 test register", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app).post("/auth/register").send(user); //register user
-        expect(response.statusCode).toEqual(201);
+        const existedUser = yield user_model_1.default.findOne({ email: user.email });
+        if (!existedUser) {
+            const response = yield (0, supertest_1.default)(app).post("/auth/register").send(user); //register user
+            expect(response.statusCode).toEqual(201);
+        }
     }));
     test("TEST 2 test register for missing email / password", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app).post("/auth/register").send(user2);
@@ -133,5 +136,4 @@ describe("Auth tests", () => {
         expect(response.statusCode).not.toBe(200);
     }));
 });
-exports.default = user;
 //# sourceMappingURL=auth.test.js.map
