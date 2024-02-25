@@ -24,7 +24,7 @@ class UserActivityController extends base_controller_1.BaseController {
                 const { id } = req.params;
                 const userPosts = yield userActivity_model_1.default.findOne({ user: id }).populate("post");
                 if (!userPosts) {
-                    res.status(404).json({ message: "User not found" });
+                    res.status(401).json({ message: "User not found" });
                     return;
                 }
                 res.status(200).json(userPosts.post);
@@ -40,7 +40,7 @@ class UserActivityController extends base_controller_1.BaseController {
                 const { id } = req.params;
                 const userComments = yield userActivity_model_1.default.findOne({ user: id }).populate("comment");
                 if (!userComments) {
-                    res.status(404).json({ message: "User not found" });
+                    res.status(401).json({ message: "User not found" });
                     return;
                 }
                 res.status(200).json(userComments.comment);

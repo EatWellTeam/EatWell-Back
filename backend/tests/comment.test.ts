@@ -23,10 +23,7 @@ const userComment = {
   email: "testComment@comment.com",
   password: "1234567890",
 };
-// const userLike = {
-//   email: "testlike@testlike.com",
-//   password: "1234567890",
-// };
+
 const comment1 = {
   user: userId,
   userActivity: userId,
@@ -81,7 +78,7 @@ describe("Comment Test", () => {
       .post(`/posts/comments/${idnotfound}/createComment`)
       .send(comment1)
       .set("Authorization", `JWT ${accessTokenComment}`);
-    expect(response.status).toBe(402);
+    expect(response.status).toBe(404);
     expect(response.text).toBe("Post not found to add comment");
   });
 
@@ -130,14 +127,14 @@ describe("Comment Test", () => {
       .post(`/posts/comments/${ObjectId}/createComment`)
       .send(comment1)
       .set("Authorization", `JWT ${accessTokenComment}`);
-    expect(response.status).toBe(402);
+    expect(response.status).toBe(404);
     expect(response.text).toBe("Post not found to add comment");
   });
   test("TEST 6: DELETE - Post not found to delete comment : /posts/comments/:id/deleteComment/:postId", async () => {
     const response = await request(app)
       .delete(`/posts/comments/${ObjectId}/deleteComment/${ObjectId}`)
       .set("Authorization", `JWT ${accessTokenComment}`);
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(404);
     expect(response.text).toBe("Post not found to delete comment");
   });
   test("TEST 6: DELETE Comment By Id : /posts/comments/:id/deleteComment/:postId", async () => {
@@ -167,7 +164,7 @@ describe("Comment Test", () => {
       .post(`/posts/comments/${postId}/createComment`)
       .send(invalidComment)
       .set("Authorization", `JWT ${accessTokenComment}`);
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(401);
     expect(response.text).toBe("User not found");
   });
   test("TEST 10: Post deleted cause comments to be deleted", async () => {

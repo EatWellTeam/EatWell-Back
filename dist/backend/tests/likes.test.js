@@ -101,6 +101,14 @@ describe("Tests for Like Posts", () => {
         expect(response.statusCode).toEqual(200);
         expect(response.body.message).toEqual("Post liked");
     }));
+    test("TEST 8: Post Like - Post already liked", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app)
+            .post(`/posts/${postId}/like`)
+            .send(user)
+            .set("Authorization", `JWT ${accessToken}`);
+        expect(response.statusCode).toEqual(409);
+        expect(response.body.message).toEqual("Post already liked");
+    }));
     test("TEST 8: DELETE Post Like", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .delete(`/posts/${postId}/like`)
@@ -114,7 +122,7 @@ describe("Tests for Like Posts", () => {
             .delete(`/posts/${postId}/like`)
             .send(user)
             .set("Authorization", `JWT ${accessToken}`);
-        expect(response.statusCode).toEqual(402);
+        expect(response.statusCode).toEqual(404);
         expect(response.body.message).toEqual("Like not found");
     }));
 });

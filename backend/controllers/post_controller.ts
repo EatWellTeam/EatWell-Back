@@ -14,7 +14,7 @@ class PostController extends BaseController<IPost> {
         const length = post.likes.length;
         post.likes = post.likes.filter((like) => like !== req.body.email);
         if (length === post.likes.length) {
-          res.status(402).json({ message: "Like not found" });
+          res.status(404).json({ message: "Like not found" });
           return;
         }
         await post.save();
@@ -33,13 +33,13 @@ class PostController extends BaseController<IPost> {
         email: req.body.email,
       });
       if (!userActivity) {
-        res.status(402).json({ message: "User not found" });
+        res.status(401).json({ message: "User not found" });
         return;
       }
       const post = await Post.findById(req.params.id);
       if (post) {
         if (post.likes.includes(req.body.email)) {
-          res.status(402).json({ message: "Post already liked" });
+          res.status(409).json({ message: "Post already liked" });
           return;
         }
         post.likes.push(req.body.email);
@@ -56,7 +56,7 @@ class PostController extends BaseController<IPost> {
   async post(req: Request, res: Response) {
     const user = await UserActivity.findOne({ user: req.body.user });
     if (!user) {
-      res.status(400).send("User not found");
+      res.status(401).send("User not found");
       return;
     }
     try {
@@ -74,8 +74,6 @@ class PostController extends BaseController<IPost> {
         if (userActivity) {
           res.status(201).send(post);
         }
-      } else {
-        res.status(402).send("Error in creating object");
       }
     } catch (err) {
       console.error(err.message);

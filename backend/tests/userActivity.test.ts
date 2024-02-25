@@ -66,12 +66,12 @@ describe("User Activity Test", () => {
   });
   test("user not found for getting posts", async () => {
     const response = await request(app).get(`/user/${ObjectId}/posts`);
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(401);
     expect(response.body.message).toBe("User not found");
   });
   test("user not found for getting comments", async () => {
     const response = await request(app).get(`/user/${ObjectId}/comments`);
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(401);
     expect(response.body.message).toBe("User not found");
   });
   test("should not get user activity by id", async () => {

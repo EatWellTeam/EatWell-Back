@@ -133,4 +133,5 @@ describe("Auth tests", () => {
         expect(response.statusCode).not.toBe(200);
     }));
 });
+exports.default = user;
 //# sourceMappingURL=auth.test.js.map

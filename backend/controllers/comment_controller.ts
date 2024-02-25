@@ -16,13 +16,13 @@ class CommentsController extends BaseController<IComment> {
     try {
       const user = await UserActivity.findOne({ user: req.body.user });
       if (!user) {
-        res.status(400).send("User not found");
+        res.status(401).send("User not found");
         return;
       }
       const post = await Post.findById(req.params.id);
       console.log(post);
       if (!post) {
-        res.status(402).send("Post not found to add comment");
+        res.status(404).send("Post not found to add comment");
         return;
       } else {
         console.log("Post found");
@@ -36,8 +36,6 @@ class CommentsController extends BaseController<IComment> {
             { upsert: true }
           );
           res.status(201).send(comment);
-        } else {
-          res.status(403).send("Error in creating object");
         }
       }
     } catch (err) {
@@ -51,7 +49,7 @@ class CommentsController extends BaseController<IComment> {
     try {
       const post = await Post.findById(req.params.postId);
       if (!post) {
-        res.status(400).send("Post not found to delete comment");
+        res.status(404).send("Post not found to delete comment");
         return;
       }
       const comment = await CommentModel.findByIdAndDelete(req.params.id);

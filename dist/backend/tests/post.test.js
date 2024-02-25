@@ -174,7 +174,7 @@ describe("Post Module", () => {
             .post("/posts/addPost")
             .send(postForNotRegisteredUser)
             .set("Authorization", `JWT ${accessToken}`);
-        expect(response.statusCode).toEqual(400);
+        expect(response.statusCode).toEqual(401);
         expect(response.text).toEqual("User not found");
     }));
     test("TEST 17: Post - with picture", () => __awaiter(void 0, void 0, void 0, function* () {

@@ -21,6 +21,7 @@ const post_model_1 = __importDefault(require("../models/post_model"));
 const userActivity_model_1 = __importDefault(require("../models/userActivity_model"));
 const post_test_1 = __importDefault(require("./post.test"));
 const auth_test_1 = require("./auth.test");
+const auth_test_2 = __importDefault(require("./auth.test"));
 let app;
 let postId;
 let userId = new mongoose_1.default.Types.ObjectId().toHexString();
@@ -28,18 +29,10 @@ const ObjectId = new mongoose_1.default.Types.ObjectId();
 let commentId;
 let accessTokenComment;
 let accessToken;
-const user = {
-    email: "testUser@test.com",
-    password: "1234567890",
-};
 const userComment = {
     email: "testComment@comment.com",
     password: "1234567890",
 };
-// const userLike = {
-//   email: "testlike@testlike.com",
-//   password: "1234567890",
-// };
 const comment1 = {
     user: userId,
     userActivity: userId,
@@ -59,10 +52,10 @@ beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     yield user_model_1.default.deleteMany();
     yield userActivity_model_1.default.deleteMany();
     yield post_model_1.default.deleteMany();
-    accessToken = yield (0, auth_test_1.createUser)(user);
+    accessToken = yield (0, auth_test_1.createUser)(auth_test_2.default);
     accessTokenComment = yield (0, auth_test_1.createUser)(userComment);
     // await createUser(userLike);
-    userId = yield user_model_1.default.findOne({ email: user.email }).then((user) => {
+    userId = yield user_model_1.default.findOne({ email: auth_test_2.default.email }).then((user) => {
         return user._id.toHexString();
     });
     const userIdComment = yield user_model_1.default.findOne({
@@ -91,7 +84,7 @@ describe("Comment Test", () => {
             .post(`/posts/comments/${idnotfound}/createComment`)
             .send(comment1)
             .set("Authorization", `JWT ${accessTokenComment}`);
-        expect(response.status).toBe(402);
+        expect(response.status).toBe(404);
         expect(response.text).toBe("Post not found to add comment");
     }));
     test("TEST 1: Create Comment : /posts/comments/:id/createComment", () => __awaiter(void 0, void 0, void 0, function* () {
@@ -135,14 +128,14 @@ describe("Comment Test", () => {
             .post(`/posts/comments/${ObjectId}/createComment`)
             .send(comment1)
             .set("Authorization", `JWT ${accessTokenComment}`);
-        expect(response.status).toBe(402);
+        expect(response.status).toBe(404);
         expect(response.text).toBe("Post not found to add comment");
     }));
     test("TEST 6: DELETE - Post not found to delete comment : /posts/comments/:id/deleteComment/:postId", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .delete(`/posts/comments/${ObjectId}/deleteComment/${ObjectId}`)
             .set("Authorization", `JWT ${accessTokenComment}`);
-        expect(response.status).toBe(400);
+        expect(response.status).toBe(404);
         expect(response.text).toBe("Post not found to delete comment");
     }));
     test("TEST 6: DELETE Comment By Id : /posts/comments/:id/deleteComment/:postId", () => __awaiter(void 0, void 0, void 0, function* () {
@@ -172,7 +165,7 @@ describe("Comment Test", () => {
             .post(`/posts/comments/${postId}/createComment`)
             .send(invalidComment)
             .set("Authorization", `JWT ${accessTokenComment}`);
-        expect(response.status).toBe(400);
+        expect(response.status).toBe(401);
         expect(response.text).toBe("User not found");
     }));
     test("TEST 10: Post deleted cause comments to be deleted", () => __awaiter(void 0, void 0, void 0, function* () {
