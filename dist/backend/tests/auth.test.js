@@ -34,11 +34,7 @@ const user = {
     password: "1234567890",
 };
 const user2 = {
-    email: "testUser@test.com"
-};
-const user3 = {
-    email: "test@test.com",
-    password: "1234567890"
+    email: "testUser@test.com",
 };
 function createUser(user) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -53,10 +49,8 @@ let newRefreshToken;
 describe("Auth tests", () => {
     console.log("authUser");
     test("TEST 1 test register", () => __awaiter(void 0, void 0, void 0, function* () {
-        yield (0, supertest_1.default)(app).post("/auth/register").send(user); //register user
-        const response = yield (0, supertest_1.default)(app).post("/auth/login").send(user); //user logged in
-        expect(response.statusCode).toEqual(200);
-        // accessToken = response.body.accessToken;
+        const response = yield (0, supertest_1.default)(app).post("/auth/register").send(user); //register user
+        expect(response.statusCode).toEqual(201);
     }));
     test("TEST 2 test register for missing email / password", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app).post("/auth/register").send(user2);
@@ -68,31 +62,26 @@ describe("Auth tests", () => {
         expect(response.statusCode).toEqual(409);
         expect(response.text).toEqual("Email Already Used");
     }));
-    test("TEST 4: test register user", () => __awaiter(void 0, void 0, void 0, function* () {
-        yield user_model_1.default.deleteMany({ 'email': user3.email });
-        const response = yield (0, supertest_1.default)(app).post("/auth/register").send(user3); //user 3 register
-        expect(response.statusCode).toEqual(201);
-    }));
     test("TEST 5: test login for missing email / password", () => __awaiter(void 0, void 0, void 0, function* () {
-        user3.email = undefined;
-        const response2 = yield (0, supertest_1.default)(app).post("/auth/login").send(user3); //user3 didn't login
+        user.email = undefined;
+        const response2 = yield (0, supertest_1.default)(app).post("/auth/login").send(user); //user3 didn't login
         expect(response2.statusCode).toEqual(400);
         expect(response2.text).toEqual("missing email or password");
-        user3.email = "test@test.com";
+        user.email = "testUser@test.com";
     }));
     test("TEST 6: test login for incorrect password", () => __awaiter(void 0, void 0, void 0, function* () {
-        user3.password = "123456789";
-        const response = yield (0, supertest_1.default)(app).post("/auth/login").send(user3);
+        user.password = "123456789";
+        const response = yield (0, supertest_1.default)(app).post("/auth/login").send(user);
         expect(response.statusCode).toEqual(401);
         expect(response.text).toEqual("email or password incorrect");
-        user3.password = "1234567890";
+        user.password = "1234567890";
     }));
     test("TEST 7: test login for incorrect email", () => __awaiter(void 0, void 0, void 0, function* () {
-        user3.email = "kuku123@gmail.com";
-        const response = yield (0, supertest_1.default)(app).post("/auth/login").send(user3);
+        user.email = "kuku123@gmail.com";
+        const response = yield (0, supertest_1.default)(app).post("/auth/login").send(user);
         expect(response.statusCode).toEqual(401);
         expect(response.text).toEqual("email or password incorrect");
-        user3.email = "test@test.com";
+        user.email = "testUser@test.com";
     }));
     test("TEST 8: test for logout with no token", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app).get("/auth/logout");
@@ -101,7 +90,6 @@ describe("Auth tests", () => {
     test("TEST 9: test login for correct email and password", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app).post("/auth/login").send(user); //user logged in
         expect(response.statusCode).toEqual(200);
-        // accessToken = response.body.accessToken;
         refreshToken = response.body.refreshToken;
     }));
     test("TEST 10: Test refresh token", () => __awaiter(void 0, void 0, void 0, function* () {
@@ -120,7 +108,9 @@ describe("Auth tests", () => {
         expect(response2.statusCode).toBe(200);
     }));
     test("TEST 11: test logout", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app).get("/auth/logout").set('Authorization', `JWT ${newRefreshToken}`);
+        const response = yield (0, supertest_1.default)(app)
+            .get("/auth/logout")
+            .set("Authorization", `JWT ${newRefreshToken}`);
         console.log("logout response:");
         console.log(response.text);
         expect(response.statusCode).toEqual(200);
@@ -139,9 +129,7 @@ describe("Auth tests", () => {
         expect(response1.statusCode).not.toBe(200);
     }));
     test("TEST 13: no refresh token", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app)
-            .get("/auth/refresh")
-            .send();
+        const response = yield (0, supertest_1.default)(app).get("/auth/refresh").send();
         expect(response.statusCode).not.toBe(200);
     }));
 });

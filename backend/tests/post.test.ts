@@ -17,10 +17,12 @@ const user = {
 };
 
 let userId = new mongoose.Types.ObjectId().toHexString();
-
+let userActivityId = new mongoose.Types.ObjectId().toHexString();
+console.log("userId-1", userId);
+console.log("userActivityId-1", userActivityId);
 const post1 = {
   user: userId,
-  userActivity: userId,
+  userActivity: userActivityId,
   title: "Test Post",
   body: "This is a test post",
   comments: [],
@@ -28,10 +30,9 @@ const post1 = {
 };
 const postwithPicture = {
   user: userId,
-  userActivity: userId,
+  userActivity: userActivityId,
   title: "Test Post",
   body: "This is a test post",
-  picture: "batman.png",
   comments: [],
   likes: [],
 };
@@ -56,10 +57,17 @@ beforeAll(async () => {
   userId = await UserModel.findOne({ email: user.email }).then((user) => {
     return user._id.toHexString();
   });
+  userActivityId = await UserActivity.findOne({ email: user.email }).then(
+    (userActivity) => {
+      return userActivity._id.toHexString();
+    }
+  );
   post1.user = userId;
-  post1.userActivity = userId;
+  post1.userActivity = userActivityId;
   postwithPicture.user = userId;
-  postwithPicture.userActivity = userId;
+  postwithPicture.userActivity = userActivityId;
+  console.log("userId-2", userId);
+  console.log("userActivityId-2", userActivityId);
 });
 afterAll(async () => {
   await mongoose.disconnect();
@@ -86,6 +94,8 @@ describe("Post Module", () => {
   });
 
   test("TEST 3: POST /add-post", async () => {
+    console.log("userId-3", userId);
+    console.log("userActivityId-3", userActivityId);
     const response = await request(app)
       .post("/posts/addPost")
       .send(post1)
@@ -173,11 +183,11 @@ describe("Post Module", () => {
     const response = await request(app)
       .post("/posts/addPost")
       .set("Authorization", `JWT ${accessToken}`)
-      .field("user", userId)
-      .field("userActivity", userId)
+      .field("user", postwithPicture.user)
+      .field("userActivity", postwithPicture.userActivity)
       .field("title", "Test Post")
       .field("body", "This is a test post")
-      .attach("picture", path.join(__dirname, "batman.png"));
+      .attach("file", path.join(__dirname, "batman.png"));
     expect(response.statusCode).toEqual(201);
   });
 });

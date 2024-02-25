@@ -29,9 +29,12 @@ const user = {
     password: "1234567890",
 };
 let userId = new mongoose_1.default.Types.ObjectId().toHexString();
+let userActivityId = new mongoose_1.default.Types.ObjectId().toHexString();
+console.log("userId-1", userId);
+console.log("userActivityId-1", userActivityId);
 const post1 = {
     user: userId,
-    userActivity: userId,
+    userActivity: userActivityId,
     title: "Test Post",
     body: "This is a test post",
     comments: [],
@@ -39,10 +42,9 @@ const post1 = {
 };
 const postwithPicture = {
     user: userId,
-    userActivity: userId,
+    userActivity: userActivityId,
     title: "Test Post",
     body: "This is a test post",
-    picture: "batman.png",
     comments: [],
     likes: [],
 };
@@ -65,10 +67,15 @@ beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     userId = yield user_model_1.default.findOne({ email: user.email }).then((user) => {
         return user._id.toHexString();
     });
+    userActivityId = yield userActivity_model_1.default.findOne({ email: user.email }).then((userActivity) => {
+        return userActivity._id.toHexString();
+    });
     post1.user = userId;
-    post1.userActivity = userId;
+    post1.userActivity = userActivityId;
     postwithPicture.user = userId;
-    postwithPicture.userActivity = userId;
+    postwithPicture.userActivity = userActivityId;
+    console.log("userId-2", userId);
+    console.log("userActivityId-2", userActivityId);
 }));
 afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
     yield mongoose_1.default.disconnect();
@@ -92,6 +99,8 @@ describe("Post Module", () => {
         expect(response.body.message).toEqual("Not Found");
     }));
     test("TEST 3: POST /add-post", () => __awaiter(void 0, void 0, void 0, function* () {
+        console.log("userId-3", userId);
+        console.log("userActivityId-3", userActivityId);
         const response = yield (0, supertest_1.default)(app)
             .post("/posts/addPost")
             .send(post1)
@@ -172,11 +181,11 @@ describe("Post Module", () => {
         const response = yield (0, supertest_1.default)(app)
             .post("/posts/addPost")
             .set("Authorization", `JWT ${accessToken}`)
-            .field("user", userId)
-            .field("userActivity", userId)
+            .field("user", postwithPicture.user)
+            .field("userActivity", postwithPicture.userActivity)
             .field("title", "Test Post")
             .field("body", "This is a test post")
-            .attach("picture", path_1.default.join(__dirname, "batman.png"));
+            .attach("file", path_1.default.join(__dirname, "batman.png"));
         expect(response.statusCode).toEqual(201);
     }));
 });

@@ -33,9 +33,13 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             email: email,
             password: encryptedPassword,
         });
-        newUser.save();
-        const userActivity = yield (yield userActivity_model_1.default.create({ user: newUser._id, email: newUser.email, createdAt: new Date() })).populate("user");
-        userActivity.save();
+        yield userActivity_model_1.default.create({
+            user: newUser._id,
+            email: newUser.email,
+            post: [],
+            comments: [],
+            createdAt: new Date(),
+        });
         return res.status(201).send(newUser);
     }
     catch (error) {
@@ -68,7 +72,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         else {
             user.refreshTokens.push(refreshToken);
         }
-        yield userActivity_model_1.default.findOne({ user: user._id }).populate("user").exec();
+        // await UserActivityModel.findOne({ user: user._id }).populate("user").exec();
         yield user.save();
         return res.status(200).send({
             accessToken: accessToken,
