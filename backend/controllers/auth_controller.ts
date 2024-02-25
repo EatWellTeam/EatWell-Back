@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import UserActivityModel from "../models/userActivity_model";
 
-const register = async (req: Request, res: Response):Promise<Response> => {
+const register = async (req: Request, res: Response): Promise<Response> => {
   console.log("register");
   const { email, password } = req.body;
   if (!email || !password) {
@@ -21,10 +21,15 @@ const register = async (req: Request, res: Response):Promise<Response> => {
       email: email,
       password: encryptedPassword,
     });
-    newUser.save();
 
-    const userActivity = await (await UserActivityModel.create({user: newUser._id, email: newUser.email, createdAt: new Date()})).populate("user");
-    userActivity.save();
+    await UserActivityModel.create({
+      user: newUser._id,
+      email: newUser.email,
+      post: [],
+      comments: [],
+      createdAt: new Date(),
+    });
+
     return res.status(201).send(newUser);
   } catch (error) {
     console.log(error);
@@ -60,7 +65,7 @@ const login = async (req: Request, res: Response) => {
     } else {
       user.refreshTokens.push(refreshToken);
     }
-    await UserActivityModel.findOne({user: user._id}).populate("user").exec();
+    // await UserActivityModel.findOne({ user: user._id }).populate("user").exec();
 
     await user.save();
     return res.status(200).send({
@@ -77,7 +82,7 @@ const logout = async (req: Request, res: Response) => {
   console.log("logout");
 
   const authHeader = req.headers["authorization"];
- 
+
   const refreshToken = authHeader && authHeader.split(" ")[1]; // Bearer <token>
   if (refreshToken == null) return res.sendStatus(401);
   jwt.verify(

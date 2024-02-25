@@ -51,7 +51,7 @@ afterAll(async () => {
 });
 
 describe("Tests for Like Posts", () => {
-  test("TEST 4: POST - post not found for add likes", async () => {
+  test("TEST 1: POST - post not found for add likes", async () => {
     const response = await request(app)
       .post(`/posts/65a3f0c6c1d4cafa959dcf32/like`)
       .send(user)
@@ -59,7 +59,7 @@ describe("Tests for Like Posts", () => {
     expect(response.statusCode).toEqual(404);
     expect(response.body.message).toEqual("Post not found");
   });
-  test("TEST 5: DELETE like post not found", async () => {
+  test("TEST 2: DELETE like post not found", async () => {
     const response = await request(app)
       .delete(`/posts/65a3f0c6c1d4cafa959dcf32/like`)
       .send(user)
@@ -67,7 +67,7 @@ describe("Tests for Like Posts", () => {
     expect(response.statusCode).toEqual(404);
     expect(response.body.message).toEqual("Post not found");
   });
-  test("TEST 7: Post like for unregister user", async () => {
+  test("TEST 3: Post like for unregister user", async () => {
     const noUser = {
       email: "",
       password: "",
@@ -76,16 +76,16 @@ describe("Tests for Like Posts", () => {
       .post(`/posts/${postId}/like`)
       .send(noUser)
       .set("Authorization", `JWT ${accessToken}`);
-    expect(response.statusCode).toEqual(402);
+    expect(response.statusCode).toEqual(401);
   });
-  test("TEST 8: Post like for unAthorized user", async () => {
+  test("TEST 4: Post like for unAthorized user", async () => {
     const response = await request(app)
       .post(`/posts/${postId}/like`)
       .send(user)
       .set("Authorization", `JWT ${accessToken}123`);
     expect(response.statusCode).toEqual(401);
   });
-  test("TEST 7: Post Like", async () => {
+  test("TEST 5: Post Like", async () => {
     const response = await request(app)
       .post(`/posts/${postId}/like`)
       .send(user)
@@ -93,7 +93,15 @@ describe("Tests for Like Posts", () => {
     expect(response.statusCode).toEqual(200);
     expect(response.body.message).toEqual("Post liked");
   });
-  test("TEST 8: DELETE Post Like", async () => {
+  test("TEST 6: Post Like - Post already liked", async () => {
+    const response = await request(app)
+      .post(`/posts/${postId}/like`)
+      .send(user)
+      .set("Authorization", `JWT ${accessToken}`);
+    expect(response.statusCode).toEqual(409);
+    expect(response.body.message).toEqual("Post already liked");
+  });
+  test("TEST 7: DELETE Post Like", async () => {
     const response = await request(app)
       .delete(`/posts/${postId}/like`)
       .send(user)
@@ -106,7 +114,7 @@ describe("Tests for Like Posts", () => {
       .delete(`/posts/${postId}/like`)
       .send(user)
       .set("Authorization", `JWT ${accessToken}`);
-    expect(response.statusCode).toEqual(402);
+    expect(response.statusCode).toEqual(404);
     expect(response.body.message).toEqual("Like not found");
   });
 });

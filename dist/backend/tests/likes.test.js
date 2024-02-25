@@ -59,7 +59,7 @@ afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
     console.log("------Post Test End------");
 }));
 describe("Tests for Like Posts", () => {
-    test("TEST 4: POST - post not found for add likes", () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 1: POST - post not found for add likes", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .post(`/posts/65a3f0c6c1d4cafa959dcf32/like`)
             .send(user)
@@ -67,7 +67,7 @@ describe("Tests for Like Posts", () => {
         expect(response.statusCode).toEqual(404);
         expect(response.body.message).toEqual("Post not found");
     }));
-    test("TEST 5: DELETE like post not found", () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 2: DELETE like post not found", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .delete(`/posts/65a3f0c6c1d4cafa959dcf32/like`)
             .send(user)
@@ -75,7 +75,7 @@ describe("Tests for Like Posts", () => {
         expect(response.statusCode).toEqual(404);
         expect(response.body.message).toEqual("Post not found");
     }));
-    test("TEST 7: Post like for unregister user", () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 3: Post like for unregister user", () => __awaiter(void 0, void 0, void 0, function* () {
         const noUser = {
             email: "",
             password: "",
@@ -84,16 +84,16 @@ describe("Tests for Like Posts", () => {
             .post(`/posts/${postId}/like`)
             .send(noUser)
             .set("Authorization", `JWT ${accessToken}`);
-        expect(response.statusCode).toEqual(402);
+        expect(response.statusCode).toEqual(401);
     }));
-    test("TEST 8: Post like for unAthorized user", () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 4: Post like for unAthorized user", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .post(`/posts/${postId}/like`)
             .send(user)
             .set("Authorization", `JWT ${accessToken}123`);
         expect(response.statusCode).toEqual(401);
     }));
-    test("TEST 7: Post Like", () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 5: Post Like", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .post(`/posts/${postId}/like`)
             .send(user)
@@ -101,7 +101,15 @@ describe("Tests for Like Posts", () => {
         expect(response.statusCode).toEqual(200);
         expect(response.body.message).toEqual("Post liked");
     }));
-    test("TEST 8: DELETE Post Like", () => __awaiter(void 0, void 0, void 0, function* () {
+    test("TEST 6: Post Like - Post already liked", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app)
+            .post(`/posts/${postId}/like`)
+            .send(user)
+            .set("Authorization", `JWT ${accessToken}`);
+        expect(response.statusCode).toEqual(409);
+        expect(response.body.message).toEqual("Post already liked");
+    }));
+    test("TEST 7: DELETE Post Like", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .delete(`/posts/${postId}/like`)
             .send(user)
@@ -114,7 +122,7 @@ describe("Tests for Like Posts", () => {
             .delete(`/posts/${postId}/like`)
             .send(user)
             .set("Authorization", `JWT ${accessToken}`);
-        expect(response.statusCode).toEqual(402);
+        expect(response.statusCode).toEqual(404);
         expect(response.body.message).toEqual("Like not found");
     }));
 });

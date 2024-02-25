@@ -16,6 +16,7 @@ const post_model_1 = __importDefault(require("../models/post_model"));
 const base_controller_1 = require("./base_controller");
 const userActivity_model_1 = __importDefault(require("../models/userActivity_model"));
 const comments_model_1 = __importDefault(require("../models/comments_model"));
+const user_model_1 = __importDefault(require("../models/user_model"));
 class PostController extends base_controller_1.BaseController {
     constructor() {
         super(post_model_1.default);
@@ -28,7 +29,7 @@ class PostController extends base_controller_1.BaseController {
                     const length = post.likes.length;
                     post.likes = post.likes.filter((like) => like !== req.body.email);
                     if (length === post.likes.length) {
-                        res.status(402).json({ message: "Like not found" });
+                        res.status(404).json({ message: "Like not found" });
                         return;
                     }
                     yield post.save();
@@ -50,13 +51,13 @@ class PostController extends base_controller_1.BaseController {
                     email: req.body.email,
                 });
                 if (!userActivity) {
-                    res.status(402).json({ message: "User not found" });
+                    res.status(401).json({ message: "User not found" });
                     return;
                 }
                 const post = yield post_model_1.default.findById(req.params.id);
                 if (post) {
                     if (post.likes.includes(req.body.email)) {
-                        res.status(402).json({ message: "Post already liked" });
+                        res.status(409).json({ message: "Post already liked" });
                         return;
                     }
                     post.likes.push(req.body.email);
@@ -74,9 +75,9 @@ class PostController extends base_controller_1.BaseController {
     }
     post(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = yield userActivity_model_1.default.findOne({ user: req.body.user });
+            const user = yield user_model_1.default.findById(req.body.user);
             if (!user) {
-                res.status(400).send("User not found");
+                res.status(401).send("User not found");
                 return;
             }
             try {
@@ -90,9 +91,6 @@ class PostController extends base_controller_1.BaseController {
                     if (userActivity) {
                         res.status(201).send(post);
                     }
-                }
-                else {
-                    res.status(402).send("Error in creating object");
                 }
             }
             catch (err) {

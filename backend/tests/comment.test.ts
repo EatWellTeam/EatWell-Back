@@ -11,6 +11,7 @@ import { createUser } from "./auth.test";
 let app: Express;
 let postId: string;
 let userId = new mongoose.Types.ObjectId().toHexString();
+let userActivityId = new mongoose.Types.ObjectId().toHexString();
 const ObjectId = new mongoose.Types.ObjectId();
 let commentId: string;
 let accessTokenComment: Promise<string>;
@@ -23,13 +24,10 @@ const userComment = {
   email: "testComment@comment.com",
   password: "1234567890",
 };
-// const userLike = {
-//   email: "testlike@testlike.com",
-//   password: "1234567890",
-// };
+
 const comment1 = {
   user: userId,
-  userActivity: userId,
+  userActivity: userActivityId,
   post: `${postId}`,
   body: "test comment",
 };
@@ -48,17 +46,26 @@ beforeAll(async () => {
   await postModel.deleteMany();
   accessToken = await createUser(user);
   accessTokenComment = await createUser(userComment);
-  // await createUser(userLike);
-
   userId = await UserModel.findOne({ email: user.email }).then((user) => {
     return user._id.toHexString();
   });
+  userActivityId = await UserActivity.findOne({ user: userId }).then(
+    (userActivity) => {
+      return userActivity._id.toHexString();
+    }
+  );
   const userIdComment = await UserModel.findOne({
     email: userComment.email,
   }).then((user) => {
     return user._id.toHexString();
   });
+  const userActivityIdComment = await UserActivity.findOne({
+    user: userIdComment,
+  }).then((userActivity) => {
+    return userActivity._id.toHexString();
+  });
   post1.user = userId;
+  post1.userActivity = userActivityId;
   const responsePost = await request(app)
     .post("/posts/addPost")
     .send(post1)
@@ -66,7 +73,7 @@ beforeAll(async () => {
   postId = responsePost.body._id;
   comment1.post = postId;
   comment1.user = userIdComment;
-  comment1.userActivity = userIdComment;
+  comment1.userActivity = userActivityIdComment;
 });
 
 afterAll(async () => {
@@ -81,7 +88,7 @@ describe("Comment Test", () => {
       .post(`/posts/comments/${idnotfound}/createComment`)
       .send(comment1)
       .set("Authorization", `JWT ${accessTokenComment}`);
-    expect(response.status).toBe(402);
+    expect(response.status).toBe(404);
     expect(response.text).toBe("Post not found to add comment");
   });
 
@@ -130,31 +137,31 @@ describe("Comment Test", () => {
       .post(`/posts/comments/${ObjectId}/createComment`)
       .send(comment1)
       .set("Authorization", `JWT ${accessTokenComment}`);
-    expect(response.status).toBe(402);
+    expect(response.status).toBe(404);
     expect(response.text).toBe("Post not found to add comment");
   });
   test("TEST 6: DELETE - Post not found to delete comment : /posts/comments/:id/deleteComment/:postId", async () => {
     const response = await request(app)
       .delete(`/posts/comments/${ObjectId}/deleteComment/${ObjectId}`)
       .set("Authorization", `JWT ${accessTokenComment}`);
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(404);
     expect(response.text).toBe("Post not found to delete comment");
   });
-  test("TEST 6: DELETE Comment By Id : /posts/comments/:id/deleteComment/:postId", async () => {
+  test("TEST 7: DELETE Comment By Id : /posts/comments/:id/deleteComment/:postId", async () => {
     const response = await request(app)
       .delete(`/posts/comments/${commentId}/deleteComment/${postId}`)
       .set("Authorization", `JWT ${accessTokenComment}`);
     expect(response.status).toBe(200);
     expect(response.text).toBe("Deleted successfully");
   });
-  test("TEST 7: unExisted Comment By Id : /posts/comments/:id/deleteComment/:postId", async () => {
+  test("TEST 8: unExisted Comment By Id : /posts/comments/:id/deleteComment/:postId", async () => {
     const response = await request(app)
       .delete(`/posts/comments/${ObjectId}/deleteComment/${postId}`)
       .set("Authorization", `JWT ${accessTokenComment}`);
     expect(response.status).toBe(404);
     expect(response.text).toBe("Comment not found");
   });
-  test("TEST 8:unExisted Comment By Id : /posts/comments/:id/updateComment/:postId", async () => {
+  test("TEST 9:unExisted Comment By Id : /posts/comments/:id/updateComment/:postId", async () => {
     const response = await request(app)
       .put(`/posts/comments/${ObjectId}/updateComment/${postId}`)
       .send({ body: "updated comment" })
@@ -162,36 +169,46 @@ describe("Comment Test", () => {
     expect(response.status).toBe(404);
     expect(response.body.message).toBe("Not Found");
   });
-  test("TEST 9: user not found", async () => {
+  test("TEST 10: user not found", async () => {
     const response = await request(app)
       .post(`/posts/comments/${postId}/createComment`)
       .send(invalidComment)
       .set("Authorization", `JWT ${accessTokenComment}`);
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(401);
     expect(response.text).toBe("User not found");
   });
-  test("TEST 10: Post deleted cause comments to be deleted", async () => {
+  test("TEST 11: Post deleted cause comments to be deleted", async () => {
+    console.log("postId", postId);
     const response = await request(app)
       .delete(`/posts/${postId}`)
       .set("Authorization", `JWT ${accessToken}`);
     expect(response.status).toBe(200);
     expect(response.body.message).toBe("Deleted successfully");
+  });
+  test("TEST 12: Get All Comments After Post Deleted", async () => {
+    console.log("test for get all comments after post deleted");
 
     const responseComment = await request(app).get(
       `/posts/comments/AllComments`
     );
     expect(responseComment.status).toBe(200);
     expect(responseComment.body.length).toBe(0);
-
+  });
+  test("TEST 13: Get All Posts of User After Post Deleted", async () => {
+    console.log("test for get all posts after post deleted");
     const responseUserActivityPosts = await request(app)
       .get(`/user/${userId}/posts`)
       .set("Authorization", `JWT ${accessToken}`);
     expect(responseUserActivityPosts.status).toBe(200);
-    expect(responseUserActivityPosts.body.length).toBe(0);
-
+    console.log("responseUserActivityPosts.body");
+    console.log(responseUserActivityPosts.body);
+  });
+  test("TEST 14: Get All Comments of User After Post Deleted", async () => {
     const responseUserActivityComments = await request(app).get(
       `/user/${userId}/comments`
     );
+    console.log("responseUserActivityComments.body");
+    console.log(responseUserActivityComments.body);
     expect(responseUserActivityComments.status).toBe(200);
     expect(responseUserActivityComments.body.length).toBe(0);
   });

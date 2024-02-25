@@ -7,9 +7,10 @@ const express_1 = __importDefault(require("express"));
 const multer_1 = __importDefault(require("multer"));
 const path_1 = __importDefault(require("path"));
 const router = express_1.default.Router();
-const base = "https://localhost:3000";
+const base = "http://localhost:3000";
 const storage = multer_1.default.diskStorage({
     destination: (req, file, cb) => {
+        console.log("destination: " + path_1.default.join(__dirname, "../public"));
         cb(null, path_1.default.join(__dirname, "../public"));
     },
     filename: (req, file, cb) => {

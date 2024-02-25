@@ -63,7 +63,7 @@ const auth_middleware_1 = __importDefault(require("../middleware/auth_middleware
  *        $ref: '#/components/schemas/Comment'
  *    401:
  *     description: Unauthorized
- *    404:
+ *    401:
  *     description: Not Found
  *    500:
  *     description: Internal Server Error
@@ -129,14 +129,12 @@ router.get("/AllComments", comment_controller_1.default.get.bind(comment_control
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Comment'
- *       400:
+ *       401:
  *         description: User not found
  *       401:
  *         description: Unauthorized
  *       402:
  *         description: Post not found to add comment
- *       403:
- *         description: Error in creating object
  *       500:
  *         description: Internal Server Error
  *     parameters:
@@ -212,7 +210,7 @@ exports.default = router;
  *   responses:
  *    200:
  *     description: Deleted successfully
- *    400:
+ *    404:
  *     description: Post not found to delete comment
  *    401:
  *     description: Unauthorized

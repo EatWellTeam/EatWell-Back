@@ -28,13 +28,13 @@ class CommentsController extends base_controller_1.BaseController {
             try {
                 const user = yield userActivity_model_1.default.findOne({ user: req.body.user });
                 if (!user) {
-                    res.status(400).send("User not found");
+                    res.status(401).send("User not found");
                     return;
                 }
                 const post = yield post_model_1.default.findById(req.params.id);
                 console.log(post);
                 if (!post) {
-                    res.status(402).send("Post not found to add comment");
+                    res.status(404).send("Post not found to add comment");
                     return;
                 }
                 else {
@@ -45,9 +45,6 @@ class CommentsController extends base_controller_1.BaseController {
                         yield post.save();
                         yield userActivity_model_1.default.findOneAndUpdate({ user: comment.user }, { $push: { comment: comment._id } }, { upsert: true });
                         res.status(201).send(comment);
-                    }
-                    else {
-                        res.status(403).send("Error in creating object");
                     }
                 }
             }
@@ -63,7 +60,7 @@ class CommentsController extends base_controller_1.BaseController {
             try {
                 const post = yield post_model_1.default.findById(req.params.postId);
                 if (!post) {
-                    res.status(400).send("Post not found to delete comment");
+                    res.status(404).send("Post not found to delete comment");
                     return;
                 }
                 const comment = yield comments_model_1.default.findByIdAndDelete(req.params.id);

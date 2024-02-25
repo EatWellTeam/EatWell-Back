@@ -132,12 +132,10 @@ router.get("/:id", post_controller_1.default.getById.bind(post_controller_1.defa
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Post'
- *       400:
+ *       401:
  *         description: User not found
  *       401:
  *         description: Unauthorized
- *       402:
- *         description: Error in creating object
  *       500:
  *         description: Internal server error
  */
@@ -185,10 +183,12 @@ router.post("/addPost", auth_middleware_1.default, upload.single("file"), post_c
  *         description: The like was successfully added
  *       401:
  *         description: Unauthorized
- *       402:
+ *       401:
  *         description: User not found
  *       404:
  *         description: The post was not found
+ *       409:
+ *         description: Post already liked
  *       500:
  *         description: Internal server error
  */
@@ -271,7 +271,7 @@ router.put("/:id/update", auth_middleware_1.default, post_controller_1.default.p
  *         description: The like was successfully deleted
  *       401:
  *         description: Unauthorized
- *       402:
+ *       404:
  *         description: Like not found
  *       404:
  *         description: The post was not found

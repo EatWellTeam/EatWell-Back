@@ -14,6 +14,7 @@ const comments_route_1 = __importDefault(require("./routes/comments_route"));
 const post_route_1 = __importDefault(require("./routes/post_route"));
 const userActivity_route_1 = __importDefault(require("./routes/userActivity_route"));
 const files_route_1 = __importDefault(require("./routes/files_route"));
+const path_1 = __importDefault(require("path"));
 const initApp = () => {
     const promise = new Promise((resolve) => {
         const db = mongoose_1.default.connection;
@@ -30,7 +31,7 @@ const initApp = () => {
             app.use("/posts/comments", comments_route_1.default);
             app.use("/user", userActivity_route_1.default);
             //TODO: add upload route
-            app.use(express_1.default.static("public"));
+            app.use("/public", express_1.default.static(path_1.default.join(__dirname, "/public")));
             app.use("/file", files_route_1.default);
             resolve(app);
         });

@@ -9,7 +9,7 @@ import commentRoute from "./routes/comments_route";
 import postRoute from "./routes/post_route";
 import userActivityRoute from "./routes/userActivity_route";
 import fileRoute from "./routes/files_route";
-
+import path from "path";
 const initApp = (): Promise<Express> => {
   const promise = new Promise<Express>((resolve) => {
     const db = mongoose.connection;
@@ -27,7 +27,7 @@ const initApp = (): Promise<Express> => {
       app.use("/posts/comments", commentRoute);
       app.use("/user", userActivityRoute);
       //TODO: add upload route
-      app.use(express.static("public"));
+      app.use("/public", express.static(path.join(__dirname, "/public")));
       app.use("/file", fileRoute);
       resolve(app);
     });
