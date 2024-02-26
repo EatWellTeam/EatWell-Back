@@ -4,11 +4,12 @@ import express, { Express } from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import authRoute from "./routes/auth_route";
-import mainRoute from "./routes/main_route";
+import mainRoute from "./routes/user_route";
 import commentRoute from "./routes/comments_route";
 import postRoute from "./routes/post_route";
 import userActivityRoute from "./routes/userActivity_route";
 import fileRoute from "./routes/files_route";
+import userRoute from "./routes/user_route";
 import path from "path";
 const initApp = (): Promise<Express> => {
   const promise = new Promise<Express>((resolve) => {
@@ -25,7 +26,7 @@ const initApp = (): Promise<Express> => {
       app.use("/auth", authRoute);
       app.use("/posts", postRoute);
       app.use("/posts/comments", commentRoute);
-      app.use("/user", userActivityRoute);
+      app.use("/userActivity", userActivityRoute);
       //TODO: add upload route
       app.use("/public", express.static(path.join(__dirname, "/public")));
       app.use("/file", fileRoute);

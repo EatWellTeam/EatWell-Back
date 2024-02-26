@@ -49,39 +49,43 @@ afterAll(async () => {
 
 describe("User Activity Test", () => {
   test("should get all user activity", async () => {
-    const response = await request(app).get("/user/find/all");
+    const response = await request(app).get("/userActivity/find/all");
     console.log("all users : ", response.body);
     expect(response.status).toBe(200);
   });
 
   test("should get user activity by id", async () => {
     const userActivity = await UserActivity.findOne({ email: user.email });
-    const response = await request(app).get(`/user/${userActivity?._id}`);
+    const response = await request(app).get(
+      `/userActivity/${userActivity?._id}`
+    );
     console.log("User Activity Response : ", response.body);
     expect(response.status).toBe(200);
   });
   test("get posts of user", async () => {
-    const response = await request(app).get(`/user/${userId}/posts`);
+    const response = await request(app).get(`/userActivity/${userId}/posts`);
     console.log("User Posts : ", response.body);
     expect(response.status).toBe(200);
   });
   test("get comments of user", async () => {
-    const response = await request(app).get(`/user/${userId}/comments`);
+    const response = await request(app).get(`/userActivity/${userId}/comments`);
     console.log("User Comments : ", response.body);
     expect(response.status).toBe(200);
   });
   test("user not found for getting posts", async () => {
-    const response = await request(app).get(`/user/${ObjectId}/posts`);
+    const response = await request(app).get(`/userActivity/${ObjectId}/posts`);
     expect(response.status).toBe(401);
     expect(response.body.message).toBe("User not found");
   });
   test("user not found for getting comments", async () => {
-    const response = await request(app).get(`/user/${ObjectId}/comments`);
+    const response = await request(app).get(
+      `/userActivity/${ObjectId}/comments`
+    );
     expect(response.status).toBe(401);
     expect(response.body.message).toBe("User not found");
   });
   test("should not get user activity by id", async () => {
-    const response = await request(app).get(`/user/${ObjectId}`);
+    const response = await request(app).get(`/userActivity/${ObjectId}`);
     expect(response.status).toBe(404);
     expect(response.body.message).toBe("Not Found");
   });
