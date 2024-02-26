@@ -47,10 +47,8 @@ class PostController extends base_controller_1.BaseController {
     addLike(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const userActivity = yield userActivity_model_1.default.findOne({
-                    email: req.body.email,
-                });
-                if (!userActivity) {
+                const user = yield user_model_1.default.findById(req.body.user);
+                if (!user) {
                     res.status(401).json({ message: "User not found" });
                     return;
                 }
@@ -109,7 +107,7 @@ class PostController extends base_controller_1.BaseController {
                 }
                 const userActivity = yield userActivity_model_1.default.findOne({ post: post._id });
                 if (userActivity) {
-                    yield userActivity_model_1.default.updateMany({ post: post._id }, { comment: [] });
+                    yield userActivity_model_1.default.updateMany({ user: post.user }, { $pull: { comment: { post: post._id } } });
                     yield userActivity_model_1.default.findOneAndUpdate({ user: post.user }, { $pull: { post: post._id } });
                     yield comments_model_1.default.deleteMany({ post: post._id });
                     yield post_model_1.default.findByIdAndDelete(req.params.id);

@@ -19,19 +19,19 @@ const router = express.Router();
  *     Post:
  *       type: object
  *       required:
- *         - title
  *         - body
  *       properties:
  *         user:
  *           type: string
  *           description: The user id of the post
  *           required: true
- *         title:
- *           type: string
- *           description: The title of the post
  *         body:
  *           type: string
  *           description: The body of the post
+ *           required: true
+ *         picture:
+ *           type: string
+ *           description: The picture of the post
  *         comments:
  *           type: array
  *           items:
@@ -48,9 +48,8 @@ const router = express.Router();
  *           description: The date of the creation of the post
  *       example:
  *         user: <replace-with-actual-user-id>
- *         userActivity: <replace-with-actual-user-id>
- *         title: New Post
  *         body: This is a new post
+ *         picture: <replace-with-actual-picture-url>
  *         comments: []
  *         likes: []
  *         createdAt: 2021-08-25T12:00:00.000Z
@@ -224,9 +223,6 @@ router.post(
  *           schema:
  *             type: object
  *             properties:
- *               title:
- *                 type: string
- *                 description: The title of the post
  *               body:
  *                 type: string
  *                 description: The body of the post

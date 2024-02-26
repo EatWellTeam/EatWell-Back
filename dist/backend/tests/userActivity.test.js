@@ -22,7 +22,6 @@ const post_model_1 = __importDefault(require("../models/post_model"));
 const post_test_1 = __importDefault(require("./post.test"));
 let app;
 let userId;
-let userActivityId;
 let user;
 let ObjectId;
 let accessToken;
@@ -40,11 +39,7 @@ beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     userId = yield user_model_1.default.findOne({ email: user.email }).then((user) => {
         return user === null || user === void 0 ? void 0 : user._id.toHexString();
     });
-    userActivityId = yield userActivity_model_1.default.findOne({ email: user.email }).then((userActivity) => {
-        return userActivity === null || userActivity === void 0 ? void 0 : userActivity._id.toHexString();
-    });
     post_test_1.default.user = userId;
-    post_test_1.default.userActivity = userActivityId;
     yield (0, supertest_1.default)(app)
         .post("/posts/addPost")
         .send(post_test_1.default)
@@ -57,38 +52,38 @@ afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
 }));
 describe("User Activity Test", () => {
     test("should get all user activity", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app).get("/user/find/all");
+        const response = yield (0, supertest_1.default)(app).get("/userActivity/find/all");
         console.log("all users : ", response.body);
         expect(response.status).toBe(200);
     }));
     test("should get user activity by id", () => __awaiter(void 0, void 0, void 0, function* () {
         const userActivity = yield userActivity_model_1.default.findOne({ email: user.email });
-        const response = yield (0, supertest_1.default)(app).get(`/user/${userActivity === null || userActivity === void 0 ? void 0 : userActivity._id}`);
+        const response = yield (0, supertest_1.default)(app).get(`/userActivity/${userActivity === null || userActivity === void 0 ? void 0 : userActivity._id}`);
         console.log("User Activity Response : ", response.body);
         expect(response.status).toBe(200);
     }));
     test("get posts of user", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app).get(`/user/${userId}/posts`);
+        const response = yield (0, supertest_1.default)(app).get(`/userActivity/${userId}/posts`);
         console.log("User Posts : ", response.body);
         expect(response.status).toBe(200);
     }));
     test("get comments of user", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app).get(`/user/${userId}/comments`);
+        const response = yield (0, supertest_1.default)(app).get(`/userActivity/${userId}/comments`);
         console.log("User Comments : ", response.body);
         expect(response.status).toBe(200);
     }));
     test("user not found for getting posts", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app).get(`/user/${ObjectId}/posts`);
+        const response = yield (0, supertest_1.default)(app).get(`/userActivity/${ObjectId}/posts`);
         expect(response.status).toBe(401);
         expect(response.body.message).toBe("User not found");
     }));
     test("user not found for getting comments", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app).get(`/user/${ObjectId}/comments`);
+        const response = yield (0, supertest_1.default)(app).get(`/userActivity/${ObjectId}/comments`);
         expect(response.status).toBe(401);
         expect(response.body.message).toBe("User not found");
     }));
     test("should not get user activity by id", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield (0, supertest_1.default)(app).get(`/user/${ObjectId}`);
+        const response = yield (0, supertest_1.default)(app).get(`/userActivity/${ObjectId}`);
         expect(response.status).toBe(404);
         expect(response.body.message).toBe("Not Found");
     }));

@@ -17,8 +17,6 @@ const user = {
 let userId = new mongoose.Types.ObjectId().toHexString();
 const post1 = {
   user: userId,
-  userActivity: userId,
-  title: "Test Post",
   body: "This is a test post",
   comments: [],
   likes: [],
@@ -37,7 +35,6 @@ beforeAll(async () => {
     return user?._id.toHexString();
   });
   post1.user = userId;
-  post1.userActivity = userId;
   const response = await request(app)
     .post("/posts/addPost")
     .send(post1)
