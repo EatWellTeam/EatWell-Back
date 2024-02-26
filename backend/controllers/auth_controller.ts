@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import UserActivityModel from "../models/userActivity_model";
 
 const register = async (req: Request, res: Response): Promise<Response> => {
-  console.log("register");
+  // console.log("register");
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(400).send("Missing email or password");
@@ -38,7 +38,7 @@ const register = async (req: Request, res: Response): Promise<Response> => {
 };
 
 const login = async (req: Request, res: Response) => {
-  console.log("login");
+  // console.log("login");
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(400).send("missing email or password");
@@ -79,7 +79,7 @@ const login = async (req: Request, res: Response) => {
 };
 
 const logout = async (req: Request, res: Response) => {
-  console.log("logout");
+  // console.log("logout");
 
   const authHeader = req.headers["authorization"];
 

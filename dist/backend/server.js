@@ -24,7 +24,7 @@ const portHttps = process.env.HTTPS_PORT;
             },
             servers: [{ url: "https://localhost:3000" }],
         },
-        apis: ["./src/routes/*.ts"],
+        apis: ["./backend/routes/*.ts"],
     };
     const specs = (0, swagger_jsdoc_1.default)(optionSwagger);
     app.use("/api-docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(specs));

@@ -13,7 +13,7 @@ const comments_route_1 = __importDefault(require("./routes/comments_route"));
 const post_route_1 = __importDefault(require("./routes/post_route"));
 const userActivity_route_1 = __importDefault(require("./routes/userActivity_route"));
 const files_route_1 = __importDefault(require("./routes/files_route"));
-// import userRoute from "./routes/user_route";
+const user_route_1 = __importDefault(require("./routes/user_route"));
 const path_1 = __importDefault(require("path"));
 const initApp = () => {
     const promise = new Promise((resolve) => {
@@ -29,7 +29,7 @@ const initApp = () => {
             app.use("/posts", post_route_1.default);
             app.use("/posts/comments", comments_route_1.default);
             app.use("/userActivity", userActivity_route_1.default);
-            // app.use("/user", userRoute);
+            app.use("/user", user_route_1.default);
             app.use("/public", express_1.default.static(path_1.default.join(__dirname, "/public")));
             app.use("/file", files_route_1.default);
             resolve(app);
