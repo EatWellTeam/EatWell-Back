@@ -50,7 +50,7 @@ const router = express_1.default.Router();
  */
 /**
  * @swagger
- * /user/{id}:
+ * /userActivity/{id}:
  *   get:
  *     summary: Returns the userActivity by id
  *     tags: [UserActivity]
@@ -76,7 +76,7 @@ const router = express_1.default.Router();
 router.get("/:id", userActivity_controller_1.default.getById.bind(userActivity_controller_1.default));
 /**
  * @swagger
- * /user/find/all:
+ * /userActivity/find/all:
  *   get:
  *     summary: Returns the list of all the userActivity
  *     tags: [UserActivity]
@@ -95,7 +95,7 @@ router.get("/:id", userActivity_controller_1.default.getById.bind(userActivity_c
 router.get("/find/all", userActivity_controller_1.default.get.bind(userActivity_controller_1.default));
 /**
  * @swagger
- * /user/{id}/posts:
+ * /userActivity/{id}/posts:
  *   get:
  *     summary: Returns the list of all the posts by user id
  *     tags: [UserActivity]
@@ -123,7 +123,7 @@ router.get("/find/all", userActivity_controller_1.default.get.bind(userActivity_
 router.get("/:id/posts", userActivity_controller_1.default.getUserPosts.bind(userActivity_controller_1.default));
 /**
  * @swagger
- * /user/{id}/comments:
+ * /userActivity/{id}/comments:
  *   get:
  *     summary: Returns the list of all the comments by user id
  *     tags: [UserActivity]
@@ -149,6 +149,5 @@ router.get("/:id/posts", userActivity_controller_1.default.getUserPosts.bind(use
  *         description: Internal server error
  */
 router.get("/:id/comments", userActivity_controller_1.default.getUserComments.bind(userActivity_controller_1.default));
-// router.put("/:id", verifyToken, userActivityController.updateUserActivity);
 exports.default = router;
 //# sourceMappingURL=userActivity_route.js.map

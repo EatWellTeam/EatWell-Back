@@ -17,21 +17,15 @@ const user = {
 };
 
 let userId = new mongoose.Types.ObjectId().toHexString();
-let userActivityId = new mongoose.Types.ObjectId().toHexString();
 console.log("userId-1", userId);
-console.log("userActivityId-1", userActivityId);
 const post1 = {
   user: userId,
-  userActivity: userActivityId,
-  title: "Test Post",
   body: "This is a test post",
   comments: [],
   likes: [],
 };
 const postForNotRegisteredUser = {
   user: new mongoose.Types.ObjectId().toHexString(),
-  userActivity: new mongoose.Types.ObjectId().toHexString(),
-  title: "Test Post",
   body: "This is a test post",
   comments: [],
   likes: [],
@@ -49,17 +43,7 @@ beforeAll(async () => {
   userId = await UserModel.findOne({ email: user.email }).then((user) => {
     return user._id.toHexString();
   });
-  userActivityId = await UserActivity.findOne({ email: user.email }).then(
-    (userActivity) => {
-      return userActivity._id.toHexString();
-    }
-  );
   post1.user = userId;
-  post1.userActivity = userActivityId;
-  // postwithPicture.user = userId;
-  // postwithPicture.userActivity = userActivityId;
-  console.log("userId-2", userId);
-  console.log("userActivityId-2", userActivityId);
 });
 afterAll(async () => {
   await mongoose.disconnect();
@@ -67,7 +51,6 @@ afterAll(async () => {
 });
 
 describe("Post Module", () => {
-  // authUser();
   test("TEST 1: GET /post/:id empty DB", async () => {
     const response = await request(app)
       .get(`/posts/65a3f0c6c1d4cafa959dcf32`)
@@ -79,15 +62,13 @@ describe("Post Module", () => {
   test("TEST 2: PUT /:id/update empty DB", async () => {
     const response = await request(app)
       .put(`/posts/65a3f0c6c1d4cafa959dcf32/update`)
-      .send({ title: "updated title", body: "updated body" })
+      .send({ body: "updated body" })
       .set("Authorization", `JWT ${accessToken}`);
     expect(response.statusCode).toEqual(404);
     expect(response.body.message).toEqual("Not Found");
   });
 
   test("TEST 3: POST /add-post", async () => {
-    console.log("userId-3", userId);
-    console.log("userActivityId-3", userActivityId);
     const response = await request(app)
       .post("/posts/addPost")
       .send(post1)
@@ -102,7 +83,6 @@ describe("Post Module", () => {
       .set("Authorization", `JWT ${accessToken}`);
     expect(response.statusCode).toEqual(200);
     expect(response.body.user).toEqual(post1.user);
-    expect(response.body.title).toEqual(post1.title);
     expect(response.body.body).toEqual(post1.body);
   });
 
@@ -113,7 +93,6 @@ describe("Post Module", () => {
     expect(response.statusCode).toEqual(200);
 
     expect(response.body[0].user).toEqual(post1.user);
-    expect(response.body[0].title).toEqual(post1.title);
     expect(response.body[0].body).toEqual(post1.body);
   });
 
@@ -127,17 +106,16 @@ describe("Post Module", () => {
   test("TEST 11:PUT /:id/update", async () => {
     const response = await request(app)
       .put(`/posts/${postId}/update`)
-      .send({ title: "updated title", body: "updated body" })
+      .send({ body: "updated body" })
       .set("Authorization", `JWT ${accessToken}`);
     expect(response.statusCode).toEqual(200);
-    expect(response.body.title).toEqual("updated title");
     expect(response.body.body).toEqual("updated body");
   });
 
   test("TEST 12:PUT /:id/update unExisted post", async () => {
     const response = await request(app)
       .put(`/posts/65a3f0c6c1d5cafa959dcf32/update`)
-      .send({ title: "updated title", body: "updated body" })
+      .send({ body: "updated body" })
       .set("Authorization", `JWT ${accessToken}`);
     expect(response.statusCode).toEqual(404);
     expect(response.body.message).toEqual("Not Found");
@@ -176,11 +154,17 @@ describe("Post Module", () => {
       .post("/posts/addPost")
       .set("Authorization", `JWT ${accessToken}`)
       .field("user", post1.user)
-      .field("userActivity", post1.userActivity)
-      .field("title", "Test Post")
       .field("body", "This is a test post")
       .attach("file", path.join(__dirname, "batman.png"));
     expect(response.statusCode).toEqual(201);
+    postId = response.body._id;
+  });
+  test("TEST 18: DELETE /:id with picture", async () => {
+    const response = await request(app)
+      .delete(`/posts/${postId}`)
+      .set("Authorization", `JWT ${accessToken}`);
+    expect(response.statusCode).toEqual(200);
+    expect(response.body.message).toEqual("Deleted successfully");
   });
 });
 

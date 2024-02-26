@@ -37,7 +37,6 @@ import authenticate from "../middleware/auth_middleware";
  *      description: The date of the creation of the comment
  *    example:
  *     user: --user id--
- *     userActivity: --userActivity id--
  *     post: --post id--
  *     body: This is a new comment
  *     createdAt: 2021-08-25T12:00:00.000Z

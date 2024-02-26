@@ -11,7 +11,6 @@ import { createUser } from "./auth.test";
 let app: Express;
 let postId: string;
 let userId = new mongoose.Types.ObjectId().toHexString();
-let userActivityId = new mongoose.Types.ObjectId().toHexString();
 const ObjectId = new mongoose.Types.ObjectId();
 let commentId: string;
 let accessTokenComment: Promise<string>;
@@ -27,13 +26,11 @@ const userComment = {
 
 const comment1 = {
   user: userId,
-  userActivity: userActivityId,
   post: `${postId}`,
   body: "test comment",
 };
 const invalidComment = {
   user: new mongoose.Types.ObjectId().toHexString(),
-  userActivity: new mongoose.Types.ObjectId().toHexString(),
   post: new mongoose.Types.ObjectId().toHexString(),
   body: "test comment",
 };
@@ -49,23 +46,12 @@ beforeAll(async () => {
   userId = await UserModel.findOne({ email: user.email }).then((user) => {
     return user._id.toHexString();
   });
-  userActivityId = await UserActivity.findOne({ user: userId }).then(
-    (userActivity) => {
-      return userActivity._id.toHexString();
-    }
-  );
   const userIdComment = await UserModel.findOne({
     email: userComment.email,
   }).then((user) => {
     return user._id.toHexString();
   });
-  const userActivityIdComment = await UserActivity.findOne({
-    user: userIdComment,
-  }).then((userActivity) => {
-    return userActivity._id.toHexString();
-  });
   post1.user = userId;
-  post1.userActivity = userActivityId;
   const responsePost = await request(app)
     .post("/posts/addPost")
     .send(post1)
@@ -73,7 +59,6 @@ beforeAll(async () => {
   postId = responsePost.body._id;
   comment1.post = postId;
   comment1.user = userIdComment;
-  comment1.userActivity = userActivityIdComment;
 });
 
 afterAll(async () => {
@@ -197,7 +182,7 @@ describe("Comment Test", () => {
   test("TEST 13: Get All Posts of User After Post Deleted", async () => {
     console.log("test for get all posts after post deleted");
     const responseUserActivityPosts = await request(app)
-      .get(`/user/${userId}/posts`)
+      .get(`/userActivity/${userId}/posts`)
       .set("Authorization", `JWT ${accessToken}`);
     expect(responseUserActivityPosts.status).toBe(200);
     console.log("responseUserActivityPosts.body");
@@ -205,7 +190,7 @@ describe("Comment Test", () => {
   });
   test("TEST 14: Get All Comments of User After Post Deleted", async () => {
     const responseUserActivityComments = await request(app).get(
-      `/user/${userId}/comments`
+      `/userActivity/${userId}/comments`
     );
     console.log("responseUserActivityComments.body");
     console.log(responseUserActivityComments.body);

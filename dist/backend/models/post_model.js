@@ -3,12 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const postSchema = new mongoose_1.Schema({
     user: { type: mongoose_1.Schema.Types.ObjectId, ref: "User", required: true },
-    userActivity: {
-        type: mongoose_1.Schema.Types.ObjectId,
-        ref: "UserActivity",
-        required: true,
-    },
-    title: { type: String, required: true, min: 4 },
     body: { type: String, required: true },
     picture: { type: String, required: false },
     comments: { type: [String], required: false },

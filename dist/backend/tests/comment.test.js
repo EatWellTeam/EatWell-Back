@@ -24,7 +24,6 @@ const auth_test_1 = require("./auth.test");
 let app;
 let postId;
 let userId = new mongoose_1.default.Types.ObjectId().toHexString();
-let userActivityId = new mongoose_1.default.Types.ObjectId().toHexString();
 const ObjectId = new mongoose_1.default.Types.ObjectId();
 let commentId;
 let accessTokenComment;
@@ -39,13 +38,11 @@ const userComment = {
 };
 const comment1 = {
     user: userId,
-    userActivity: userActivityId,
     post: `${postId}`,
     body: "test comment",
 };
 const invalidComment = {
     user: new mongoose_1.default.Types.ObjectId().toHexString(),
-    userActivity: new mongoose_1.default.Types.ObjectId().toHexString(),
     post: new mongoose_1.default.Types.ObjectId().toHexString(),
     body: "test comment",
 };
@@ -61,21 +58,12 @@ beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     userId = yield user_model_1.default.findOne({ email: user.email }).then((user) => {
         return user._id.toHexString();
     });
-    userActivityId = yield userActivity_model_1.default.findOne({ user: userId }).then((userActivity) => {
-        return userActivity._id.toHexString();
-    });
     const userIdComment = yield user_model_1.default.findOne({
         email: userComment.email,
     }).then((user) => {
         return user._id.toHexString();
     });
-    const userActivityIdComment = yield userActivity_model_1.default.findOne({
-        user: userIdComment,
-    }).then((userActivity) => {
-        return userActivity._id.toHexString();
-    });
     post_test_1.default.user = userId;
-    post_test_1.default.userActivity = userActivityId;
     const responsePost = yield (0, supertest_1.default)(app)
         .post("/posts/addPost")
         .send(post_test_1.default)
@@ -83,7 +71,6 @@ beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     postId = responsePost.body._id;
     comment1.post = postId;
     comment1.user = userIdComment;
-    comment1.userActivity = userActivityIdComment;
 }));
 afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
     yield mongoose_1.default.disconnect();
@@ -197,14 +184,14 @@ describe("Comment Test", () => {
     test("TEST 13: Get All Posts of User After Post Deleted", () => __awaiter(void 0, void 0, void 0, function* () {
         console.log("test for get all posts after post deleted");
         const responseUserActivityPosts = yield (0, supertest_1.default)(app)
-            .get(`/user/${userId}/posts`)
+            .get(`/userActivity/${userId}/posts`)
             .set("Authorization", `JWT ${accessToken}`);
         expect(responseUserActivityPosts.status).toBe(200);
         console.log("responseUserActivityPosts.body");
         console.log(responseUserActivityPosts.body);
     }));
     test("TEST 14: Get All Comments of User After Post Deleted", () => __awaiter(void 0, void 0, void 0, function* () {
-        const responseUserActivityComments = yield (0, supertest_1.default)(app).get(`/user/${userId}/comments`);
+        const responseUserActivityComments = yield (0, supertest_1.default)(app).get(`/userActivity/${userId}/comments`);
         console.log("responseUserActivityComments.body");
         console.log(responseUserActivityComments.body);
         expect(responseUserActivityComments.status).toBe(200);
