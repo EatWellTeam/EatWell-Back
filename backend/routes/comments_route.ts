@@ -60,7 +60,7 @@ import authenticate from "../middleware/auth_middleware";
  *        $ref: '#/components/schemas/Comment'
  *    401:
  *     description: Unauthorized
- *    401:
+ *    404:
  *     description: Not Found
  *    500:
  *     description: Internal Server Error
@@ -132,12 +132,10 @@ router.get("/AllComments", CommentsController.get.bind(CommentsController));
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Comment'
- *       401:
- *         description: User not found
+ *       404:
+ *         description: User or post not found
  *       401:
  *         description: Unauthorized
- *       402:
- *         description: Post not found to add comment
  *       500:
  *         description: Internal Server Error
  *     parameters:
@@ -226,11 +224,9 @@ export default router;
  *    200:
  *     description: Deleted successfully
  *    404:
- *     description: Post not found to delete comment
+ *     description: Post not found to delete comment or comment not found
  *    401:
  *     description: Unauthorized
- *    404:
- *     description: Comment not found
  *    500:
  *     description: Internal Server Error
  *   parameters:

@@ -32,7 +32,7 @@ class PostController extends BaseController<IPost> {
     try {
       const user = await User.findById(req.body.user);
       if (!user) {
-        res.status(401).json({ message: "User not found" });
+        res.status(404).json({ message: "User not found" });
         return;
       }
       const post = await Post.findById(req.params.id);
@@ -55,7 +55,7 @@ class PostController extends BaseController<IPost> {
   async post(req: Request, res: Response) {
     const user = await User.findById(req.body.user);
     if (!user) {
-      res.status(401).send("User not found");
+      res.status(404).send("User not found");
       return;
     }
     try {

@@ -20,7 +20,7 @@ initApp().then((app) => {
       },
       servers: [{ url: "https://localhost:3000" }],
     },
-    apis: ["./src/routes/*.ts"],
+    apis: ["./backend/routes/*.ts"],
   };
   const specs = swaggerJsDoc(optionSwagger);
   app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));

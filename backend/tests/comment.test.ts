@@ -159,7 +159,7 @@ describe("Comment Test", () => {
       .post(`/posts/comments/${postId}/createComment`)
       .send(invalidComment)
       .set("Authorization", `JWT ${accessTokenComment}`);
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(404);
     expect(response.text).toBe("User not found");
   });
   test("TEST 11: Post deleted cause comments to be deleted", async () => {
