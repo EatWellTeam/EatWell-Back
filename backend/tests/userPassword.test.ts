@@ -29,7 +29,7 @@ afterAll(async () => {
   console.log("------User Test End------");
 });
 
-describe("User Tests", () => {
+describe("User for update password Tests", () => {
   test("change user password", async () => {
     const response = await request(app)
       .put(`/user/password/${userDocument._id}`)
