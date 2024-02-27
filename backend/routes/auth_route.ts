@@ -43,31 +43,30 @@ import authController from "../controllers/auth_controller";
 
 /**
  * @swagger
-* /auth/register:
-*    post:
-*      summary: Register a new user
-*      tags: [Auth]
-*      requestBody:
-*        required: true
-*        content:
-*          application/json:
-*            schema:
-*              $ref: '#/components/schemas/User'
-*      responses:
-*        201:
-*          description: User registered successfully.
-*          content:
-*            application/json:
-*              schema:
-*                $ref: '#/components/schemas/User'
-*        400:
-*          description: Missing email or password.
-*        409:
-*          description: Email Already Used.   
-*        500:
-*          description: Internal server error.
+ * /auth/register:
+ *    post:
+ *      summary: Register a new user
+ *      tags: [Auth]
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/User'
+ *      responses:
+ *        201:
+ *          description: User registered successfully.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/User'
+ *        400:
+ *          description: Missing email or password.
+ *        409:
+ *          description: Email Already Used.
+ *        500:
+ *          description: Internal server error.
  */
-
 
 /**
  * @swagger
@@ -91,7 +90,6 @@ import authController from "../controllers/auth_controller";
  */
 
 router.post("/register", authController.register);
-
 
 /**
  * @swagger
@@ -147,7 +145,7 @@ router.get("/logout", authController.logout);
  * @swagger
  * /auth/refresh:
  *   get:
- *     summary: get a new access token using the refresh token 
+ *     summary: get a new access token using the refresh token
  *     tags: [Auth]
  *     description: need to provide the refresh token to get a new access token
  *     security:
@@ -163,5 +161,7 @@ router.get("/logout", authController.logout);
  *        description: Unauthorized.
  */
 router.get("/refresh", authController.refresh);
+
+router.get("/getUserInfo", authController.getUserInfo);
 
 export default router;
