@@ -10,11 +10,11 @@ import authenticate from "../middleware/auth_middleware";
 //4.route to get all users
 //5.route to get user by id
 
-// router.delete(
-//   "/:id",
-//   authenticate,
-//   userController.deleteById.bind(userController)
-// );
+router.delete(
+  "/:id",
+  authenticate,
+  userController.deleteById.bind(userController)
+);
 router.put(
   "/password/:id",
   authenticate,

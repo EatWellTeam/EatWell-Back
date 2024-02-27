@@ -19,12 +19,12 @@ const user = {
   email: "testUser@test.com",
   password: "1234567890",
 };
-const userComment = {
+export const userComment = {
   email: "testComment@comment.com",
   password: "1234567890",
 };
 
-const comment1 = {
+export const comment1 = {
   user: userId,
   post: `${postId}`,
   body: "test comment",
