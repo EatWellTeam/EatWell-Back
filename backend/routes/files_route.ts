@@ -49,7 +49,7 @@ const base = "http://localhost:3000";
  *         description: Internal server error
  */
 
-router.post("/", validatePicture, upload, (req, res) => {
+router.post("/", upload, validatePicture, (req, res) => {
   console.log("router.post");
   if (!req.file) {
     res.status(400).send({ error: "No file uploaded" });

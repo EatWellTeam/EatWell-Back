@@ -8,7 +8,50 @@ const validPicture_middleware_1 = __importDefault(require("../middleware/validPi
 const upload_middleware_1 = __importDefault(require("../middleware/upload_middleware"));
 const router = express_1.default.Router();
 const base = "http://localhost:3000";
-router.post("/", validPicture_middleware_1.default, upload_middleware_1.default, (req, res) => {
+/**
+ * @swagger
+ * tags:
+ *   name: Files
+ *   description: The files managing API
+ */
+/**
+ * @swagger
+ * /files:
+ *   post:
+ *     summary: Upload a file
+ *     tags: [Files]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *                 description: The file to upload
+ *                 required: true
+ *     responses:
+ *       200:
+ *         description: The file has been uploaded
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 url:
+ *                   type: string
+ *                   description: The url of the uploaded file
+ *                   example: "http://localhost:3000/public/163123123123.jpg"
+ *       400:
+ *         description: No file uploaded or file does not exist
+ *       415:
+ *         description: Unsupported Media Type
+ *       500:
+ *         description: Internal server error
+ */
+router.post("/", upload_middleware_1.default, validPicture_middleware_1.default, (req, res) => {
     console.log("router.post");
     if (!req.file) {
         res.status(400).send({ error: "No file uploaded" });

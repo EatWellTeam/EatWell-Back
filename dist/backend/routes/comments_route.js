@@ -128,10 +128,12 @@ router.get("/AllComments", comment_controller_1.default.get.bind(comment_control
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Comment'
- *       404:
- *         description: User or post not found
  *       401:
  *         description: Unauthorized
+ *       403:
+ *         description: invalid access token
+ *       404:
+ *         description: User or post not found
  *       500:
  *         description: Internal Server Error
  *     parameters:
@@ -174,6 +176,8 @@ router.post("/:id/createComment", auth_middleware_1.default, comment_controller_
  *        $ref: '#/components/schemas/Comment'
  *    401:
  *     description: Unauthorized
+ *    403:
+ *     description: invalid access token
  *    404:
  *     description: Not Found
  *    500:
@@ -207,10 +211,12 @@ exports.default = router;
  *   responses:
  *    200:
  *     description: Deleted successfully
- *    404:
- *     description: Post not found to delete comment or comment not found
  *    401:
  *     description: Unauthorized
+ *    403:
+ *     description: invalid access token
+ *    404:
+ *     description: Post not found to delete comment or comment not found
  *    500:
  *     description: Internal Server Error
  *   parameters:

@@ -44,29 +44,29 @@ const auth_controller_1 = __importDefault(require("../controllers/auth_controlle
 */
 /**
  * @swagger
-* /auth/register:
-*    post:
-*      summary: Register a new user
-*      tags: [Auth]
-*      requestBody:
-*        required: true
-*        content:
-*          application/json:
-*            schema:
-*              $ref: '#/components/schemas/User'
-*      responses:
-*        201:
-*          description: User registered successfully.
-*          content:
-*            application/json:
-*              schema:
-*                $ref: '#/components/schemas/User'
-*        400:
-*          description: Missing email or password.
-*        409:
-*          description: Email Already Used.
-*        500:
-*          description: Internal server error.
+ * /auth/register:
+ *    post:
+ *      summary: Register a new user
+ *      tags: [Auth]
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/User'
+ *      responses:
+ *        201:
+ *          description: User registered successfully.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/User'
+ *        400:
+ *          description: Missing email or password.
+ *        409:
+ *          description: Email Already Used.
+ *        500:
+ *          description: Internal server error.
  */
 /**
  * @swagger
@@ -133,7 +133,7 @@ router.post("/login", auth_controller_1.default.login);
  *       402:
  *         description: Invalid token.
  *       403:
- *         description: Forbidden.
+ *         description: Invalid access token.
  */
 router.get("/logout", auth_controller_1.default.logout);
 /**
@@ -154,6 +154,7 @@ router.get("/logout", auth_controller_1.default.logout);
  *               $ref: '#/components/schemas/Tokens'
  *       401:
  *        description: Unauthorized.
+
  */
 router.get("/refresh", auth_controller_1.default.refresh);
 exports.default = router;

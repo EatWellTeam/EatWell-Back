@@ -131,10 +131,16 @@ router.get("/:id", post_controller_1.default.getById.bind(post_controller_1.defa
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Post'
- *       404:
- *         description: User not found / file not found / invalid file type
+ *       400:
+ *        description: file not found
  *       401:
  *         description: Unauthorized
+ *       403:
+ *         description: invalid access token
+ *       404:
+ *         description: User not found
+ *       415:
+ *         description: Invalid file type
  *       500:
  *         description: Internal server error
  */
@@ -173,6 +179,8 @@ router.post("/addPost", auth_middleware_1.default, upload_middleware_1.default, 
  *         description: The like was successfully added
  *       401:
  *         description: Unauthorized
+ *       403:
+ *        description: invalid access token
  *       404:
  *         description: User or post not found
  *       409:
@@ -216,11 +224,15 @@ router.post("/:id/like", auth_middleware_1.default, post_controller_1.default.ad
  *             schema:
  *               $ref: '#/components/schemas/Post'
  *       400:
- *         description: Invalid file type / file not found
+ *         description: file not found
  *       401:
  *         description: Unauthorized
+ *       403:
+ *         description: invalid access token
  *       404:
  *         description: The post was not found
+ *       415:
+ *         description: Invalid file type
  *       500:
  *         description: Internal server error
  */
@@ -258,6 +270,8 @@ router.put("/:id/update", auth_middleware_1.default, upload_middleware_1.default
  *         description: The like was successfully deleted
  *       401:
  *         description: Unauthorized
+ *       403:
+ *         description: invalid access token
  *       404:
  *         description: Like or post not found
  *       500:
@@ -286,6 +300,8 @@ router.delete("/:id/like", auth_middleware_1.default, post_controller_1.default.
  *         description: The post was successfully deleted
  *       401:
  *         description: Unauthorized
+ *       403:
+ *         description: invalid access token
  *       404:
  *         description: The post was not found
  *       500:
