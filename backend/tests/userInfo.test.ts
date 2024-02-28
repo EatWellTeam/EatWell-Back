@@ -63,4 +63,11 @@ describe("User info Tests", () => {
     expect(response.status).toBe(403);
     expect(response.text).toBe("invalid access token");
   });
+
+  test("get all users", async () => {
+    const response = await request(app)
+      .get("/user/all")
+      .set("Authorization", `JWT ${accessToken}`);
+    expect(response.status).toBe(200);
+  });
 });

@@ -38,7 +38,7 @@ router.post(
   userController.postProfilePicture.bind(userController)
 );
 
-router.get("/", authenticate, userController.get.bind(userController));
+router.get("/all", authenticate, userController.get.bind(userController));
 
 router.get("/:id", authenticate, userController.getById.bind(userController));
 
