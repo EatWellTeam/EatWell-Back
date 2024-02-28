@@ -57,7 +57,7 @@ describe("User edit picture tests", () => {
       .put(`/user/picture/${userDocument._id}`)
       .set("Authorization", `JWT ${accessToken}`)
       .attach("file", path.join(__dirname, "invalidfile.txt"));
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(415);
     expect(response.body.error).toBe("Invalid file type");
   });
 

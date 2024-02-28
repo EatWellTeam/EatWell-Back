@@ -38,7 +38,7 @@ const uploadMiddleware = (req: Request, res: Response, next: NextFunction) => {
     if (err) {
       const message = typeof err === "string" ? err : err.message;
       if (message === "Invalid file type") {
-        return res.status(400).json({ error: message });
+        return res.status(415).json({ error: message });
       }
       return res.status(500).json({ error: message });
     }

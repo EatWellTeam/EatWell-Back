@@ -23,7 +23,7 @@ function validatePicture(req: Request, res: Response, next: NextFunction) {
     ];
     const extension = path.extname(picturePath).toLowerCase();
     if (!validImageExtensions.includes(extension)) {
-      return res.status(400).send("Invalid file type");
+      return res.status(415).send("Invalid file type");
     }
 
     // If everything is OK, proceed to the next middleware/route handler

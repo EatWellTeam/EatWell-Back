@@ -132,10 +132,16 @@ router.get("/:id", PostController.getById.bind(PostController));
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Post'
- *       404:
- *         description: User not found / file not found / invalid file type
+ *       400:
+ *        description: file not found
  *       401:
  *         description: Unauthorized
+ *       403:
+ *         description: invalid access token
+ *       404:
+ *         description: User not found
+ *       415:
+ *         description: Invalid file type
  *       500:
  *         description: Internal server error
  */
@@ -181,6 +187,8 @@ router.post(
  *         description: The like was successfully added
  *       401:
  *         description: Unauthorized
+ *       403:
+ *        description: invalid access token
  *       404:
  *         description: User or post not found
  *       409:
@@ -230,11 +238,15 @@ router.post(
  *             schema:
  *               $ref: '#/components/schemas/Post'
  *       400:
- *         description: Invalid file type / file not found
+ *         description: file not found
  *       401:
  *         description: Unauthorized
+ *       403:
+ *         description: invalid access token
  *       404:
  *         description: The post was not found
+ *       415:
+ *         description: Invalid file type
  *       500:
  *         description: Internal server error
  */
@@ -280,6 +292,8 @@ router.put(
  *         description: The like was successfully deleted
  *       401:
  *         description: Unauthorized
+ *       403:
+ *         description: invalid access token
  *       404:
  *         description: Like or post not found
  *       500:
@@ -314,6 +328,8 @@ router.delete(
  *         description: The post was successfully deleted
  *       401:
  *         description: Unauthorized
+ *       403:
+ *         description: invalid access token
  *       404:
  *         description: The post was not found
  *       500:
