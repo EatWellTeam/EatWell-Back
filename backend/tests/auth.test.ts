@@ -55,7 +55,7 @@ describe("Auth tests", () => {
   });
   test("TEST 5: test login for missing email / password", async () => {
     user.email = undefined;
-    const response2 = await request(app).post("/auth/login").send(user); //user3 didn't login
+    const response2 = await request(app).post("/auth/login").send(user); //user didn't login
     expect(response2.statusCode).toEqual(400);
     expect(response2.text).toEqual("missing email or password");
     user.email = "testUser@test.com";

@@ -10,6 +10,7 @@
     "testUserPassword": "tsc && jest --detectOpenHandles --forceExit --runInBand ./backend/tests/userPassword.test.ts",
     "testUserDelete": "tsc && jest --detectOpenHandles --forceExit --runInBand ./backend/tests/userDelete.test.ts",
     "testUserPicture": "tsc && jest --detectOpenHandles --forceExit --runInBand ./backend/tests/userPicture.test.ts",
+    "testUserInfo": "tsc && jest --detectOpenHandles --forceExit --runInBand ./backend/tests/userInfo.test.ts",
     "testPost": "tsc && jest --detectOpenHandles --forceExit --runInBand ./backend/tests/post.test.ts",
     "testComment": "tsc && jest --detectOpenHandles --forceExit --runInBand ./backend/tests/comment.test.ts",
     "testLikes": "tsc && jest --detectOpenHandles --forceExit --runInBand ./backend/tests/likes.test.ts",

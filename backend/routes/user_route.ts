@@ -30,8 +30,16 @@ router.put(
   userController.updateProfilePicture.bind(userController)
 );
 
-// router.get("/", authenticate, userController.get.bind(userController));
+router.post(
+  "/picture/:id",
+  authenticate,
+  uploadMiddleware,
+  validatePicture,
+  userController.postProfilePicture.bind(userController)
+);
 
-// router.get("/:id", authenticate, userController.getById.bind(userController));
+router.get("/", authenticate, userController.get.bind(userController));
+
+router.get("/:id", authenticate, userController.getById.bind(userController));
 
 export default router;

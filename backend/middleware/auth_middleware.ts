@@ -9,13 +9,12 @@ const authMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  // console.log("authMiddleware");
   const authHeader = req.headers["authorization"];
   if (!authHeader) return res.status(401).send("Unauthorized");
   const token = authHeader && authHeader.split(" ")[1]; // Bearer <token>
   if (token == null) return res.sendStatus(401);
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) return res.sendStatus(401);
+    if (err) return res.status(403).send("invalid access token");
     req.user = user as { _id: string };
     next();
   });

@@ -5,6 +5,7 @@ import UserActivity from "../models/userActivity_model";
 import { Express } from "express";
 import { createUser } from "./auth.test";
 import UserModel, { IUser } from "../models/user_model";
+import path from "path";
 let app: Express;
 let userDocument: IUser;
 const user = {
@@ -20,6 +21,10 @@ beforeAll(async () => {
   await UserModel.deleteMany();
   accessToken = await createUser(user);
   userDocument = await UserModel.findOne({ email: user.email });
+  await request(app)
+    .post(`/user/picture/${userDocument._id}`)
+    .set("Authorization", `JWT ${accessToken}`)
+    .attach("file", path.join(__dirname, "batman.png"));
 });
 afterAll(async () => {
   await mongoose.disconnect();
@@ -35,5 +40,27 @@ describe("User info Tests", () => {
     expect(response.body).toHaveProperty("_id");
     expect(response.body).toHaveProperty("email");
     expect(response.body).toHaveProperty("profileImage");
+  });
+  test("unauthorized get user by id", async () => {
+    const response = await request(app).get(`/user/${userDocument._id}`);
+    expect(response.status).toBe(401);
+    expect(response.text).toBe("Unauthorized");
+  });
+
+  test("user not found", async () => {
+    const unknownUserId = new mongoose.Types.ObjectId();
+    const response = await request(app)
+      .get(`/user/${unknownUserId}`)
+      .set("Authorization", `JWT ${accessToken}`);
+    expect(response.status).toBe(404);
+    expect(response.text).toBe("User not found");
+  });
+
+  test("Invalid user token", async () => {
+    const response = await request(app)
+      .get(`/user/${userDocument._id}`)
+      .set("Authorization", `JWT invalidToken`);
+    expect(response.status).toBe(403);
+    expect(response.text).toBe("invalid access token");
   });
 });

@@ -77,8 +77,9 @@ describe("Tests for Like Posts", () => {
     const response = await request(app)
       .post(`/posts/${postId}/like`)
       .send(user)
-      .set("Authorization", `JWT ${accessToken}123`);
-    expect(response.statusCode).toEqual(401);
+      .set("Authorization", `JWT invalidToken`);
+    expect(response.statusCode).toEqual(403);
+    expect(response.text).toEqual("invalid access token");
   });
   test("TEST 5: Post Like", async () => {
     const response = await request(app)
