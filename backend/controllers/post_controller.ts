@@ -30,7 +30,7 @@ class PostController extends BaseController<IPost> {
 
   async addLike(req: Request, res: Response) {
     try {
-      const user = await User.findById(req.body.user);
+      const user = await User.findOne({ email: req.body.email });
       if (!user) {
         res.status(404).json({ message: "User not found" });
         return;

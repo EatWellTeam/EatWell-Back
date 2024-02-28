@@ -150,6 +150,8 @@ describe("Post Module", () => {
   });
 
   test("TEST 17: Post - with picture", async () => {
+    const userExists = await UserModel.exists({ _id: post1.user });
+    console.log("userExists", userExists);
     const response = await request(app)
       .post("/posts/addPost")
       .set("Authorization", `JWT ${accessToken}`)

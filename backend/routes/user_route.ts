@@ -2,7 +2,8 @@ import express from "express";
 const router = express.Router();
 import userController from "../controllers/user_controller";
 import authenticate from "../middleware/auth_middleware";
-
+import validatePicture from "../middleware/validPicture_middleware";
+import uploadMiddleware from "../middleware/upload_middleware";
 //TODO:
 //1.route to delete user
 //2.route to update user password
@@ -21,11 +22,13 @@ router.put(
   userController.updatePassword.bind(userController)
 );
 
-// router.put(
-//   "/picture/:id",
-//   authenticate,
-//   userController.updateProfilePicture.bind(userController)
-// );
+router.put(
+  "/picture/:id",
+  authenticate,
+  uploadMiddleware,
+  validatePicture,
+  userController.updateProfilePicture.bind(userController)
+);
 
 // router.get("/", authenticate, userController.get.bind(userController));
 

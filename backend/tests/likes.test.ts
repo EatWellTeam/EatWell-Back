@@ -28,10 +28,9 @@ beforeAll(async () => {
   await Post.deleteMany();
   await UserActivity.deleteMany();
   await UserModel.deleteMany();
-  createUser(user);
   accessToken = await createUser(user);
 
-  userId = await UserModel.findOne().then((user) => {
+  userId = await UserModel.findOne({ email: user.email }).then((user) => {
     return user?._id.toHexString();
   });
   post1.user = userId;
@@ -71,8 +70,7 @@ describe("Tests for Like Posts", () => {
     };
     const response = await request(app)
       .post(`/posts/${postId}/like`)
-      .send(noUser)
-      .set("Authorization", `JWT ${accessToken}`);
+      .send(noUser);
     expect(response.statusCode).toEqual(401);
   });
   test("TEST 4: Post like for unAthorized user", async () => {

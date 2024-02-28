@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const post_controller_1 = __importDefault(require("../controllers/post_controller"));
 const auth_middleware_1 = __importDefault(require("../middleware/auth_middleware"));
-const multer_1 = __importDefault(require("multer"));
-const path_1 = __importDefault(require("path"));
+const validPicture_middleware_1 = __importDefault(require("../middleware/validPicture_middleware"));
+const upload_middleware_1 = __importDefault(require("../middleware/upload_middleware"));
 const router = express_1.default.Router();
 /**
  * @swagger
@@ -132,23 +132,14 @@ router.get("/:id", post_controller_1.default.getById.bind(post_controller_1.defa
  *             schema:
  *               $ref: '#/components/schemas/Post'
  *       404:
- *         description: User not found
+ *         description: User not found / file not found / invalid file type
  *       401:
  *         description: Unauthorized
  *       500:
  *         description: Internal server error
  */
-const storage = multer_1.default.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, path_1.default.join(__dirname, "../public"));
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path_1.default.extname(file.originalname));
-    },
-});
-const upload = (0, multer_1.default)({ storage: storage });
 //POST
-router.post("/addPost", auth_middleware_1.default, upload.single("file"), post_controller_1.default.post.bind(post_controller_1.default));
+router.post("/addPost", auth_middleware_1.default, upload_middleware_1.default, validPicture_middleware_1.default, post_controller_1.default.post.bind(post_controller_1.default));
 /**
  * @swagger
  * /posts/{id}/like:
@@ -224,6 +215,8 @@ router.post("/:id/like", auth_middleware_1.default, post_controller_1.default.ad
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Post'
+ *       400:
+ *         description: Invalid file type / file not found
  *       401:
  *         description: Unauthorized
  *       404:
@@ -231,7 +224,7 @@ router.post("/:id/like", auth_middleware_1.default, post_controller_1.default.ad
  *       500:
  *         description: Internal server error
  */
-router.put("/:id/update", auth_middleware_1.default, post_controller_1.default.putById.bind(post_controller_1.default));
+router.put("/:id/update", auth_middleware_1.default, upload_middleware_1.default, validPicture_middleware_1.default, post_controller_1.default.putById.bind(post_controller_1.default));
 /**
  * @swagger
  * /posts/{id}/like:

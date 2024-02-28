@@ -45,5 +45,20 @@ class UserController extends BaseController<IUser> {
     await User.findByIdAndDelete(req.params.id);
     res.send("User deleted");
   }
+
+  async updateProfilePicture(req: Request, res: Response) {
+    if (!req.file) {
+      return res.status(400).send("No picture uploaded");
+    } else {
+      const user = await User.findById(req.params.id);
+      if (!user) {
+        return res.status(404).send("User not found");
+      }
+
+      user.profileImage = req.file.path;
+      await user.save();
+      res.send("Profile picture updated");
+    }
+  }
 }
 export default new UserController();

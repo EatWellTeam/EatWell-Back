@@ -13,12 +13,33 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage }).single("file");
+const upload = multer({
+  storage: storage,
+  fileFilter: (req: Request, file: Express.Multer.File, cb: Callback) => {
+    const validImageMimetypes = [
+      "image/jpeg",
+      "image/png",
+      "image/gif",
+      "image/bmp",
+      "image/webp",
+    ];
+    if (validImageMimetypes.includes(file.mimetype)) {
+      // Accept the file
+      cb(null, true);
+    } else {
+      // Reject the file
+      cb(new Error("Invalid file type"), false);
+    }
+  },
+}).single("file");
 
 const uploadMiddleware = (req: Request, res: Response, next: NextFunction) => {
   upload(req, res, (err: string | Error) => {
     if (err) {
       const message = typeof err === "string" ? err : err.message;
+      if (message === "Invalid file type") {
+        return res.status(400).json({ error: message });
+      }
       return res.status(500).json({ error: message });
     }
     next();

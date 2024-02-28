@@ -1,24 +1,10 @@
 import express from "express";
-import { Callback } from "mongoose";
-import multer from "multer";
-import { Request } from "express";
-import path from "path";
+import validatePicture from "../middleware/validPicture_middleware";
+import upload from "../middleware/upload_middleware";
 const router = express.Router();
 const base = "http://localhost:3000";
-const storage = multer.diskStorage({
-  destination: (req: Request, file: Express.Multer.File, cb: Callback) => {
-    console.log("destination: " + path.join(__dirname, "../public"));
-    cb(null, path.join(__dirname, "../public"));
-  },
 
-  filename: (req: Request, file: Express.Multer.File, cb: Callback) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
-
-const upload = multer({ storage: storage });
-
-router.post("/", upload.single("file"), (req, res) => {
+router.post("/", validatePicture, upload, (req, res) => {
   console.log("router.post");
   if (!req.file) {
     res.status(400).send({ error: "No file uploaded" });

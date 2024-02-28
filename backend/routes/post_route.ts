@@ -1,8 +1,8 @@
 import express from "express";
 import PostController from "../controllers/post_controller";
 import authenticate from "../middleware/auth_middleware";
-import multer from "multer";
-import path from "path";
+import validatePicture from "../middleware/validPicture_middleware";
+import uploadMiddleware from "../middleware/upload_middleware";
 const router = express.Router();
 
 /**
@@ -133,27 +133,18 @@ router.get("/:id", PostController.getById.bind(PostController));
  *             schema:
  *               $ref: '#/components/schemas/Post'
  *       404:
- *         description: User not found
+ *         description: User not found / file not found / invalid file type
  *       401:
  *         description: Unauthorized
  *       500:
  *         description: Internal server error
  */
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "../public"));
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
-
-const upload = multer({ storage: storage });
 //POST
 router.post(
   "/addPost",
   authenticate,
-  upload.single("file"),
+  uploadMiddleware,
+  validatePicture,
   PostController.post.bind(PostController)
 );
 
@@ -238,6 +229,8 @@ router.post(
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Post'
+ *       400:
+ *         description: Invalid file type / file not found
  *       401:
  *         description: Unauthorized
  *       404:
@@ -249,6 +242,8 @@ router.post(
 router.put(
   "/:id/update",
   authenticate,
+  uploadMiddleware,
+  validatePicture,
   PostController.putById.bind(PostController)
 );
 

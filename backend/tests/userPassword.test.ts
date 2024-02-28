@@ -17,7 +17,7 @@ const user = {
 let accessToken: Promise<string>;
 beforeAll(async () => {
   app = await appPromise();
-  console.log("------User Test Start------");
+  console.log("------User edit password Test Start------");
   await UserActivity.deleteMany();
   await UserModel.deleteMany();
   accessToken = await createUser(user);
@@ -26,7 +26,7 @@ beforeAll(async () => {
 });
 afterAll(async () => {
   await mongoose.disconnect();
-  console.log("------User Test End------");
+  console.log("------User edit password Test End------");
 });
 
 describe("User for update password Tests", () => {

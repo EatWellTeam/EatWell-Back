@@ -4,21 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const multer_1 = __importDefault(require("multer"));
-const path_1 = __importDefault(require("path"));
+const validPicture_middleware_1 = __importDefault(require("../middleware/validPicture_middleware"));
+const upload_middleware_1 = __importDefault(require("../middleware/upload_middleware"));
 const router = express_1.default.Router();
 const base = "http://localhost:3000";
-const storage = multer_1.default.diskStorage({
-    destination: (req, file, cb) => {
-        console.log("destination: " + path_1.default.join(__dirname, "../public"));
-        cb(null, path_1.default.join(__dirname, "../public"));
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path_1.default.extname(file.originalname));
-    },
-});
-const upload = (0, multer_1.default)({ storage: storage });
-router.post("/", upload.single("file"), (req, res) => {
+router.post("/", validPicture_middleware_1.default, upload_middleware_1.default, (req, res) => {
     console.log("router.post");
     if (!req.file) {
         res.status(400).send({ error: "No file uploaded" });

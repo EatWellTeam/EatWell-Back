@@ -17,8 +17,6 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-// let accessToken: string;
-
 const user = {
   email: "testUser@test.com",
   password: "1234567890",
@@ -96,7 +94,6 @@ describe("Auth tests", () => {
     expect(response.body.accessToken).toBeDefined();
     expect(response.body.refreshToken).toBeDefined();
 
-    // const newAccessToken = response.body.accessToken;
     newRefreshToken = response.body.refreshToken;
 
     const response2 = await request(app)

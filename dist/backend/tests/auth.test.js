@@ -28,7 +28,6 @@ beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
 afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
     yield mongoose_1.default.connection.close();
 }));
-// let accessToken: string;
 const user = {
     email: "testUser@test.com",
     password: "1234567890",
@@ -103,7 +102,6 @@ describe("Auth tests", () => {
         expect(response.statusCode).toBe(200);
         expect(response.body.accessToken).toBeDefined();
         expect(response.body.refreshToken).toBeDefined();
-        // const newAccessToken = response.body.accessToken;
         newRefreshToken = response.body.refreshToken;
         const response2 = yield (0, supertest_1.default)(app)
             .get("/auth/refresh")
