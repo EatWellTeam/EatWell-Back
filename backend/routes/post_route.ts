@@ -1,8 +1,8 @@
 import express from "express";
 import PostController from "../controllers/post_controller";
 import authenticate from "../middleware/auth_middleware";
-import multer from "multer";
-import path from "path";
+import validatePicture from "../middleware/validPicture_middleware";
+import uploadMiddleware from "../middleware/upload_middleware";
 const router = express.Router();
 
 /**
@@ -132,28 +132,25 @@ router.get("/:id", PostController.getById.bind(PostController));
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Post'
- *       401:
- *         description: User not found
+ *       400:
+ *        description: file not found
  *       401:
  *         description: Unauthorized
+ *       403:
+ *         description: invalid access token
+ *       404:
+ *         description: User not found
+ *       415:
+ *         description: Invalid file type
  *       500:
  *         description: Internal server error
  */
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "../public"));
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
-
-const upload = multer({ storage: storage });
 //POST
 router.post(
   "/addPost",
   authenticate,
-  upload.single("file"),
+  uploadMiddleware,
+  validatePicture,
   PostController.post.bind(PostController)
 );
 
@@ -190,10 +187,10 @@ router.post(
  *         description: The like was successfully added
  *       401:
  *         description: Unauthorized
- *       401:
- *         description: User not found
+ *       403:
+ *        description: invalid access token
  *       404:
- *         description: The post was not found
+ *         description: User or post not found
  *       409:
  *         description: Post already liked
  *       500:
@@ -240,10 +237,16 @@ router.post(
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Post'
+ *       400:
+ *         description: file not found
  *       401:
  *         description: Unauthorized
+ *       403:
+ *         description: invalid access token
  *       404:
  *         description: The post was not found
+ *       415:
+ *         description: Invalid file type
  *       500:
  *         description: Internal server error
  */
@@ -251,6 +254,8 @@ router.post(
 router.put(
   "/:id/update",
   authenticate,
+  uploadMiddleware,
+  validatePicture,
   PostController.putById.bind(PostController)
 );
 
@@ -287,10 +292,10 @@ router.put(
  *         description: The like was successfully deleted
  *       401:
  *         description: Unauthorized
+ *       403:
+ *         description: invalid access token
  *       404:
- *         description: Like not found
- *       404:
- *         description: The post was not found
+ *         description: Like or post not found
  *       500:
  *         description: Internal server error
  */
@@ -323,6 +328,8 @@ router.delete(
  *         description: The post was successfully deleted
  *       401:
  *         description: Unauthorized
+ *       403:
+ *         description: invalid access token
  *       404:
  *         description: The post was not found
  *       500:

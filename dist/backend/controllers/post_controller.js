@@ -47,9 +47,9 @@ class PostController extends base_controller_1.BaseController {
     addLike(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const user = yield user_model_1.default.findById(req.body.user);
+                const user = yield user_model_1.default.findOne({ email: req.body.email });
                 if (!user) {
-                    res.status(401).json({ message: "User not found" });
+                    res.status(404).json({ message: "User not found" });
                     return;
                 }
                 const post = yield post_model_1.default.findById(req.params.id);
@@ -75,7 +75,7 @@ class PostController extends base_controller_1.BaseController {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield user_model_1.default.findById(req.body.user);
             if (!user) {
-                res.status(401).send("User not found");
+                res.status(404).send("User not found");
                 return;
             }
             try {

@@ -137,7 +137,7 @@ router.post("/login", authController.login);
  *       402:
  *         description: Invalid token.
  *       403:
- *         description: Forbidden.
+ *         description: Invalid access token.
  */
 router.get("/logout", authController.logout);
 
@@ -159,6 +159,7 @@ router.get("/logout", authController.logout);
  *               $ref: '#/components/schemas/Tokens'
  *       401:
  *        description: Unauthorized.
+
  */
 router.get("/refresh", authController.refresh);
 

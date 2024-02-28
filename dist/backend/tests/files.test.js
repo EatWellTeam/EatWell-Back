@@ -46,5 +46,17 @@ describe("File Tests", () => {
             throw err;
         }
     }));
+    test("upload files with invalid file type", () => __awaiter(void 0, void 0, void 0, function* () {
+        const filePath = path_1.default.join(__dirname, "invalidfile.txt");
+        const response = yield (0, supertest_1.default)(app).post("/file").attach("file", filePath);
+        expect(response.status).toBe(415);
+        expect(response.body.error).toBe("Invalid file type");
+    }));
+    test("file does not exist", () => __awaiter(void 0, void 0, void 0, function* () {
+        const filePath = path_1.default.join(__dirname, "batman1.png");
+        const response = yield (0, supertest_1.default)(app).post("/file").attach("file", filePath);
+        expect(response.status).toBe(400);
+        expect(response.text).toBe("File does not exist");
+    }));
 });
 //# sourceMappingURL=files.test.js.map

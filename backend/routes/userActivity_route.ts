@@ -1,6 +1,5 @@
 import express from "express";
 import userActivityController from "../controllers/userActivity_controller";
-// import verifyToken from "../middleware/auth_middleware";
 
 const router = express.Router();
 

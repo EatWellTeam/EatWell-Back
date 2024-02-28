@@ -39,9 +39,8 @@ beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     yield post_model_1.default.deleteMany();
     yield userActivity_model_1.default.deleteMany();
     yield user_model_1.default.deleteMany();
-    (0, auth_test_1.createUser)(user);
     accessToken = yield (0, auth_test_1.createUser)(user);
-    userId = yield user_model_1.default.findOne().then((user) => {
+    userId = yield user_model_1.default.findOne({ email: user.email }).then((user) => {
         return user === null || user === void 0 ? void 0 : user._id.toHexString();
     });
     post1.user = userId;
@@ -79,16 +78,16 @@ describe("Tests for Like Posts", () => {
         };
         const response = yield (0, supertest_1.default)(app)
             .post(`/posts/${postId}/like`)
-            .send(noUser)
-            .set("Authorization", `JWT ${accessToken}`);
+            .send(noUser);
         expect(response.statusCode).toEqual(401);
     }));
     test("TEST 4: Post like for unAthorized user", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
             .post(`/posts/${postId}/like`)
             .send(user)
-            .set("Authorization", `JWT ${accessToken}123`);
-        expect(response.statusCode).toEqual(401);
+            .set("Authorization", `JWT invalidToken`);
+        expect(response.statusCode).toEqual(403);
+        expect(response.text).toEqual("invalid access token");
     }));
     test("TEST 5: Post Like", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)

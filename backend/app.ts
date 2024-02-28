@@ -8,7 +8,7 @@ import commentRoute from "./routes/comments_route";
 import postRoute from "./routes/post_route";
 import userActivityRoute from "./routes/userActivity_route";
 import fileRoute from "./routes/files_route";
-// import userRoute from "./routes/user_route";
+import userRoute from "./routes/user_route";
 import path from "path";
 import cors from "cors";
 
@@ -27,7 +27,7 @@ const initApp = (): Promise<Express> => {
       app.use("/posts", postRoute);
       app.use("/posts/comments", commentRoute);
       app.use("/userActivity", userActivityRoute);
-      // app.use("/user", userRoute);
+      app.use("/user", userRoute);
       app.use("/public", express.static(path.join(__dirname, "/public")));
       app.use("/file", fileRoute);
       resolve(app);

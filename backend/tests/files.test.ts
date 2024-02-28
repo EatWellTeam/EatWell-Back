@@ -35,4 +35,11 @@ describe("File Tests", () => {
       throw err;
     }
   });
+
+  test("upload files with invalid file type", async () => {
+    const filePath = path.join(__dirname, "invalidfile.txt");
+    const response = await request(app).post("/file").attach("file", filePath);
+    expect(response.status).toBe(415);
+    expect(response.body.error).toBe("Invalid file type");
+  });
 });

@@ -28,7 +28,7 @@ class CommentsController extends base_controller_1.BaseController {
             try {
                 const user = yield userActivity_model_1.default.findOne({ user: req.body.user });
                 if (!user) {
-                    res.status(401).send("User not found");
+                    res.status(404).send("User not found");
                     return;
                 }
                 const post = yield post_model_1.default.findById(req.params.id);

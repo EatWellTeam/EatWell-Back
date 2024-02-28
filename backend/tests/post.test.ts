@@ -145,11 +145,13 @@ describe("Post Module", () => {
       .post("/posts/addPost")
       .send(postForNotRegisteredUser)
       .set("Authorization", `JWT ${accessToken}`);
-    expect(response.statusCode).toEqual(401);
+    expect(response.statusCode).toEqual(404);
     expect(response.text).toEqual("User not found");
   });
 
   test("TEST 17: Post - with picture", async () => {
+    const userExists = await UserModel.exists({ _id: post1.user });
+    console.log("userExists", userExists);
     const response = await request(app)
       .post("/posts/addPost")
       .set("Authorization", `JWT ${accessToken}`)

@@ -16,7 +16,7 @@ class CommentsController extends BaseController<IComment> {
     try {
       const user = await UserActivity.findOne({ user: req.body.user });
       if (!user) {
-        res.status(401).send("User not found");
+        res.status(404).send("User not found");
         return;
       }
       const post = await Post.findById(req.params.id);

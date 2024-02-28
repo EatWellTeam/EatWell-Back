@@ -6,7 +6,6 @@ import { IComment } from "./comments_model";
 export interface IUserActivity extends mongoose.Document {
   user: IUser["_id"];
   email: string;
-  profileImage: string;
   post: IPost["_id"];
   comment: IComment["_id"];
   createdAt: Date;
@@ -15,7 +14,6 @@ export interface IUserActivity extends mongoose.Document {
 const userActivitySchema = new mongoose.Schema<IUserActivity>({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   email: { type: String, required: true },
-  profileImage: { type: String, required: false },
   post: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
   comment: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
   createdAt: { type: Date, default: Date.now },

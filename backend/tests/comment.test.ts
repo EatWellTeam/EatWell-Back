@@ -19,12 +19,12 @@ const user = {
   email: "testUser@test.com",
   password: "1234567890",
 };
-const userComment = {
+export const userComment = {
   email: "testComment@comment.com",
   password: "1234567890",
 };
 
-const comment1 = {
+export const comment1 = {
   user: userId,
   post: `${postId}`,
   body: "test comment",
@@ -159,7 +159,7 @@ describe("Comment Test", () => {
       .post(`/posts/comments/${postId}/createComment`)
       .send(invalidComment)
       .set("Authorization", `JWT ${accessTokenComment}`);
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(404);
     expect(response.text).toBe("User not found");
   });
   test("TEST 11: Post deleted cause comments to be deleted", async () => {

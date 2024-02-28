@@ -13,7 +13,7 @@ class UserActivityController extends BaseController<IUserActivity> {
         "post"
       );
       if (!userPosts) {
-        res.status(401).json({ message: "User not found" });
+        res.status(404).json({ message: "User not found" });
         return;
       }
       res.status(200).json(userPosts.post);
@@ -28,7 +28,7 @@ class UserActivityController extends BaseController<IUserActivity> {
         "comment"
       );
       if (!userComments) {
-        res.status(401).json({ message: "User not found" });
+        res.status(404).json({ message: "User not found" });
         return;
       }
       res.status(200).json(userComments.comment);
