@@ -89,6 +89,7 @@ const auth_controller_1 = __importDefault(require("../controllers/auth_controlle
  *         refreshToken: '134r2134cr1x3c'
  */
 router.post("/register", auth_controller_1.default.register);
+router.post("/google", auth_controller_1.default.googleSignin);
 /**
  * @swagger
  * /auth/login:
@@ -157,5 +158,6 @@ router.get("/logout", auth_controller_1.default.logout);
 
  */
 router.get("/refresh", auth_controller_1.default.refresh);
+// router.get("/getUserInfo", authController.getUserInfo);
 exports.default = router;
 //# sourceMappingURL=auth_route.js.map

@@ -83,6 +83,7 @@ describe("Auth tests", () => {
     const response = await request(app).post("/auth/login").send(user); //user logged in
     expect(response.statusCode).toEqual(200);
     refreshToken = response.body.refreshToken;
+    console.log("refreshToken: " + refreshToken);
   });
 
   test("TEST 10: Test refresh token", async () => {

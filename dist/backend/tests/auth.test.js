@@ -93,6 +93,7 @@ describe("Auth tests", () => {
         const response = yield (0, supertest_1.default)(app).post("/auth/login").send(user); //user logged in
         expect(response.statusCode).toEqual(200);
         refreshToken = response.body.refreshToken;
+        console.log("refreshToken: " + refreshToken);
     }));
     test("TEST 10: Test refresh token", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)

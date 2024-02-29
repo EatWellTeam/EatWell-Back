@@ -75,12 +75,6 @@ class UserController extends BaseController<IUser> {
     }
   }
   async getById(req: Request, res: Response): Promise<void> {
-    console.log("getUserInfo");
-    // const existedUser = await User.findById(req.params.id);
-    // if (!existedUser) {
-    //   res.status(404).send("User not found");
-    //   return;
-    // }
     const accessToken = req.headers.authorization?.split(" ")[1];
 
     const decodedToken = jwt.verify(accessToken, process.env.JWT_SECRET) as {

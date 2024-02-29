@@ -90,6 +90,7 @@ import authController from "../controllers/auth_controller";
  */
 
 router.post("/register", authController.register);
+router.post("/google", authController.googleSignin);
 
 /**
  * @swagger
@@ -163,6 +164,6 @@ router.get("/logout", authController.logout);
  */
 router.get("/refresh", authController.refresh);
 
-router.get("/getUserInfo", authController.getUserInfo);
+// router.get("/getUserInfo", authController.getUserInfo);
 
 export default router;
