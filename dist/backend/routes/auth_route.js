@@ -22,51 +22,62 @@ const auth_controller_1 = __importDefault(require("../controllers/auth_controlle
  *       bearerFormat: JWT
  */
 /**
-* @swagger
-*components:
-*  schemas:
-*    User:
-*      type: object
-*      required:
-*        - email
-*        - password
-*      properties:
-*        email:
-*          type: string
-*          description: The user's email.
-*        password:
-*          type: string
-*          description: The user's password.
-*      example:
-*        email: 'bob@gmail.com'
-*        password: '123456'
-
-*/
+ * @swagger
+ *components:
+ *  schemas:
+ *    User:
+ *      type: object
+ *      required:
+ *        - email
+ *        - password
+ *      properties:
+ *        email:
+ *          type: string
+ *          description: The user's email.
+ *        password:
+ *          type: string
+ *          description: The user's password.
+ *      example:
+ *        email: 'bob@gmail.com'
+ *        password: '123456'
+ */
 /**
  * @swagger
- * /auth/register:
- *    post:
- *      summary: Register a new user
- *      tags: [Auth]
- *      requestBody:
- *        required: true
- *        content:
- *          application/json:
- *            schema:
- *              $ref: '#/components/schemas/User'
- *      responses:
- *        201:
- *          description: User registered successfully.
- *          content:
- *            application/json:
- *              schema:
- *                $ref: '#/components/schemas/User'
- *        400:
- *          description: Missing email or password.
- *        409:
- *          description: Email Already Used.
- *        500:
- *          description: Internal server error.
+ * components:
+ *   schemas:
+ *     RegisterUser:
+ *       type: object
+ *       required:
+ *         - email
+ *         - password
+ *       properties:
+ *         email:
+ *           type: string
+ *           format: email
+ *         password:
+ *           type: string
+ *       example:
+ *         email: 'bob@gmail.com'
+ *         password: '123456'
+ */
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     LoginUser:
+ *       type: object
+ *       required:
+ *         - email
+ *         - password
+ *       properties:
+ *         email:
+ *           type: string
+ *           format: email
+ *         password:
+ *           type: string
+ *       example:
+ *         email: 'bob@gmail.com'
+ *         password: '123456'
  */
 /**
  * @swagger
@@ -88,6 +99,32 @@ const auth_controller_1 = __importDefault(require("../controllers/auth_controlle
  *         accessToken: '123cd123x1xx1'
  *         refreshToken: '134r2134cr1x3c'
  */
+/**
+ * @swagger
+ * /auth/register:
+ *    post:
+ *      summary: Register a new user
+ *      tags: [Auth]
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/RegisterUser'
+ *      responses:
+ *        201:
+ *          description: User registered successfully.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/User'
+ *        400:
+ *          description: Missing email or password.
+ *        409:
+ *          description: Email Already Used.
+ *        500:
+ *          description: Internal server error.
+ */
 router.post("/register", auth_controller_1.default.register);
 router.post("/google", auth_controller_1.default.googleSignin);
 /**
@@ -101,7 +138,7 @@ router.post("/google", auth_controller_1.default.googleSignin);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/User'
+ *             $ref: '#/components/schemas/LoginUser'
  *     responses:
  *       200:
  *         description: The access & refresh tokens

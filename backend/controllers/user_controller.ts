@@ -61,19 +61,19 @@ class UserController extends BaseController<IUser> {
       res.send("Profile picture updated");
     }
   }
-  async postProfilePicture(req: Request, res: Response) {
-    if (!req.file) {
-      return res.status(400).send("No picture uploaded");
-    } else {
-      const user = await User.findById(req.params.id);
-      if (!user) {
-        return res.status(404).send("User not found");
-      }
-      user.profileImage = req.file.path;
-      await user.save();
-      res.status(200).send("Profile picture updated");
-    }
-  }
+  // async postProfilePicture(req: Request, res: Response) {
+  //   if (!req.file) {
+  //     return res.status(400).send("No picture uploaded");
+  //   } else {
+  //     const user = await User.findById(req.params.id);
+  //     if (!user) {
+  //       return res.status(404).send("User not found");
+  //     }
+  //     user.profileImage = req.file.path;
+  //     await user.save();
+  //     res.status(200).send("Profile picture updated");
+  //   }
+  // }
   async getById(req: Request, res: Response): Promise<void> {
     const accessToken = req.headers.authorization?.split(" ")[1];
 

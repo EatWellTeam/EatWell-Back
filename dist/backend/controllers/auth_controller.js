@@ -17,6 +17,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const userActivity_model_1 = __importDefault(require("../models/userActivity_model"));
 const google_auth_library_1 = require("google-auth-library");
+const path_1 = __importDefault(require("path"));
 const client = new google_auth_library_1.OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const googleSignin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(req.body);
@@ -57,9 +58,11 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         const salt = yield bcrypt_1.default.genSalt(10);
         const encryptedPassword = yield bcrypt_1.default.hash(password, salt);
+        const imageUrl = path_1.default.join(__dirname, "default_picture.jpeg");
         const newUser = yield user_model_1.default.create({
             email: email,
             password: encryptedPassword,
+            profileImage: imageUrl,
         });
         yield userActivity_model_1.default.create({
             user: newUser._id,
@@ -69,9 +72,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             createdAt: new Date(),
         });
         const token = yield generateTokens(newUser);
-        return res
-            .status(201)
-            .send(Object.assign({ email: newUser.email, _id: newUser._id, profileImage: newUser.profileImage }, token));
+        return res.status(201).send(Object.assign({ email: newUser.email, _id: newUser._id, profileImage: newUser.profileImage }, token));
     }
     catch (error) {
         console.log(error);
@@ -111,8 +112,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return res.status(401).send("email or password incorrect");
         }
         const tokens = yield generateTokens(user);
-        console.log(tokens);
-        return res.status(200).send(tokens);
+        return res.status(200).send(Object.assign({ email: user.email, _id: user._id, profileImage: user.profileImage }, tokens));
     }
     catch (error) {
         console.log(error);

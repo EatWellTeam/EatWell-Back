@@ -28,20 +28,20 @@ afterAll(async () => {
   console.log("------User edit picture end start------");
 });
 describe("User edit picture tests", () => {
-  test("Post user picture", async () => {
-    const response = await request(app)
-      .post(`/user/picture/${userDocument._id}`)
-      .set("Authorization", `JWT ${accessToken}`)
-      .attach("file", path.join(__dirname, "batman.png"));
-    expect(response.status).toBe(200);
-    expect(response.text).toBe("Profile picture updated");
-  });
+  // test("Post user picture", async () => {
+  //   const response = await request(app)
+  //     .post(`/user/picture/${userDocument._id}`)
+  //     .set("Authorization", `JWT ${accessToken}`)
+  //     .attach("file", path.join(__dirname, "batman.png"));
+  //   expect(response.status).toBe(200);
+  //   expect(response.text).toBe("Profile picture updated");
+  // });
 
   test("Update user picture", async () => {
     const response = await request(app)
       .put(`/user/picture/${userDocument._id}`)
       .set("Authorization", `JWT ${accessToken}`)
-      .attach("file", path.join(__dirname, "batman.png"));
+      .attach("file", path.join(__dirname, "OIP.jpeg"));
     expect(response.status).toBe(200);
     expect(response.text).toBe("Profile picture updated");
   });

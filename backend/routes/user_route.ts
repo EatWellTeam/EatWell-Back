@@ -181,59 +181,59 @@ router.put(
   userController.updateProfilePicture.bind(userController)
 );
 
-/**
- * @swagger
- * /user/picture/{id}:
- *   post:
- *     summary: Add user picture
- *     description: Add user picture by id
- *     tags:
- *       - User
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: User id
- *     requestBody:
- *       required: true
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               file:
- *                 type: string
- *                 format: binary
- *                 description: The new profile picture
- *                 required: true
- *     responses:
- *       200:
- *         description: Picture added
- *       400:
- *        description: file not found
- *       401:
- *         description: Unauthorized
- *       403:
- *         description: invalid access token
- *       404:
- *         description: User not found
- *       415:
- *         description: Invalid file type
- *       500:
- *         description: Internal server error
- */
+// /**
+//  * @swagger
+//  * /user/picture/{id}:
+//  *   post:
+//  *     summary: Add user picture
+//  *     description: Add user picture by id
+//  *     tags:
+//  *       - User
+//  *     security:
+//  *       - bearerAuth: []
+//  *     parameters:
+//  *       - in: path
+//  *         name: id
+//  *         required: true
+//  *         schema:
+//  *           type: string
+//  *         description: User id
+//  *     requestBody:
+//  *       required: true
+//  *       content:
+//  *         multipart/form-data:
+//  *           schema:
+//  *             type: object
+//  *             properties:
+//  *               file:
+//  *                 type: string
+//  *                 format: binary
+//  *                 description: The new profile picture
+//  *                 required: true
+//  *     responses:
+//  *       200:
+//  *         description: Picture added
+//  *       400:
+//  *        description: file not found
+//  *       401:
+//  *         description: Unauthorized
+//  *       403:
+//  *         description: invalid access token
+//  *       404:
+//  *         description: User not found
+//  *       415:
+//  *         description: Invalid file type
+//  *       500:
+//  *         description: Internal server error
+//  */
 
-router.post(
-  "/picture/:id",
-  authenticate,
-  uploadMiddleware,
-  validatePicture,
-  userController.postProfilePicture.bind(userController)
-);
+// router.post(
+//   "/picture/:id",
+//   authenticate,
+//   uploadMiddleware,
+//   validatePicture,
+//   userController.postProfilePicture.bind(userController)
+// );
 
 /**
  * @swagger
