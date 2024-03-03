@@ -25,7 +25,6 @@ class CommentsController extends BaseController<IComment> {
         res.status(404).send("Post not found to add comment");
         return;
       } else {
-        console.log("Post found");
         const comment = await CommentModel.create(req.body);
         if (comment) {
           post.comments.push(comment._id);
@@ -63,9 +62,10 @@ class CommentsController extends BaseController<IComment> {
       await post.save();
       const ObjectId = mongoose.Types.ObjectId;
       await UserActivity.findOneAndUpdate(
-        { comment: new ObjectId(req.params.id) },
-        { $set: { comment: [] } }
+        { user: (comment as unknown as IComment).user },
+        { $pull: { comment: new ObjectId(req.params.id) } }
       );
+
       res.status(200).send("Deleted successfully");
     } catch (err) {
       console.error(err.message);

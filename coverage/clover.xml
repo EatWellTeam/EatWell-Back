@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1709478616300" clover="3.2.0">
-  <project timestamp="1709478616300" name="All files">
-    <metrics statements="481" coveredstatements="413" conditionals="93" coveredconditionals="67" methods="57" coveredmethods="51" elements="631" coveredelements="531" complexity="0" loc="481" ncloc="481" packages="5" files="20" classes="20"/>
+<coverage generated="1709501240119" clover="3.2.0">
+  <project timestamp="1709501240120" name="All files">
+    <metrics statements="484" coveredstatements="419" conditionals="93" coveredconditionals="68" methods="59" coveredmethods="51" elements="636" coveredelements="538" complexity="0" loc="484" ncloc="484" packages="5" files="20" classes="20"/>
     <package name="backend">
       <metrics statements="34" coveredstatements="34" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="4"/>
       <file name="app.ts" path="C:\Users\dolev\Social_Netwrok_Backend\backend\app.ts">
@@ -43,9 +43,9 @@
       </file>
     </package>
     <package name="backend.controllers">
-      <metrics statements="322" coveredstatements="259" conditionals="76" coveredconditionals="56" methods="43" coveredmethods="38"/>
+      <metrics statements="324" coveredstatements="264" conditionals="76" coveredconditionals="57" methods="45" coveredmethods="38"/>
       <file name="auth_controller.ts" path="C:\Users\dolev\Social_Netwrok_Backend\backend\controllers\auth_controller.ts">
-        <metrics statements="105" coveredstatements="79" conditionals="36" coveredconditionals="22" methods="18" coveredmethods="16"/>
+        <metrics statements="105" coveredstatements="82" conditionals="36" coveredconditionals="23" methods="18" coveredmethods="16"/>
         <line num="2" count="10" type="stmt"/>
         <line num="3" count="10" type="stmt"/>
         <line num="4" count="10" type="stmt"/>
@@ -118,14 +118,14 @@
         <line num="146" count="0" type="stmt"/>
         <line num="148" count="9" type="stmt"/>
         <line num="149" count="9" type="stmt"/>
-        <line num="150" count="9" type="cond" truecount="1" falsecount="1"/>
-        <line num="154" count="0" type="stmt"/>
-        <line num="155" count="0" type="stmt"/>
-        <line num="156" count="0" type="stmt"/>
-        <line num="158" count="9" type="stmt"/>
-        <line num="159" count="16" type="stmt"/>
-        <line num="161" count="9" type="stmt"/>
-        <line num="162" count="9" type="stmt"/>
+        <line num="150" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="154" count="1" type="stmt"/>
+        <line num="155" count="1" type="stmt"/>
+        <line num="156" count="1" type="stmt"/>
+        <line num="158" count="8" type="stmt"/>
+        <line num="159" count="9" type="stmt"/>
+        <line num="161" count="8" type="stmt"/>
+        <line num="162" count="8" type="stmt"/>
         <line num="165" count="0" type="stmt"/>
         <line num="171" count="45" type="stmt"/>
         <line num="172" count="45" type="stmt"/>
@@ -139,16 +139,16 @@
         <line num="183" count="36" type="stmt"/>
         <line num="184" count="36" type="stmt"/>
         <line num="185" count="36" type="cond" truecount="1" falsecount="0"/>
-        <line num="189" count="18" type="stmt"/>
-        <line num="190" count="18" type="stmt"/>
-        <line num="191" count="18" type="stmt"/>
-        <line num="193" count="18" type="stmt"/>
-        <line num="198" count="18" type="stmt"/>
-        <line num="202" count="18" type="stmt"/>
-        <line num="203" count="35" type="stmt"/>
-        <line num="205" count="18" type="stmt"/>
-        <line num="206" count="18" type="stmt"/>
-        <line num="207" count="18" type="stmt"/>
+        <line num="189" count="19" type="stmt"/>
+        <line num="190" count="19" type="stmt"/>
+        <line num="191" count="19" type="stmt"/>
+        <line num="193" count="17" type="stmt"/>
+        <line num="198" count="17" type="stmt"/>
+        <line num="202" count="17" type="stmt"/>
+        <line num="203" count="28" type="stmt"/>
+        <line num="205" count="17" type="stmt"/>
+        <line num="206" count="17" type="stmt"/>
+        <line num="207" count="17" type="stmt"/>
         <line num="212" count="0" type="stmt"/>
         <line num="252" count="10" type="stmt"/>
       </file>
@@ -158,10 +158,10 @@
         <line num="8" count="40" type="stmt"/>
         <line num="9" count="40" type="stmt"/>
         <line num="10" count="40" type="stmt"/>
-        <line num="16" count="7" type="stmt"/>
-        <line num="17" count="7" type="cond" truecount="1" falsecount="1"/>
-        <line num="18" count="7" type="stmt"/>
-        <line num="19" count="7" type="stmt"/>
+        <line num="16" count="6" type="stmt"/>
+        <line num="17" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="18" count="6" type="stmt"/>
+        <line num="19" count="6" type="stmt"/>
         <line num="21" count="0" type="stmt"/>
         <line num="22" count="0" type="stmt"/>
         <line num="27" count="12" type="stmt"/>
@@ -199,7 +199,7 @@
         <line num="91" count="10" type="stmt"/>
       </file>
       <file name="comment_controller.ts" path="C:\Users\dolev\Social_Netwrok_Backend\backend\controllers\comment_controller.ts">
-        <metrics statements="44" coveredstatements="39" conditionals="6" coveredconditionals="6" methods="4" coveredmethods="4"/>
+        <metrics statements="43" coveredstatements="38" conditionals="6" coveredconditionals="6" methods="4" coveredmethods="4"/>
         <line num="1" count="10" type="stmt"/>
         <line num="2" count="10" type="stmt"/>
         <line num="4" count="10" type="stmt"/>
@@ -217,36 +217,35 @@
         <line num="25" count="2" type="stmt"/>
         <line num="26" count="2" type="stmt"/>
         <line num="28" count="1" type="stmt"/>
-        <line num="29" count="1" type="stmt"/>
-        <line num="30" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="29" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="30" count="1" type="stmt"/>
         <line num="31" count="1" type="stmt"/>
         <line num="32" count="1" type="stmt"/>
-        <line num="33" count="1" type="stmt"/>
-        <line num="38" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
         <line num="42" count="0" type="stmt"/>
         <line num="43" count="0" type="stmt"/>
-        <line num="44" count="0" type="stmt"/>
+        <line num="48" count="3" type="stmt"/>
         <line num="49" count="3" type="stmt"/>
-        <line num="50" count="3" type="stmt"/>
-        <line num="51" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="50" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="51" count="1" type="stmt"/>
         <line num="52" count="1" type="stmt"/>
-        <line num="53" count="1" type="stmt"/>
-        <line num="55" count="2" type="stmt"/>
-        <line num="56" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="54" count="2" type="stmt"/>
+        <line num="55" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="56" count="1" type="stmt"/>
         <line num="57" count="1" type="stmt"/>
-        <line num="58" count="1" type="stmt"/>
+        <line num="59" count="1" type="stmt"/>
         <line num="60" count="1" type="stmt"/>
-        <line num="61" count="1" type="stmt"/>
+        <line num="62" count="1" type="stmt"/>
         <line num="63" count="1" type="stmt"/>
         <line num="64" count="1" type="stmt"/>
-        <line num="65" count="1" type="stmt"/>
         <line num="69" count="1" type="stmt"/>
         <line num="71" count="0" type="stmt"/>
         <line num="72" count="0" type="stmt"/>
         <line num="76" count="10" type="stmt"/>
       </file>
       <file name="post_controller.ts" path="C:\Users\dolev\Social_Netwrok_Backend\backend\controllers\post_controller.ts">
-        <metrics statements="64" coveredstatements="56" conditionals="13" coveredconditionals="12" methods="6" coveredmethods="6"/>
+        <metrics statements="67" coveredstatements="59" conditionals="13" coveredconditionals="12" methods="8" coveredmethods="6"/>
         <line num="1" count="10" type="stmt"/>
         <line num="2" count="10" type="stmt"/>
         <line num="4" count="10" type="stmt"/>
@@ -295,43 +294,46 @@
         <line num="74" count="9" type="stmt"/>
         <line num="78" count="0" type="stmt"/>
         <line num="79" count="0" type="stmt"/>
-        <line num="84" count="13" type="stmt"/>
-        <line num="85" count="13" type="stmt"/>
-        <line num="86" count="13" type="cond" truecount="1" falsecount="0"/>
+        <line num="84" count="12" type="stmt"/>
+        <line num="85" count="12" type="stmt"/>
+        <line num="86" count="12" type="cond" truecount="1" falsecount="0"/>
         <line num="87" count="6" type="stmt"/>
         <line num="88" count="6" type="stmt"/>
-        <line num="90" count="7" type="stmt"/>
-        <line num="91" count="7" type="cond" truecount="1" falsecount="0"/>
-        <line num="92" count="7" type="stmt"/>
-        <line num="96" count="7" type="stmt"/>
-        <line num="100" count="7" type="stmt"/>
-        <line num="101" count="7" type="stmt"/>
-        <line num="102" count="7" type="stmt"/>
-        <line num="103" count="7" type="stmt"/>
-        <line num="106" count="0" type="stmt"/>
-        <line num="107" count="0" type="stmt"/>
-        <line num="112" count="10" type="stmt"/>
+        <line num="90" count="6" type="stmt"/>
+        <line num="91" count="6" type="cond" truecount="1" falsecount="0"/>
+        <line num="92" count="6" type="stmt"/>
+        <line num="93" count="6" type="stmt"/>
+        <line num="94" count="6" type="stmt"/>
+        <line num="95" count="6" type="stmt"/>
+        <line num="99" count="6" type="stmt"/>
+        <line num="103" count="6" type="stmt"/>
+        <line num="104" count="6" type="stmt"/>
+        <line num="105" count="6" type="stmt"/>
+        <line num="106" count="6" type="stmt"/>
+        <line num="109" count="0" type="stmt"/>
+        <line num="110" count="0" type="stmt"/>
+        <line num="115" count="10" type="stmt"/>
       </file>
       <file name="userActivity_controller.ts" path="C:\Users\dolev\Social_Netwrok_Backend\backend\controllers\userActivity_controller.ts">
         <metrics statements="20" coveredstatements="18" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
         <line num="1" count="10" type="stmt"/>
         <line num="3" count="10" type="stmt"/>
         <line num="7" count="10" type="stmt"/>
-        <line num="10" count="3" type="stmt"/>
-        <line num="11" count="3" type="stmt"/>
-        <line num="12" count="3" type="stmt"/>
-        <line num="15" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="15" count="2" type="cond" truecount="1" falsecount="0"/>
         <line num="16" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
-        <line num="19" count="2" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
         <line num="21" count="0" type="stmt"/>
-        <line num="25" count="3" type="stmt"/>
-        <line num="26" count="3" type="stmt"/>
-        <line num="27" count="3" type="stmt"/>
-        <line num="30" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="27" count="2" type="stmt"/>
+        <line num="30" count="2" type="cond" truecount="1" falsecount="0"/>
         <line num="31" count="1" type="stmt"/>
         <line num="32" count="1" type="stmt"/>
-        <line num="34" count="2" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
         <line num="36" count="0" type="stmt"/>
         <line num="40" count="10" type="stmt"/>
       </file>
@@ -391,14 +393,14 @@
         <metrics statements="11" coveredstatements="11" conditionals="5" coveredconditionals="4" methods="2" coveredmethods="2"/>
         <line num="2" count="10" type="stmt"/>
         <line num="7" count="10" type="stmt"/>
-        <line num="12" count="68" type="stmt"/>
-        <line num="13" count="68" type="cond" truecount="1" falsecount="0"/>
-        <line num="14" count="64" type="cond" truecount="2" falsecount="0"/>
-        <line num="15" count="64" type="cond" truecount="0" falsecount="1"/>
-        <line num="16" count="64" type="stmt"/>
-        <line num="17" count="64" type="cond" truecount="1" falsecount="0"/>
-        <line num="18" count="62" type="stmt"/>
-        <line num="19" count="62" type="stmt"/>
+        <line num="12" count="67" type="stmt"/>
+        <line num="13" count="67" type="cond" truecount="1" falsecount="0"/>
+        <line num="14" count="63" type="cond" truecount="2" falsecount="0"/>
+        <line num="15" count="63" type="cond" truecount="0" falsecount="1"/>
+        <line num="16" count="63" type="stmt"/>
+        <line num="17" count="63" type="cond" truecount="1" falsecount="0"/>
+        <line num="18" count="61" type="stmt"/>
+        <line num="19" count="61" type="stmt"/>
         <line num="23" count="10" type="stmt"/>
       </file>
       <file name="upload_middleware.ts" path="C:\Users\dolev\Social_Netwrok_Backend\backend\middleware\upload_middleware.ts">
@@ -472,7 +474,7 @@
       </file>
     </package>
     <package name="backend.routes">
-      <metrics statements="66" coveredstatements="64" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+      <metrics statements="67" coveredstatements="65" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
       <file name="auth_route.ts" path="C:\Users\dolev\Social_Netwrok_Backend\backend\routes\auth_route.ts">
         <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="10" type="stmt"/>
@@ -524,12 +526,12 @@
         <line num="6" count="10" type="stmt"/>
         <line num="80" count="10" type="stmt"/>
         <line num="111" count="10" type="stmt"/>
-        <line num="149" count="10" type="stmt"/>
-        <line num="200" count="10" type="stmt"/>
-        <line num="254" count="10" type="stmt"/>
-        <line num="304" count="10" type="stmt"/>
-        <line num="339" count="10" type="stmt"/>
-        <line num="345" count="10" type="stmt"/>
+        <line num="164" count="10" type="stmt"/>
+        <line num="215" count="10" type="stmt"/>
+        <line num="278" count="10" type="stmt"/>
+        <line num="328" count="10" type="stmt"/>
+        <line num="363" count="10" type="stmt"/>
+        <line num="369" count="10" type="stmt"/>
       </file>
       <file name="userActivity_route.ts" path="C:\Users\dolev\Social_Netwrok_Backend\backend\routes\userActivity_route.ts">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -543,7 +545,7 @@
         <line num="164" count="10" type="stmt"/>
       </file>
       <file name="user_route.ts" path="C:\Users\dolev\Social_Netwrok_Backend\backend\routes\user_route.ts">
-        <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="10" type="stmt"/>
         <line num="2" count="10" type="stmt"/>
         <line num="3" count="10" type="stmt"/>
@@ -556,6 +558,7 @@
         <line num="259" count="10" type="stmt"/>
         <line num="290" count="10" type="stmt"/>
         <line num="292" count="10" type="stmt"/>
+        <line num="300" count="10" type="stmt"/>
       </file>
     </package>
   </project>

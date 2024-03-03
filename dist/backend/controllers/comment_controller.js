@@ -38,7 +38,6 @@ class CommentsController extends base_controller_1.BaseController {
                     return;
                 }
                 else {
-                    console.log("Post found");
                     const comment = yield comments_model_1.default.create(req.body);
                     if (comment) {
                         post.comments.push(comment._id);
@@ -71,7 +70,7 @@ class CommentsController extends base_controller_1.BaseController {
                 post.comments = post.comments.filter((id) => id.toString() !== req.params.id);
                 yield post.save();
                 const ObjectId = mongoose_1.default.Types.ObjectId;
-                yield userActivity_model_1.default.findOneAndUpdate({ comment: new ObjectId(req.params.id) }, { $set: { comment: [] } });
+                yield userActivity_model_1.default.findOneAndUpdate({ user: comment.user }, { $pull: { comment: new ObjectId(req.params.id) } });
                 res.status(200).send("Deleted successfully");
             }
             catch (err) {

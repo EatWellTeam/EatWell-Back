@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.1% </span>
+                <span class="strong">78.76% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>86/113</span>
+                <span class='fraction'>89/113</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.11% </span>
+                <span class="strong">63.88% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>22/36</span>
+                <span class='fraction'>23/36</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.23% </span>
+                <span class="strong">78.09% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>79/105</span>
+                <span class='fraction'>82/105</span>
             </div>
         
             
@@ -475,16 +475,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -510,25 +510,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">35x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -650,7 +650,7 @@ const register = async (req: Request, res: Response): Promise&lt;Response&gt; =&
       createdAt: new Date(),
     });
     const token = await generateTokens(newUser);
-    return res.status(201).send({
+    return res.status(201).json({
       email: newUser.email,
       _id: newUser._id,
       profileImage: newUser.profileImage,
@@ -700,7 +700,7 @@ const login = async (req: Request, res: Response) =&gt; {
 &nbsp;
     const tokens = await generateTokens(user);
 &nbsp;
-    return res.status(200).send({
+    return res.status(200).json({
       email: user.email,
       _id: user._id,
       profileImage: user.profileImage,
@@ -730,13 +730,13 @@ const logout = async (req: Request, res: Response) =&gt; {
       }
       try {
         const userDb = await User.findOne({ _id: user._id });
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (
+        if (
           !userDb.refreshTokens ||
           !userDb.refreshTokens.includes(refreshToken)
         ) {
-<span class="cstat-no" title="statement not covered" >          userDb.refreshTokens = [];</span>
-<span class="cstat-no" title="statement not covered" >          await userDb.save();</span>
-<span class="cstat-no" title="statement not covered" >          return res.sendStatus(200);</span>
+          userDb.refreshTokens = [];
+          await userDb.save();
+          return res.sendStatus(200);
         } else {
           userDb.refreshTokens = userDb.refreshTokens.filter(
             (t) =&gt; t !== refreshToken
@@ -847,7 +847,7 @@ export default {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-03T15:10:16.224Z
+                at 2024-03-03T21:27:20.052Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -72,7 +72,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             createdAt: new Date(),
         });
         const token = yield generateTokens(newUser);
-        return res.status(201).send(Object.assign({ email: newUser.email, _id: newUser._id, profileImage: newUser.profileImage }, token));
+        return res.status(201).json(Object.assign({ email: newUser.email, _id: newUser._id, profileImage: newUser.profileImage }, token));
     }
     catch (error) {
         console.log(error);
@@ -112,7 +112,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return res.status(401).send("email or password incorrect");
         }
         const tokens = yield generateTokens(user);
-        return res.status(200).send(Object.assign({ email: user.email, _id: user._id, profileImage: user.profileImage }, tokens));
+        return res.status(200).json(Object.assign({ email: user.email, _id: user._id, profileImage: user.profileImage }, tokens));
     }
     catch (error) {
         console.log(error);

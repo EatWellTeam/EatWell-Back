@@ -107,7 +107,10 @@ class PostController extends base_controller_1.BaseController {
                 }
                 const userActivity = yield userActivity_model_1.default.findOne({ post: post._id });
                 if (userActivity) {
-                    yield userActivity_model_1.default.updateMany({ user: post.user }, { $pull: { comment: { post: post._id } } });
+                    const comments = yield comments_model_1.default.find({ post: post._id });
+                    const commentIds = comments.map((comment) => comment._id);
+                    const userIds = comments.map((comment) => comment.user);
+                    yield userActivity_model_1.default.updateMany({ user: { $in: userIds } }, { $pull: { comment: { $in: commentIds } } });
                     yield userActivity_model_1.default.findOneAndUpdate({ user: post.user }, { $pull: { post: post._id } });
                     yield comments_model_1.default.deleteMany({ post: post._id });
                     yield post_model_1.default.findByIdAndDelete(req.params.id);

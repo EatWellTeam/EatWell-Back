@@ -289,4 +289,12 @@ router.get("/all", authenticate, userController.get.bind(userController));
  */
 router.get("/:id", authenticate, userController.getById.bind(userController));
 
+router.put(
+  "/:id",
+  authenticate,
+  uploadMiddleware,
+  validatePicture,
+  userController.putById.bind(userController)
+);
+
 export default router;

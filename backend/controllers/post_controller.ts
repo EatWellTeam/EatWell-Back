@@ -89,9 +89,12 @@ class PostController extends BaseController<IPost> {
       }
       const userActivity = await UserActivity.findOne({ post: post._id });
       if (userActivity) {
+        const comments = await CommentModel.find({ post: post._id });
+        const commentIds = comments.map((comment) => comment._id);
+        const userIds = comments.map((comment) => comment.user);
         await UserActivity.updateMany(
-          { user: post.user },
-          { $pull: { comment: { post: post._id } } }
+          { user: { $in: userIds } },
+          { $pull: { comment: { $in: commentIds } } }
         );
         await UserActivity.findOneAndUpdate(
           { user: post.user },

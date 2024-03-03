@@ -121,9 +121,24 @@ router.get("/:id", post_controller_1.default.getById.bind(post_controller_1.defa
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
- *             $ref: '#/components/schemas/Post'
+ *             type: object
+ *             properties:
+ *               user:
+ *                 type: string
+ *                 description: The user id of the post
+ *                 required: true
+ *                 example: "---replace-with-actual-user-id---"
+ *               body:
+ *                 type: string
+ *                 description: The body of the post
+ *                 required: true
+ *                 example: "This is a new post"
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *                 description: The picture of the post
  *     responses:
  *       201:
  *         description: The post was successfully created
@@ -132,7 +147,7 @@ router.get("/:id", post_controller_1.default.getById.bind(post_controller_1.defa
  *             schema:
  *               $ref: '#/components/schemas/Post'
  *       400:
- *        description: file not found
+ *         description: file not found
  *       401:
  *         description: Unauthorized
  *       403:
@@ -202,13 +217,22 @@ router.post("/:id/like", auth_middleware_1.default, post_controller_1.default.ad
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
+ *               user:
+ *                 type: string
+ *                 description: The user id of the post
+ *                 required: true
+ *                 example: "---replace-with-actual-user-id---"
  *               body:
  *                 type: string
  *                 description: The body of the post
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *                 description: The picture of the post
  *     parameters:
  *       - in: path
  *         name: id

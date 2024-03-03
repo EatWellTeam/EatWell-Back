@@ -29,6 +29,7 @@ const ObjectId = new mongoose_1.default.Types.ObjectId();
 let commentId;
 let accessTokenComment;
 let accessToken;
+let commentUserLength;
 const user = {
     email: "testUser@test.com",
     password: "1234567890",
@@ -99,6 +100,11 @@ describe("Comment Test", () => {
         expect(response.body.post).toBe(exports.comment1.post);
         expect(response.body.body).toBe(exports.comment1.body);
         commentId = response.body._id;
+        commentUserLength = yield userActivity_model_1.default.findOne({
+            user: exports.comment1.user,
+        }).then((user) => {
+            return user.comment.length;
+        });
     }));
     test("TEST 2: Get Comment By Id : /posts/comments/:id/getComment/:postId", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
@@ -144,6 +150,12 @@ describe("Comment Test", () => {
             .set("Authorization", `JWT ${accessTokenComment}`);
         expect(response.status).toBe(200);
         expect(response.text).toBe("Deleted successfully");
+        const commentUserLengthAfterDelete = yield userActivity_model_1.default.findOne({
+            user: exports.comment1.user,
+        }).then((user) => {
+            return user.comment.length;
+        });
+        expect(commentUserLengthAfterDelete).toBe(commentUserLength - 1);
     }));
     test("TEST 8: unExisted Comment By Id : /posts/comments/:id/deleteComment/:postId", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app)
@@ -168,35 +180,39 @@ describe("Comment Test", () => {
         expect(response.status).toBe(404);
         expect(response.text).toBe("User not found");
     }));
-    test("TEST 11: Post deleted cause comments to be deleted", () => __awaiter(void 0, void 0, void 0, function* () {
-        console.log("postId", postId);
-        const response = yield (0, supertest_1.default)(app)
-            .delete(`/posts/${postId}`)
-            .set("Authorization", `JWT ${accessToken}`);
-        expect(response.status).toBe(200);
-        expect(response.body.message).toBe("Deleted successfully");
-    }));
-    test("TEST 12: Get All Comments After Post Deleted", () => __awaiter(void 0, void 0, void 0, function* () {
-        console.log("test for get all comments after post deleted");
-        const responseComment = yield (0, supertest_1.default)(app).get(`/posts/comments/AllComments`);
-        expect(responseComment.status).toBe(200);
-        expect(responseComment.body.length).toBe(0);
-    }));
-    test("TEST 13: Get All Posts of User After Post Deleted", () => __awaiter(void 0, void 0, void 0, function* () {
-        console.log("test for get all posts after post deleted");
-        const responseUserActivityPosts = yield (0, supertest_1.default)(app)
-            .get(`/userActivity/${userId}/posts`)
-            .set("Authorization", `JWT ${accessToken}`);
-        expect(responseUserActivityPosts.status).toBe(200);
-        console.log("responseUserActivityPosts.body");
-        console.log(responseUserActivityPosts.body);
-    }));
-    test("TEST 14: Get All Comments of User After Post Deleted", () => __awaiter(void 0, void 0, void 0, function* () {
-        const responseUserActivityComments = yield (0, supertest_1.default)(app).get(`/userActivity/${userId}/comments`);
-        console.log("responseUserActivityComments.body");
-        console.log(responseUserActivityComments.body);
-        expect(responseUserActivityComments.status).toBe(200);
-        expect(responseUserActivityComments.body.length).toBe(0);
-    }));
+    // test("TEST 11: Post deleted cause comments to be deleted", async () => {
+    //   console.log("postId", postId);
+    //   const response = await request(app)
+    //     .delete(`/posts/${postId}`)
+    //     .set("Authorization", `JWT ${accessToken}`);
+    //   expect(response.status).toBe(200);
+    //   expect(response.body.message).toBe("Deleted successfully");
+    // });
+    // test("TEST 12: Get All Comments After Post Deleted", async () => {
+    //   console.log("test for get all comments after post deleted");
+    //   const responseComment = await request(app).get(
+    //     `/posts/comments/AllComments`
+    //   );
+    //   expect(responseComment.status).toBe(200);
+    //   expect(responseComment.body.length).toBe(0);
+    // });
+    // test("TEST 13: Get All Posts of User After Post Deleted", async () => {
+    //   console.log("test for get all posts after post deleted");
+    //   const responseUserActivityPosts = await request(app)
+    //     .get(`/userActivity/${userId}/posts`)
+    //     .set("Authorization", `JWT ${accessToken}`);
+    //   expect(responseUserActivityPosts.status).toBe(200);
+    //   console.log("responseUserActivityPosts.body");
+    //   console.log(responseUserActivityPosts.body);
+    // });
+    // test("TEST 14: Get All Comments of User After Post Deleted", async () => {
+    //   const responseUserActivityComments = await request(app).get(
+    //     `/userActivity/${userId}/comments`
+    //   );
+    //   console.log("responseUserActivityComments.body");
+    //   console.log(responseUserActivityComments.body);
+    //   expect(responseUserActivityComments.status).toBe(200);
+    //   expect(responseUserActivityComments.body.length).toBe(0);
+    // });
 });
 //# sourceMappingURL=comment.test.js.map

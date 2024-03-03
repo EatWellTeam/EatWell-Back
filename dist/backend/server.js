@@ -22,7 +22,7 @@ const portHttps = process.env.HTTPS_PORT;
                 version: "1.0.0",
                 description: "REST server including authentication using JWT",
             },
-            servers: [{ url: "https://localhost:3000" }],
+            servers: [{ url: "http://localhost:3000" }],
         },
         apis: ["./backend/routes/*.ts"],
     };

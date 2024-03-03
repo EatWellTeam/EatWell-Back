@@ -122,9 +122,24 @@ router.get("/:id", PostController.getById.bind(PostController));
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
- *             $ref: '#/components/schemas/Post'
+ *             type: object
+ *             properties:
+ *               user:
+ *                 type: string
+ *                 description: The user id of the post
+ *                 required: true
+ *                 example: "---replace-with-actual-user-id---"
+ *               body:
+ *                 type: string
+ *                 description: The body of the post
+ *                 required: true
+ *                 example: "This is a new post"
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *                 description: The picture of the post
  *     responses:
  *       201:
  *         description: The post was successfully created
@@ -133,7 +148,7 @@ router.get("/:id", PostController.getById.bind(PostController));
  *             schema:
  *               $ref: '#/components/schemas/Post'
  *       400:
- *        description: file not found
+ *         description: file not found
  *       401:
  *         description: Unauthorized
  *       403:
@@ -216,13 +231,22 @@ router.post(
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
+ *               user:
+ *                 type: string
+ *                 description: The user id of the post
+ *                 required: true
+ *                 example: "---replace-with-actual-user-id---"
  *               body:
  *                 type: string
  *                 description: The body of the post
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *                 description: The picture of the post
  *     parameters:
  *       - in: path
  *         name: id

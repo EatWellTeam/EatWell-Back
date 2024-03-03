@@ -67,7 +67,7 @@ const register = async (req: Request, res: Response): Promise<Response> => {
       createdAt: new Date(),
     });
     const token = await generateTokens(newUser);
-    return res.status(201).send({
+    return res.status(201).json({
       email: newUser.email,
       _id: newUser._id,
       profileImage: newUser.profileImage,
@@ -117,7 +117,7 @@ const login = async (req: Request, res: Response) => {
 
     const tokens = await generateTokens(user);
 
-    return res.status(200).send({
+    return res.status(200).json({
       email: user.email,
       _id: user._id,
       profileImage: user.profileImage,
