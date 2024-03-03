@@ -61,26 +61,20 @@ class UserController extends BaseController<IUser> {
       res.send("Profile picture updated");
     }
   }
-  async postProfilePicture(req: Request, res: Response) {
-    if (!req.file) {
-      return res.status(400).send("No picture uploaded");
-    } else {
-      const user = await User.findById(req.params.id);
-      if (!user) {
-        return res.status(404).send("User not found");
-      }
-      user.profileImage = req.file.path;
-      await user.save();
-      res.status(200).send("Profile picture updated");
-    }
-  }
+  // async postProfilePicture(req: Request, res: Response) {
+  //   if (!req.file) {
+  //     return res.status(400).send("No picture uploaded");
+  //   } else {
+  //     const user = await User.findById(req.params.id);
+  //     if (!user) {
+  //       return res.status(404).send("User not found");
+  //     }
+  //     user.profileImage = req.file.path;
+  //     await user.save();
+  //     res.status(200).send("Profile picture updated");
+  //   }
+  // }
   async getById(req: Request, res: Response): Promise<void> {
-    console.log("getUserInfo");
-    // const existedUser = await User.findById(req.params.id);
-    // if (!existedUser) {
-    //   res.status(404).send("User not found");
-    //   return;
-    // }
     const accessToken = req.headers.authorization?.split(" ")[1];
 
     const decodedToken = jwt.verify(accessToken, process.env.JWT_SECRET) as {
