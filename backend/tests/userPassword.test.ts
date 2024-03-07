@@ -84,4 +84,13 @@ describe("User for update password Tests", () => {
       .send({ email: user.email, password: "wrongPassword" });
     expect(response.status).toBe(401);
   });
+  test("user not found", async () => {
+    const ObjectId = new mongoose.Types.ObjectId();
+    const response = await request(app)
+      .put(`/user/password/${ObjectId}`)
+      .send({ password: "123", newPassword: "1234" })
+      .set("Authorization", `JWT ${accessToken}`);
+    expect(response.status).toBe(404);
+    expect(response.text).toBe("User not found");
+  });
 });

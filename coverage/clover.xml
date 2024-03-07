@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1709501240119" clover="3.2.0">
-  <project timestamp="1709501240120" name="All files">
-    <metrics statements="484" coveredstatements="419" conditionals="93" coveredconditionals="68" methods="59" coveredmethods="51" elements="636" coveredelements="538" complexity="0" loc="484" ncloc="484" packages="5" files="20" classes="20"/>
+<coverage generated="1709844475789" clover="3.2.0">
+  <project timestamp="1709844475789" name="All files">
+    <metrics statements="484" coveredstatements="416" conditionals="93" coveredconditionals="67" methods="59" coveredmethods="51" elements="636" coveredelements="534" complexity="0" loc="484" ncloc="484" packages="5" files="20" classes="20"/>
     <package name="backend">
       <metrics statements="34" coveredstatements="34" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="4"/>
       <file name="app.ts" path="C:\Users\dolev\Social_Netwrok_Backend\backend\app.ts">
@@ -43,9 +43,9 @@
       </file>
     </package>
     <package name="backend.controllers">
-      <metrics statements="324" coveredstatements="264" conditionals="76" coveredconditionals="57" methods="45" coveredmethods="38"/>
+      <metrics statements="324" coveredstatements="261" conditionals="76" coveredconditionals="56" methods="45" coveredmethods="38"/>
       <file name="auth_controller.ts" path="C:\Users\dolev\Social_Netwrok_Backend\backend\controllers\auth_controller.ts">
-        <metrics statements="105" coveredstatements="82" conditionals="36" coveredconditionals="23" methods="18" coveredmethods="16"/>
+        <metrics statements="105" coveredstatements="79" conditionals="36" coveredconditionals="22" methods="18" coveredmethods="16"/>
         <line num="2" count="10" type="stmt"/>
         <line num="3" count="10" type="stmt"/>
         <line num="4" count="10" type="stmt"/>
@@ -118,14 +118,14 @@
         <line num="146" count="0" type="stmt"/>
         <line num="148" count="9" type="stmt"/>
         <line num="149" count="9" type="stmt"/>
-        <line num="150" count="9" type="cond" truecount="2" falsecount="0"/>
-        <line num="154" count="1" type="stmt"/>
-        <line num="155" count="1" type="stmt"/>
-        <line num="156" count="1" type="stmt"/>
-        <line num="158" count="8" type="stmt"/>
-        <line num="159" count="9" type="stmt"/>
-        <line num="161" count="8" type="stmt"/>
-        <line num="162" count="8" type="stmt"/>
+        <line num="150" count="9" type="cond" truecount="1" falsecount="1"/>
+        <line num="154" count="0" type="stmt"/>
+        <line num="155" count="0" type="stmt"/>
+        <line num="156" count="0" type="stmt"/>
+        <line num="158" count="9" type="stmt"/>
+        <line num="159" count="10" type="stmt"/>
+        <line num="161" count="9" type="stmt"/>
+        <line num="162" count="9" type="stmt"/>
         <line num="165" count="0" type="stmt"/>
         <line num="171" count="45" type="stmt"/>
         <line num="172" count="45" type="stmt"/>
@@ -139,16 +139,16 @@
         <line num="183" count="36" type="stmt"/>
         <line num="184" count="36" type="stmt"/>
         <line num="185" count="36" type="cond" truecount="1" falsecount="0"/>
-        <line num="189" count="19" type="stmt"/>
-        <line num="190" count="19" type="stmt"/>
-        <line num="191" count="19" type="stmt"/>
-        <line num="193" count="17" type="stmt"/>
-        <line num="198" count="17" type="stmt"/>
-        <line num="202" count="17" type="stmt"/>
-        <line num="203" count="28" type="stmt"/>
-        <line num="205" count="17" type="stmt"/>
-        <line num="206" count="17" type="stmt"/>
-        <line num="207" count="17" type="stmt"/>
+        <line num="189" count="18" type="stmt"/>
+        <line num="190" count="18" type="stmt"/>
+        <line num="191" count="18" type="stmt"/>
+        <line num="193" count="18" type="stmt"/>
+        <line num="198" count="18" type="stmt"/>
+        <line num="202" count="18" type="stmt"/>
+        <line num="203" count="29" type="stmt"/>
+        <line num="205" count="18" type="stmt"/>
+        <line num="206" count="18" type="stmt"/>
+        <line num="207" count="18" type="stmt"/>
         <line num="212" count="0" type="stmt"/>
         <line num="252" count="10" type="stmt"/>
       </file>

@@ -16,7 +16,7 @@ const base = "http://localhost:3000";
  */
 /**
  * @swagger
- * /files:
+ * /file:
  *   post:
  *     summary: Upload a file
  *     tags: [Files]
