@@ -58,11 +58,11 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         const salt = yield bcrypt_1.default.genSalt(10);
         const encryptedPassword = yield bcrypt_1.default.hash(password, salt);
-        const imageUrl = path_1.default.join(__dirname, "default_picture.jpeg");
+        const fileName = path_1.default.basename(path_1.default.join(__dirname, "default_picture.jpeg"));
         const newUser = yield user_model_1.default.create({
             email: email,
             password: encryptedPassword,
-            profileImage: imageUrl,
+            profileImage: fileName,
         });
         yield userActivity_model_1.default.create({
             user: newUser._id,

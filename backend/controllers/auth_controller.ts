@@ -52,11 +52,13 @@ const register = async (req: Request, res: Response): Promise<Response> => {
     }
     const salt = await bcrypt.genSalt(10);
     const encryptedPassword = await bcrypt.hash(password, salt);
-    const imageUrl = path.join(__dirname, "default_picture.jpeg");
+    const fileName = path.basename(
+      path.join(__dirname, "default_picture.jpeg")
+    );
     const newUser = await User.create({
       email: email,
       password: encryptedPassword,
-      profileImage: imageUrl,
+      profileImage: fileName,
     });
 
     await UserActivityModel.create({

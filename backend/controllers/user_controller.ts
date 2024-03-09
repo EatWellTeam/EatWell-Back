@@ -56,7 +56,7 @@ class UserController extends BaseController<IUser> {
         return res.status(404).send("User not found");
       }
 
-      user.profileImage = req.file.path;
+      user.profileImage = req.file.filename;
       await user.save();
       res.send("Profile picture updated");
     }
