@@ -17,6 +17,7 @@ const base_controller_1 = require("./base_controller");
 const userActivity_model_1 = __importDefault(require("../models/userActivity_model"));
 const comments_model_1 = __importDefault(require("../models/comments_model"));
 const user_model_1 = __importDefault(require("../models/user_model"));
+const path_1 = __importDefault(require("path"));
 class PostController extends base_controller_1.BaseController {
     constructor() {
         super(post_model_1.default);
@@ -80,11 +81,8 @@ class PostController extends base_controller_1.BaseController {
             }
             try {
                 if (req.file) {
-                    // const fileName = path.basename(
-                    //   path.join(__dirname, "default_picture.jpeg")
-                    // );
-                    req.body.picture = req.file.path;
-                    console.log("req.body.picture: " + req.body.picture);
+                    req.body.picture = path_1.default.basename(req.file.path);
+                    console.log("req.body.picture: " + path_1.default.basename(req.file.path));
                 }
                 const post = yield post_model_1.default.create(req.body);
                 if (post) {

@@ -57,7 +57,10 @@ class UserController extends BaseController<IUser> {
 
       user.profileImage = req.file.filename;
       await user.save();
-      res.send("Profile picture updated");
+      res.json({
+        message: "Profile picture updated",
+        profileImage: user.profileImage,
+      });
     }
   }
   async getById(req: Request, res: Response): Promise<void> {

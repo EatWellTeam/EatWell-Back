@@ -183,39 +183,11 @@ const refresh = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
     }));
 });
-// const getUserInfo = async (req: Request, res: Response): Promise<Response> => {
-//   console.log("getUserInfo");
-//   const authHeader = req.headers["authorization"];
-//   const accessToken = authHeader && authHeader.split(" ")[1]; // Bearer <token>
-//   if (!accessToken) {
-//     return res.status(401).send("Unauthorized: Access token is missing");
-//   }
-//   try {
-//     const decodedToken = jwt.verify(accessToken, process.env.JWT_SECRET) as {
-//       _id: string;
-//     };
-//     const user = await User.findOne({ _id: decodedToken._id });
-//     if (!user) {
-//       return res.status(404).send("User not found");
-//     }
-//     // Customize the user information you want to return
-//     const userInfo = {
-//       _id: user._id,
-//       email: user.email,
-//       // Add more user properties as needed
-//     };
-//     return res.status(200).send(userInfo);
-//   } catch (error) {
-//     console.log(error);
-//     return res.status(401).send("Unauthorized: Invalid access token");
-//   }
-// };
 exports.default = {
     register,
     login,
     logout,
     refresh,
-    // getUserInfo, // Add the new method to export
     googleSignin,
 };
 //# sourceMappingURL=auth_controller.js.map

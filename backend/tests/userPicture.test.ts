@@ -34,7 +34,7 @@ describe("User edit picture tests", () => {
       .set("Authorization", `JWT ${accessToken}`)
       .attach("file", path.join(__dirname, "OIP.jpeg"));
     expect(response.status).toBe(200);
-    expect(response.text).toBe("Profile picture updated");
+    expect(response.body.message).toBe("Profile picture updated");
   });
   test("Update user picture with no picture", async () => {
     const response = await request(app)
