@@ -1,6 +1,3 @@
-//TODO:
-//1.delete user
-//2.update user
 import { BaseController } from "./base_controller";
 import { Request, Response } from "express";
 import User, { IUser } from "../models/user_model";
@@ -55,25 +52,14 @@ class UserController extends BaseController<IUser> {
       if (!user) {
         return res.status(404).send("User not found");
       }
+      console.log("req.file", req.file);
+      console.log("req.file.filename", req.file.filename);
 
       user.profileImage = req.file.filename;
       await user.save();
       res.send("Profile picture updated");
     }
   }
-  // async postProfilePicture(req: Request, res: Response) {
-  //   if (!req.file) {
-  //     return res.status(400).send("No picture uploaded");
-  //   } else {
-  //     const user = await User.findById(req.params.id);
-  //     if (!user) {
-  //       return res.status(404).send("User not found");
-  //     }
-  //     user.profileImage = req.file.path;
-  //     await user.save();
-  //     res.status(200).send("Profile picture updated");
-  //   }
-  // }
   async getById(req: Request, res: Response): Promise<void> {
     const accessToken = req.headers.authorization?.split(" ")[1];
 

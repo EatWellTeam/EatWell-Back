@@ -80,6 +80,9 @@ class PostController extends base_controller_1.BaseController {
             }
             try {
                 if (req.file) {
+                    // const fileName = path.basename(
+                    //   path.join(__dirname, "default_picture.jpeg")
+                    // );
                     req.body.picture = req.file.path;
                     console.log("req.body.picture: " + req.body.picture);
                 }

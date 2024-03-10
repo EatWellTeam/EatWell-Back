@@ -4,6 +4,7 @@ import { Request, Response } from "express";
 import UserActivity from "../models/userActivity_model";
 import CommentModel from "../models/comments_model";
 import User from "../models/user_model";
+import path from "path";
 class PostController extends BaseController<IPost> {
   constructor() {
     super(Post);
@@ -58,10 +59,11 @@ class PostController extends BaseController<IPost> {
       res.status(404).send("User not found");
       return;
     }
+
     try {
       if (req.file) {
-        req.body.picture = req.file.path;
-        console.log("req.body.picture: " + req.body.picture);
+        req.body.picture = path.basename(req.file.path);
+        console.log("req.body.picture: " + path.basename(req.file.path));
       }
       const post = await Post.create(req.body);
       if (post) {

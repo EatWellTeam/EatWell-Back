@@ -52,9 +52,11 @@ const register = async (req: Request, res: Response): Promise<Response> => {
     }
     const salt = await bcrypt.genSalt(10);
     const encryptedPassword = await bcrypt.hash(password, salt);
+
     const fileName = path.basename(
       path.join(__dirname, "default_picture.jpeg")
     );
+
     const newUser = await User.create({
       email: email,
       password: encryptedPassword,
@@ -217,45 +219,10 @@ const refresh = async (req: Request, res: Response) => {
   );
 };
 
-// const getUserInfo = async (req: Request, res: Response): Promise<Response> => {
-//   console.log("getUserInfo");
-
-//   const authHeader = req.headers["authorization"];
-//   const accessToken = authHeader && authHeader.split(" ")[1]; // Bearer <token>
-
-//   if (!accessToken) {
-//     return res.status(401).send("Unauthorized: Access token is missing");
-//   }
-
-//   try {
-//     const decodedToken = jwt.verify(accessToken, process.env.JWT_SECRET) as {
-//       _id: string;
-//     };
-//     const user = await User.findOne({ _id: decodedToken._id });
-
-//     if (!user) {
-//       return res.status(404).send("User not found");
-//     }
-
-//     // Customize the user information you want to return
-//     const userInfo = {
-//       _id: user._id,
-//       email: user.email,
-//       // Add more user properties as needed
-//     };
-
-//     return res.status(200).send(userInfo);
-//   } catch (error) {
-//     console.log(error);
-//     return res.status(401).send("Unauthorized: Invalid access token");
-//   }
-// };
-
 export default {
   register,
   login,
   logout,
   refresh,
-  // getUserInfo, // Add the new method to export
   googleSignin,
 };
