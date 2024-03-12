@@ -30,6 +30,7 @@ const initApp = (): Promise<Express> => {
       app.use("/user", userRoute);
       app.use("/public", express.static(path.join(__dirname, "/public")));
       app.use("/file", fileRoute);
+
       resolve(app);
     });
   });

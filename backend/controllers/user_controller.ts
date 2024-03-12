@@ -12,6 +12,10 @@ class UserController extends BaseController<IUser> {
     super(User);
   }
   async updatePassword(req: Request, res: Response) {
+    console.log("req.body", req.body);
+    console.log("current password", req.body.password);
+    console.log("new password", req.body.newPassword);
+
     const user = await User.findById(req.params.id);
     if (!user) {
       return res.status(404).send("User not found");
@@ -28,7 +32,7 @@ class UserController extends BaseController<IUser> {
     await user.save();
     console.log("user new password - coontroller", user.password);
 
-    res.send("Password changed");
+    res.json({ message: "Password updated", password: user.password });
   }
 
   async deleteById(req: Request, res: Response): Promise<void> {
