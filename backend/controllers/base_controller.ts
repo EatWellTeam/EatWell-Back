@@ -50,7 +50,13 @@ export class BaseController<ModelType> {
   }
 
   async putById(req: Request, res: Response) {
+    const modelName = this.model.modelName;
     try {
+      if (modelName === "Post") {
+        if (req.file) {
+          req.body.picture = req.file.filename;
+        }
+      }
       const updatedItem = await this.model.findByIdAndUpdate(
         req.params.id,
         req.body,
