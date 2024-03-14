@@ -129,6 +129,40 @@ import authController from "../controllers/auth_controller";
  */
 
 router.post("/register", authController.register);
+
+/**
+ * @swagger
+ * /auth/google:
+ *   post:
+ *     summary: Sign in with Google
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - credential
+ *               - clientId
+ *               - select_by
+ *             properties:
+ *               credential:
+ *                 type: string
+ *                 description: The user's google credential.
+ *               clientId:
+ *                 type: string
+ *                 description: The user's google client id.
+ *               select_by:
+ *                 type: string
+ *                 description: The user's select_by.
+ *     responses:
+ *       200:
+ *         description: The access & refresh tokens & user info
+ *       400:
+ *         description: Bad request.
+ */
+
 router.post("/google", authController.googleSignin);
 
 /**

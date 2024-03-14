@@ -27,17 +27,22 @@ const googleSignin = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             audience: process.env.GOOGLE_CLIENT_ID,
         });
         const payload = ticket.getPayload();
+        console.log("payload", payload);
         const email = payload === null || payload === void 0 ? void 0 : payload.email;
+        console.log("email", email);
         if (email != null) {
             let user = yield user_model_1.default.findOne({ email: email });
+            console.log("find user", user);
             if (user == null) {
                 user = yield user_model_1.default.create({
                     email: email,
                     password: "",
                     imgUrl: payload === null || payload === void 0 ? void 0 : payload.picture,
                 });
+                console.log("create user", user);
             }
             const tokens = yield generateTokens(user);
+            console.log("tokens", tokens);
             res.status(200).send(Object.assign({ email: user.email, _id: user._id, imageUrl: user.profileImage }, tokens));
         }
     }
@@ -47,6 +52,7 @@ const googleSignin = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 });
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // console.log("register");
+    console.log("req.body", req.body);
     const { email, password } = req.body;
     if (!email || !password) {
         return res.status(400).send("Missing email or password");

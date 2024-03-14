@@ -47,6 +47,24 @@ let refreshToken;
 let newRefreshToken;
 describe("Auth tests", () => {
     console.log("authUser");
+    test("test register for internal server error", () => __awaiter(void 0, void 0, void 0, function* () {
+        // Simulate a database connection error
+        jest.spyOn(user_model_1.default, "findOne").mockImplementationOnce(() => {
+            throw new Error("Database connection error");
+        });
+        const response = yield (0, supertest_1.default)(app).post("/auth/register").send(user);
+        // Expect the server to return a 500 status code (Internal Server Error)
+        expect(response.statusCode).toEqual(500);
+    }));
+    test(" test login for internal server error", () => __awaiter(void 0, void 0, void 0, function* () {
+        // Simulate a database connection error
+        jest.spyOn(user_model_1.default, "findOne").mockImplementationOnce(() => {
+            throw new Error("Database connection error");
+        });
+        const response = yield (0, supertest_1.default)(app).post("/auth/login").send(user);
+        // Expect the server to return a 500 status code (Internal Server Error)
+        expect(response.statusCode).toEqual(500);
+    }));
     test("TEST 1 test register", () => __awaiter(void 0, void 0, void 0, function* () {
         const existedUser = yield user_model_1.default.findOne({ email: user.email });
         if (!existedUser) {
@@ -133,6 +151,13 @@ describe("Auth tests", () => {
     test("TEST 13: no refresh token", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app).get("/auth/refresh").send();
         expect(response.statusCode).not.toBe(200);
+    }));
+    test("TEST 14: test logout for error verifying token", () => __awaiter(void 0, void 0, void 0, function* () {
+        // Try to logout with an invalid token
+        const response = yield (0, supertest_1.default)(app)
+            .get("/auth/logout")
+            .set("Authorization", "Bearer invalid_token");
+        expect(response.statusCode).toEqual(402);
     }));
 });
 //# sourceMappingURL=auth.test.js.map
