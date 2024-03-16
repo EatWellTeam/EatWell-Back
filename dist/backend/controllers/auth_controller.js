@@ -18,7 +18,6 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const userActivity_model_1 = __importDefault(require("../models/userActivity_model"));
 const google_auth_library_1 = require("google-auth-library");
 const path_1 = __importDefault(require("path"));
-const crypto_1 = __importDefault(require("crypto"));
 const client = new google_auth_library_1.OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const googleSignin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(req.body);
@@ -36,10 +35,9 @@ const googleSignin = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             console.log("find user", user);
             console.log("user picture", payload === null || payload === void 0 ? void 0 : payload.picture);
             if (user == null) {
-                const encryptedPassword = crypto_1.default.randomBytes(5).toString("hex");
                 user = yield user_model_1.default.create({
                     email: email,
-                    password: encryptedPassword,
+                    password: "1010",
                     profileImage: payload === null || payload === void 0 ? void 0 : payload.picture,
                 });
                 console.log("create user", user);
@@ -128,7 +126,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return res.status(401).send("email or password incorrect");
         }
         const tokens = yield generateTokens(user);
-        return res.status(200).json(Object.assign({ email: user.email, _id: user._id, profileImage: user.profileImage, password: user.password }, tokens));
+        return res.status(200).json(Object.assign({ email: user.email, _id: user._id, profileImage: user.profileImage, password: req.body.password }, tokens));
     }
     catch (error) {
         console.log(error);

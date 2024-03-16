@@ -8,7 +8,7 @@ const userSchema = new mongoose_1.Schema({
     },
     password: {
         type: String,
-        required: false,
+        required: true,
     },
     refreshTokens: {
         type: [String],

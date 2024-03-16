@@ -3,5 +3,5 @@ client-cert.pem
 client-csr.pem
 client-key.pem
 public
-dist
-coverage
+dist/
+coverage/
