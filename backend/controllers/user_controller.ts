@@ -15,11 +15,11 @@ class UserController extends BaseController<IUser> {
     console.log("req.body", req.body);
     console.log("current password", req.body.password);
     console.log("new password", req.body.newPassword);
-
     const user = await User.findById(req.params.id);
     if (!user) {
       return res.status(404).send("User not found");
     }
+    console.log("user password", user.password);
     const validPassword = await bcrypt.compare(
       req.body.password,
       user.password

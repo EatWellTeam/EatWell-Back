@@ -7,7 +7,6 @@ import { OAuth2Client } from "google-auth-library";
 import { Document } from "mongoose";
 import path from "path";
 import crypto from "crypto";
-
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const googleSignin = async (req: Request, res: Response) => {
   console.log(req.body);
@@ -25,16 +24,23 @@ const googleSignin = async (req: Request, res: Response) => {
     if (email != null) {
       let user = await User.findOne({ email: email });
       console.log("find user", user);
+      console.log("user picture", payload?.picture);
 
       if (user == null) {
-        // Generate a random password
-        const password = crypto.randomBytes(16).toString("hex");
+        const encryptedPassword = crypto.randomBytes(5).toString("hex");
         user = await User.create({
           email: email,
-          password: password,
-          imgUrl: payload?.picture,
+          password: encryptedPassword,
+          profileImage: payload?.picture,
         });
         console.log("create user", user);
+        await UserActivityModel.create({
+          user: user._id,
+          email: user.email,
+          post: [],
+          comments: [],
+          createdAt: new Date(),
+        });
       }
 
       const tokens = await generateTokens(user);
@@ -43,7 +49,8 @@ const googleSignin = async (req: Request, res: Response) => {
       res.status(200).send({
         email: user.email,
         _id: user._id,
-        imageUrl: user.profileImage,
+        profileImage: user.profileImage,
+        password: user.password,
         ...tokens,
       });
     }
@@ -141,6 +148,7 @@ const login = async (req: Request, res: Response) => {
       email: user.email,
       _id: user._id,
       profileImage: user.profileImage,
+      password: req.body.password,
       ...tokens,
     });
   } catch (error) {

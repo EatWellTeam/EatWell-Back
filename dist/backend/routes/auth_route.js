@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const auth_controller_1 = __importDefault(require("../controllers/auth_controller"));
+const upload_middleware_1 = __importDefault(require("../middleware/upload_middleware"));
 /**
  * @swagger
  * tags:
@@ -158,7 +159,7 @@ router.post("/register", auth_controller_1.default.register);
  *       400:
  *         description: Bad request.
  */
-router.post("/google", auth_controller_1.default.googleSignin);
+router.post("/google", upload_middleware_1.default, auth_controller_1.default.googleSignin);
 /**
  * @swagger
  * /auth/login:

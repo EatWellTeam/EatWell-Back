@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 import authController from "../controllers/auth_controller";
-
+import uploadMiddleware from "../middleware/upload_middleware";
 /**
  * @swagger
  * tags:
@@ -163,7 +163,7 @@ router.post("/register", authController.register);
  *         description: Bad request.
  */
 
-router.post("/google", authController.googleSignin);
+router.post("/google", uploadMiddleware, authController.googleSignin);
 
 /**
  * @swagger
