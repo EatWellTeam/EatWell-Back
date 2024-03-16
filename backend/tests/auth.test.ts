@@ -36,6 +36,28 @@ let newRefreshToken: string;
 
 describe("Auth tests", () => {
   console.log("authUser");
+  test("test register for internal server error", async () => {
+    // Simulate a database connection error
+    jest.spyOn(User, "findOne").mockImplementationOnce(() => {
+      throw new Error("Database connection error");
+    });
+
+    const response = await request(app).post("/auth/register").send(user);
+
+    // Expect the server to return a 500 status code (Internal Server Error)
+    expect(response.statusCode).toEqual(500);
+  });
+  test(" test login for internal server error", async () => {
+    // Simulate a database connection error
+    jest.spyOn(User, "findOne").mockImplementationOnce(() => {
+      throw new Error("Database connection error");
+    });
+
+    const response = await request(app).post("/auth/login").send(user);
+
+    // Expect the server to return a 500 status code (Internal Server Error)
+    expect(response.statusCode).toEqual(500);
+  });
   test("TEST 1 test register", async () => {
     const existedUser = await User.findOne({ email: user.email });
     if (!existedUser) {
@@ -127,5 +149,13 @@ describe("Auth tests", () => {
   test("TEST 13: no refresh token", async () => {
     const response = await request(app).get("/auth/refresh").send();
     expect(response.statusCode).not.toBe(200);
+  });
+  test("TEST 14: test logout for error verifying token", async () => {
+    // Try to logout with an invalid token
+    const response = await request(app)
+      .get("/auth/logout")
+      .set("Authorization", "Bearer invalid_token");
+
+    expect(response.statusCode).toEqual(402);
   });
 });

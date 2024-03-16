@@ -105,12 +105,17 @@ router.delete(
  *             properties:
  *               password:
  *                 type: string
+ *                 description: The old password
+ *                 required: true
+ *               newPassword:
+ *                 type: string
  *                 description: The new password
  *                 required: true
- *                 example: "newPassword"
  *     responses:
  *       200:
  *         description: Password updated
+ *       400:
+ *         description: Invalid password
  *       401:
  *         description: Unauthorized
  *       403:

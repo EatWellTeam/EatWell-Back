@@ -62,7 +62,13 @@ class BaseController {
     }
     putById(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const modelName = this.model.modelName;
             try {
+                if (modelName === "Post") {
+                    if (req.file) {
+                        req.body.picture = req.file.filename;
+                    }
+                }
                 const updatedItem = yield this.model.findByIdAndUpdate(req.params.id, req.body, { new: true });
                 if (!updatedItem) {
                     res.status(404).json({ message: "Not Found" });

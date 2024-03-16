@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const auth_controller_1 = __importDefault(require("../controllers/auth_controller"));
+const upload_middleware_1 = __importDefault(require("../middleware/upload_middleware"));
 /**
  * @swagger
  * tags:
@@ -126,7 +127,39 @@ const auth_controller_1 = __importDefault(require("../controllers/auth_controlle
  *          description: Internal server error.
  */
 router.post("/register", auth_controller_1.default.register);
-router.post("/google", auth_controller_1.default.googleSignin);
+/**
+ * @swagger
+ * /auth/google:
+ *   post:
+ *     summary: Sign in with Google
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - credential
+ *               - clientId
+ *               - select_by
+ *             properties:
+ *               credential:
+ *                 type: string
+ *                 description: The user's google credential.
+ *               clientId:
+ *                 type: string
+ *                 description: The user's google client id.
+ *               select_by:
+ *                 type: string
+ *                 description: The user's select_by.
+ *     responses:
+ *       200:
+ *         description: The access & refresh tokens & user info
+ *       400:
+ *         description: Bad request.
+ */
+router.post("/google", upload_middleware_1.default, auth_controller_1.default.googleSignin);
 /**
  * @swagger
  * /auth/login:

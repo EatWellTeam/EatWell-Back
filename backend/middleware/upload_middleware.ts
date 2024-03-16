@@ -18,11 +18,13 @@ const upload = multer({
   fileFilter: (req: Request, file: Express.Multer.File, cb: Callback) => {
     const validImageMimetypes = [
       "image/jpeg",
+      "image/jpg",
       "image/png",
       "image/gif",
       "image/bmp",
       "image/webp",
     ];
+
     if (validImageMimetypes.includes(file.mimetype)) {
       // Accept the file
       cb(null, true);
