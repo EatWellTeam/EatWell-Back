@@ -6,7 +6,6 @@ import UserActivityModel from "../models/userActivity_model";
 import { OAuth2Client } from "google-auth-library";
 import { Document } from "mongoose";
 import path from "path";
-import crypto from "crypto";
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const googleSignin = async (req: Request, res: Response) => {
   console.log(req.body);
@@ -27,10 +26,9 @@ const googleSignin = async (req: Request, res: Response) => {
       console.log("user picture", payload?.picture);
 
       if (user == null) {
-        const encryptedPassword = crypto.randomBytes(5).toString("hex");
         user = await User.create({
           email: email,
-          password: encryptedPassword,
+          password: "1010",
           profileImage: payload?.picture,
         });
         console.log("create user", user);
