@@ -2,7 +2,7 @@ import appPromise from "../app";
 import request from "supertest";
 import mongoose from "mongoose";
 import { Express } from "express";
-import Post from "../models/post_model";
+import Post from "../models/Food_model";
 import UserModel from "../models/user_model";
 import UserActivity from "../models/userActivity_model";
 import { createUser } from "./auth.test";

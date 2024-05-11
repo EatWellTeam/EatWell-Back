@@ -1,8 +1,8 @@
-import Post, { IPost } from "../models/post_model";
+import Post, { IPost } from "../models/Food_model";
 import { BaseController } from "./base_controller";
 import { Request, Response } from "express";
 import UserActivity from "../models/userActivity_model";
-import CommentModel from "../models/comments_model";
+import CommentModel from "../models/WeightEntry_model";
 import User from "../models/user_model";
 import path from "path";
 class PostController extends BaseController<IPost> {

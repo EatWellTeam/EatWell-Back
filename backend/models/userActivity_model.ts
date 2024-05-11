@@ -1,25 +1,48 @@
-import mongoose from "mongoose";
-import { IUser } from "./user_model";
-import { IPost } from "./post_model";
-import { IComment } from "./comments_model";
+import { Document, Schema, model } from "mongoose";
 
-export interface IUserActivity extends mongoose.Document {
+import { IUser } from "./user_model";
+
+type enumActivityLevel =
+  | "sedentary"
+  | "lightlyActive"
+  | "moderatelyActive"
+  | "veryActive";
+
+type goalEnum = "lose" | "maintain" | "gain";
+
+export interface IUserActivity extends Document {
   user: IUser["_id"];
-  email: string;
-  post: IPost["_id"];
-  comment: IComment["_id"];
+  weight: number;
+  height: number;
+  activityLevel: enumActivityLevel;
+  goal: goalEnum;
+  recommendedCalories?: number;
+  nutritionValues?: {
+    calories: number;
+    protein: number;
+    carbs: number;
+    fat: number;
+  };
   createdAt: Date;
 }
 
-const userActivitySchema = new mongoose.Schema<IUserActivity>({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  email: { type: String, required: true },
-  post: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
-  comment: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
+const userActivitySchema = new Schema<IUserActivity>({
+  user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  weight: { type: Number, required: true },
+  height: { type: Number, required: true },
+  activityLevel: { type: String, required: true },
+  goal: { type: String, required: true },
+  recommendedCalories: { type: Number, required: false },
+  nutritionValues: {
+    calories: { type: Number, required: false },
+    protein: { type: Number, required: false },
+    carbs: { type: Number, required: false },
+    fat: { type: Number, required: false },
+  },
   createdAt: { type: Date, default: Date.now },
 });
 
-const UserActivityModel = mongoose.model<IUserActivity>(
+const UserActivityModel = model<IUserActivity>(
   "UserActivity",
   userActivitySchema
 );

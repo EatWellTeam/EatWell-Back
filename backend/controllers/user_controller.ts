@@ -3,8 +3,8 @@ import { Request, Response } from "express";
 import User, { IUser } from "../models/user_model";
 import bcrypt from "bcrypt";
 import UserActivity from "../models/userActivity_model";
-import Post from "../models/post_model";
-import Comment from "../models/comments_model";
+import Post from "../models/Food_model";
+import Comment from "../models/WeightEntry_model";
 import jwt from "jsonwebtoken";
 
 class UserController extends BaseController<IUser> {

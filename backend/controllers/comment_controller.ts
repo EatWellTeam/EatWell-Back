@@ -1,7 +1,7 @@
-import CommentModel, { IComment } from "../models/comments_model";
+import CommentModel, { IComment } from "../models/WeightEntry_model";
 import { BaseController } from "./base_controller";
 import { Request, Response } from "express";
-import Post from "../models/post_model";
+import Post from "../models/Food_model";
 import UserActivity from "../models/userActivity_model";
 import mongoose from "mongoose";
 

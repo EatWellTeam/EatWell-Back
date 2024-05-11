@@ -5,7 +5,7 @@ import UserActivity from "../models/userActivity_model";
 import { Express } from "express";
 import { createUser } from "./auth.test";
 import UserModel from "../models/user_model";
-import PostModel from "../models/post_model";
+import PostModel from "../models/Food_model";
 import post1 from "./post.test";
 
 let app: Express;

@@ -5,8 +5,8 @@ import UserActivity from "../models/userActivity_model";
 import { Express } from "express";
 import { createUser } from "./auth.test";
 import UserModel, { IUser } from "../models/user_model";
-import Post from "../models/post_model";
-import Comment from "../models/comments_model";
+import Post from "../models/Food_model";
+import Comment from "../models/WeightEntry_model";
 
 let app: Express;
 let userToDelete: IUser;

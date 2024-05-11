@@ -1,5 +1,5 @@
 {
-  "name": "social_netwrok",
+  "name": "eat_well",
   "version": "1.0.0",
   "description": "Project",
   "main": "app.js",
@@ -22,12 +22,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ArikLeikin/Social_Netwrok.git"
+    "url": "git+https://github.com/EatWellTeam/EatWell-Back.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ArikLeikin/Social_Netwrok/issues"
+    "url": "https://github.com/EatWellTeam/issues"
   },
   "dependencies": {
     "@types/bcrypt": "^5.0.2",
@@ -67,5 +67,5 @@
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.2"
   },
-  "homepage": "https://github.com/ArikLeikin/Social_Netwrok#readme"
+  "homepage": "https://github.com/EatWellTeam/EatWell-Back.git#readme"
 }
