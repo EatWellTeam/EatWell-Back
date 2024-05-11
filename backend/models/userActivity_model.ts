@@ -12,6 +12,8 @@ type goalEnum = "lose" | "maintain" | "gain";
 
 export interface IUserActivity extends Document {
   user: IUser["_id"];
+  gender: string;
+  age?: number;
   weight: number;
   height: number;
   activityLevel: enumActivityLevel;
@@ -28,6 +30,8 @@ export interface IUserActivity extends Document {
 
 const userActivitySchema = new Schema<IUserActivity>({
   user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  gender: { type: String, required: true },
+  age: { type: Number, required: true },
   weight: { type: Number, required: true },
   height: { type: Number, required: true },
   activityLevel: { type: String, required: true },

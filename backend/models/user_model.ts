@@ -4,8 +4,6 @@ export interface IUser extends Document {
   id?: string;
   email: string;
   fullName: string;
-  gender: string;
-  age?: number;
   password: string;
   dateOfBirth?: Date;
   refreshTokens?: string[];
@@ -22,8 +20,6 @@ const userSchema = new Schema<IUser>({
     type: String,
     required: true,
   },
-  gender: { type: String, required: true },
-  age: { type: Number, required: true },
 
   dateOfBirth: {
     type: Date,
