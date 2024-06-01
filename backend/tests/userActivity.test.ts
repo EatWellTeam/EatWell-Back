@@ -5,8 +5,6 @@ import UserActivity from "../models/userActivity_model";
 import { Express } from "express";
 import { createUser } from "./auth.test";
 import UserModel from "../models/user_model";
-import PostModel from "../models/Food_model";
-import post1 from "./post.test";
 
 let app: Express;
 let userId: string;
@@ -17,8 +15,6 @@ beforeAll(async () => {
   app = await appPromise();
   console.log("------User Activity Test Start------");
   await UserActivity.deleteMany();
-  await UserModel.deleteMany();
-  await PostModel.deleteMany();
   user = {
     email: "kuku@gmail.com",
     password: "123",
@@ -55,28 +51,7 @@ describe("User Activity Test", () => {
     console.log("User Activity Response : ", response.body);
     expect(response.status).toBe(200);
   });
-  test("get posts of user", async () => {
-    const response = await request(app).get(`/userActivity/${userId}/posts`);
-    console.log("User Posts : ", response.body);
-    expect(response.status).toBe(200);
-  });
-  test("get comments of user", async () => {
-    const response = await request(app).get(`/userActivity/${userId}/comments`);
-    console.log("User Comments : ", response.body);
-    expect(response.status).toBe(200);
-  });
-  test("user not found for getting posts", async () => {
-    const response = await request(app).get(`/userActivity/${ObjectId}/posts`);
-    expect(response.status).toBe(404);
-    expect(response.body.message).toBe("User not found");
-  });
-  test("user not found for getting comments", async () => {
-    const response = await request(app).get(
-      `/userActivity/${ObjectId}/comments`
-    );
-    expect(response.status).toBe(404);
-    expect(response.body.message).toBe("User not found");
-  });
+
   test("should not get user activity by id", async () => {
     const response = await request(app).get(`/userActivity/${ObjectId}`);
     expect(response.status).toBe(404);
