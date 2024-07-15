@@ -9,25 +9,27 @@ console.log("imageURL", filePath);
 const messages: Message[] = [
   {
     role: "user",
-    content:
-      "Could you write the name of each item and their quantity in the following picture please?",
-    image_url: filePath,
-  },
-  {
-    role: "assistant",
-    content: "",
+    content: [
+      {
+        type: "text",
+        text: "Hello, Could you please provide me then name of each item and the quantity of each item in the image for using it in Edamam API?",
+      },
+      {
+        type: "image",
+        image_url: filePath,
+      },
+    ],
   },
 ];
 
 describe("fetchChatCompletion", () => {
   it("fetches chat completion successfully", async () => {
-    console.log("messages", messages);
     const imageExists = fs.existsSync(filePath);
     expect(imageExists).toBe(true);
     try {
       const response = await fetchChatCompletion(messages);
       expect(response).toBeDefined();
-      console.log("response", response);
+      console.log("response from API: \n", response);
     } catch (error) {
       console.error("API Error: ", error.message);
     }
