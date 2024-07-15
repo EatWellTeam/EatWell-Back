@@ -10,7 +10,9 @@ let app: Express;
 let userDocument: IUser;
 let updateUser: IUser;
 const user = {
-  email: "kuku@gmail.com",
+  email: "testUser@test.com",
+  fullName: "testUser",
+  dateOfBirth: "1990-01-01",
   password: "123",
 };
 

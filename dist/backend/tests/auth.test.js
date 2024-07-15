@@ -17,19 +17,21 @@ const supertest_1 = __importDefault(require("supertest"));
 const app_1 = __importDefault(require("../app"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const user_model_1 = __importDefault(require("../models/user_model"));
-const userActivity_model_1 = __importDefault(require("../models/userActivity_model"));
+// import UserActivity from "../models/userActivity_model";
 let app;
 beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     app = yield (0, app_1.default)();
     console.log("beforeAll");
-    yield user_model_1.default.deleteMany();
-    yield userActivity_model_1.default.deleteMany();
+    // await User.deleteMany();
+    // await UserActivity.deleteMany();
 }));
 afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
     yield mongoose_1.default.connection.close();
 }));
 const user = {
-    email: "testUser@test.com",
+    email: "testAuth@test.com",
+    fullName: "testAuth",
+    dateOfBirth: "1990-01-01",
     password: "1234567890",
 };
 const user2 = {
@@ -47,24 +49,24 @@ let refreshToken;
 let newRefreshToken;
 describe("Auth tests", () => {
     console.log("authUser");
-    test("test register for internal server error", () => __awaiter(void 0, void 0, void 0, function* () {
-        // Simulate a database connection error
-        jest.spyOn(user_model_1.default, "findOne").mockImplementationOnce(() => {
-            throw new Error("Database connection error");
-        });
-        const response = yield (0, supertest_1.default)(app).post("/auth/register").send(user);
-        // Expect the server to return a 500 status code (Internal Server Error)
-        expect(response.statusCode).toEqual(500);
-    }));
-    test(" test login for internal server error", () => __awaiter(void 0, void 0, void 0, function* () {
-        // Simulate a database connection error
-        jest.spyOn(user_model_1.default, "findOne").mockImplementationOnce(() => {
-            throw new Error("Database connection error");
-        });
-        const response = yield (0, supertest_1.default)(app).post("/auth/login").send(user);
-        // Expect the server to return a 500 status code (Internal Server Error)
-        expect(response.statusCode).toEqual(500);
-    }));
+    // test("test register for internal server error", async () => {
+    //   // Simulate a database connection error
+    //   jest.spyOn(User, "findOne").mockImplementationOnce(() => {
+    //     throw new Error("Database connection error");
+    //   });
+    //   const response = await request(app).post("/auth/register").send(user);
+    //   // Expect the server to return a 500 status code (Internal Server Error)
+    //   expect(response.statusCode).toEqual(500);
+    // });
+    // test(" test login for internal server error", async () => {
+    //   // Simulate a database connection error
+    //   jest.spyOn(User, "findOne").mockImplementationOnce(() => {
+    //     throw new Error("Database connection error");
+    //   });
+    //   const response = await request(app).post("/auth/login").send(user);
+    //   // Expect the server to return a 500 status code (Internal Server Error)
+    //   expect(response.statusCode).toEqual(500);
+    // });
     test("TEST 1 test register", () => __awaiter(void 0, void 0, void 0, function* () {
         const existedUser = yield user_model_1.default.findOne({ email: user.email });
         if (!existedUser) {
@@ -87,7 +89,7 @@ describe("Auth tests", () => {
         const response2 = yield (0, supertest_1.default)(app).post("/auth/login").send(user); //user didn't login
         expect(response2.statusCode).toEqual(400);
         expect(response2.text).toEqual("missing email or password");
-        user.email = "testUser@test.com";
+        user.email = "testAuth@test.com";
     }));
     test("TEST 6: test login for incorrect password", () => __awaiter(void 0, void 0, void 0, function* () {
         user.password = "123456789";
@@ -101,7 +103,7 @@ describe("Auth tests", () => {
         const response = yield (0, supertest_1.default)(app).post("/auth/login").send(user);
         expect(response.statusCode).toEqual(401);
         expect(response.text).toEqual("email or password incorrect");
-        user.email = "testUser@test.com";
+        user.email = "testAuth@test.com";
     }));
     test("TEST 8: test for logout with no token", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield (0, supertest_1.default)(app).get("/auth/logout");

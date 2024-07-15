@@ -28,15 +28,27 @@ const googleSignin = async (req: Request, res: Response) => {
       if (user == null) {
         user = await User.create({
           email: email,
+          fullName: payload?.name,
+          dateOfBirth: new Date(),
           password: "1010",
           profileImage: payload?.picture,
         });
         console.log("create user", user);
         await UserActivityModel.create({
           user: user._id,
-          email: user.email,
-          post: [],
-          comments: [],
+          gender: "",
+          age: 0,
+          weight: 0,
+          height: 0,
+          activityLevel: "",
+          goal: "",
+          recommendedCalories: 0,
+          nutritionValues: {
+            calories: 0,
+            protein: 0,
+            carbs: 0,
+            fat: 0,
+          },
           createdAt: new Date(),
         });
       }
@@ -61,7 +73,7 @@ const register = async (req: Request, res: Response): Promise<Response> => {
   // console.log("register");
   console.log("req.body", req.body);
 
-  const { email, password } = req.body;
+  const { email, fullName, dateOfBirth, password } = req.body;
   if (!email || !password) {
     return res.status(400).send("Missing email or password");
   }
@@ -76,23 +88,38 @@ const register = async (req: Request, res: Response): Promise<Response> => {
     const fileName = path.basename(
       path.join(__dirname, "default_picture.jpeg")
     );
+    console.log("fileName", fileName);
 
     const newUser = await User.create({
       email: email,
+      fullName: fullName,
+      dateOfBirth: dateOfBirth,
       password: encryptedPassword,
       profileImage: fileName,
     });
 
     await UserActivityModel.create({
       user: newUser._id,
-      email: newUser.email,
-      post: [],
-      comments: [],
+      gender: "male",
+      age: 0,
+      weight: 0,
+      height: 0,
+      activityLevel: "sedentary",
+      goal: "lose",
+      recommendedCalories: 0,
+      nutritionValues: {
+        calories: 0,
+        protein: 0,
+        carbs: 0,
+        fat: 0,
+      },
       createdAt: new Date(),
     });
     const token = await generateTokens(newUser);
     return res.status(201).json({
       email: newUser.email,
+      fullName: newUser.fullName,
+      dateOfBirth: newUser.dateOfBirth,
       _id: newUser._id,
       profileImage: newUser.profileImage,
       password: newUser.password,
@@ -130,8 +157,11 @@ const login = async (req: Request, res: Response) => {
   if (!email || !password) {
     return res.status(400).send("missing email or password");
   }
+
   try {
     const user = await User.findOne({ email: email });
+    console.log("user Login", user);
+
     if (!user) {
       return res.status(401).send("email or password incorrect");
     }
@@ -144,6 +174,8 @@ const login = async (req: Request, res: Response) => {
 
     return res.status(200).json({
       email: user.email,
+      fullName: user.fullName,
+      dateOfBirth: user.dateOfBirth,
       _id: user._id,
       profileImage: user.profileImage,
       password: req.body.password,

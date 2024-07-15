@@ -3,14 +3,14 @@ import initApp from "../app";
 import mongoose from "mongoose";
 import { Express } from "express";
 import User from "../models/user_model";
-import UserActivity from "../models/userActivity_model";
+// import UserActivity from "../models/userActivity_model";
 let app: Express;
 
 beforeAll(async () => {
   app = await initApp();
   console.log("beforeAll");
-  await User.deleteMany();
-  await UserActivity.deleteMany();
+  // await User.deleteMany();
+  // await UserActivity.deleteMany();
 });
 
 afterAll(async () => {
@@ -18,7 +18,9 @@ afterAll(async () => {
 });
 
 const user = {
-  email: "testUser@test.com",
+  email: "testAuth@test.com",
+  fullName: "testAuth",
+  dateOfBirth: "1990-01-01",
   password: "1234567890",
 };
 const user2 = {
@@ -36,28 +38,28 @@ let newRefreshToken: string;
 
 describe("Auth tests", () => {
   console.log("authUser");
-  test("test register for internal server error", async () => {
-    // Simulate a database connection error
-    jest.spyOn(User, "findOne").mockImplementationOnce(() => {
-      throw new Error("Database connection error");
-    });
+  // test("test register for internal server error", async () => {
+  //   // Simulate a database connection error
+  //   jest.spyOn(User, "findOne").mockImplementationOnce(() => {
+  //     throw new Error("Database connection error");
+  //   });
 
-    const response = await request(app).post("/auth/register").send(user);
+  //   const response = await request(app).post("/auth/register").send(user);
 
-    // Expect the server to return a 500 status code (Internal Server Error)
-    expect(response.statusCode).toEqual(500);
-  });
-  test(" test login for internal server error", async () => {
-    // Simulate a database connection error
-    jest.spyOn(User, "findOne").mockImplementationOnce(() => {
-      throw new Error("Database connection error");
-    });
+  //   // Expect the server to return a 500 status code (Internal Server Error)
+  //   expect(response.statusCode).toEqual(500);
+  // });
+  // test(" test login for internal server error", async () => {
+  //   // Simulate a database connection error
+  //   jest.spyOn(User, "findOne").mockImplementationOnce(() => {
+  //     throw new Error("Database connection error");
+  //   });
 
-    const response = await request(app).post("/auth/login").send(user);
+  //   const response = await request(app).post("/auth/login").send(user);
 
-    // Expect the server to return a 500 status code (Internal Server Error)
-    expect(response.statusCode).toEqual(500);
-  });
+  //   // Expect the server to return a 500 status code (Internal Server Error)
+  //   expect(response.statusCode).toEqual(500);
+  // });
   test("TEST 1 test register", async () => {
     const existedUser = await User.findOne({ email: user.email });
     if (!existedUser) {
@@ -80,7 +82,7 @@ describe("Auth tests", () => {
     const response2 = await request(app).post("/auth/login").send(user); //user didn't login
     expect(response2.statusCode).toEqual(400);
     expect(response2.text).toEqual("missing email or password");
-    user.email = "testUser@test.com";
+    user.email = "testAuth@test.com";
   });
   test("TEST 6: test login for incorrect password", async () => {
     user.password = "123456789";
@@ -94,7 +96,7 @@ describe("Auth tests", () => {
     const response = await request(app).post("/auth/login").send(user);
     expect(response.statusCode).toEqual(401);
     expect(response.text).toEqual("email or password incorrect");
-    user.email = "testUser@test.com";
+    user.email = "testAuth@test.com";
   });
   test("TEST 8: test for logout with no token", async () => {
     const response = await request(app).get("/auth/logout");

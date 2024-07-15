@@ -37,15 +37,27 @@ const googleSignin = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             if (user == null) {
                 user = yield user_model_1.default.create({
                     email: email,
+                    fullName: payload === null || payload === void 0 ? void 0 : payload.name,
+                    dateOfBirth: new Date(),
                     password: "1010",
                     profileImage: payload === null || payload === void 0 ? void 0 : payload.picture,
                 });
                 console.log("create user", user);
                 yield userActivity_model_1.default.create({
                     user: user._id,
-                    email: user.email,
-                    post: [],
-                    comments: [],
+                    gender: "",
+                    age: 0,
+                    weight: 0,
+                    height: 0,
+                    activityLevel: "",
+                    goal: "",
+                    recommendedCalories: 0,
+                    nutritionValues: {
+                        calories: 0,
+                        protein: 0,
+                        carbs: 0,
+                        fat: 0,
+                    },
                     createdAt: new Date(),
                 });
             }
@@ -61,7 +73,7 @@ const googleSignin = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // console.log("register");
     console.log("req.body", req.body);
-    const { email, password } = req.body;
+    const { email, fullName, dateOfBirth, password } = req.body;
     if (!email || !password) {
         return res.status(400).send("Missing email or password");
     }
@@ -73,20 +85,33 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const salt = yield bcrypt_1.default.genSalt(10);
         const encryptedPassword = yield bcrypt_1.default.hash(password, salt);
         const fileName = path_1.default.basename(path_1.default.join(__dirname, "default_picture.jpeg"));
+        console.log("fileName", fileName);
         const newUser = yield user_model_1.default.create({
             email: email,
+            fullName: fullName,
+            dateOfBirth: dateOfBirth,
             password: encryptedPassword,
             profileImage: fileName,
         });
         yield userActivity_model_1.default.create({
             user: newUser._id,
-            email: newUser.email,
-            post: [],
-            comments: [],
+            gender: "male",
+            age: 0,
+            weight: 0,
+            height: 0,
+            activityLevel: "sedentary",
+            goal: "lose",
+            recommendedCalories: 0,
+            nutritionValues: {
+                calories: 0,
+                protein: 0,
+                carbs: 0,
+                fat: 0,
+            },
             createdAt: new Date(),
         });
         const token = yield generateTokens(newUser);
-        return res.status(201).json(Object.assign({ email: newUser.email, _id: newUser._id, profileImage: newUser.profileImage, password: newUser.password }, token));
+        return res.status(201).json(Object.assign({ email: newUser.email, fullName: newUser.fullName, dateOfBirth: newUser.dateOfBirth, _id: newUser._id, profileImage: newUser.profileImage, password: newUser.password }, token));
     }
     catch (error) {
         console.log(error);
@@ -118,6 +143,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     try {
         const user = yield user_model_1.default.findOne({ email: email });
+        console.log("user Login", user);
         if (!user) {
             return res.status(401).send("email or password incorrect");
         }
@@ -126,7 +152,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return res.status(401).send("email or password incorrect");
         }
         const tokens = yield generateTokens(user);
-        return res.status(200).json(Object.assign({ email: user.email, _id: user._id, profileImage: user.profileImage, password: req.body.password }, tokens));
+        return res.status(200).json(Object.assign({ email: user.email, fullName: user.fullName, dateOfBirth: user.dateOfBirth, _id: user._id, profileImage: user.profileImage, password: req.body.password }, tokens));
     }
     catch (error) {
         console.log(error);
