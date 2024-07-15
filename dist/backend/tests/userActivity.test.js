@@ -2,6 +2,7 @@
 import mongoose from "mongoose";
 // import appPromise from "../app";
 import UserActivity from "../models/userActivity_model";
+// import { Express } from "express";
 import { createUser } from "./auth.test";
 import UserModel from "../models/user_model";
 // let app: Express;
@@ -16,20 +17,9 @@ beforeAll(async () => {
     // app = await appPromise();
     console.log("------User Activity Test Start------");
     await UserActivity.deleteMany();
-    user = {
-        email: "kuku@gmail.com",
-        password: "123",
-    };
-    accessToken = await createUser(user);
-    userId = await UserModel.findOne({ email: user.email }).then((user) => {
-        return user?._id.toHexString();
-    });
-    post1.user = userId;
-    await request(app)
-        .post("/posts/addPost")
-        .send(post1)
-        .set("Authorization", `JWT ${accessToken}`);
-    ObjectId = new mongoose.Types.ObjectId();
+    await UserModel.deleteMany();
+    await createUser(user);
+    // ObjectId = new mongoose.Types.ObjectId();
 });
 afterAll(async () => {
     await mongoose.disconnect();
