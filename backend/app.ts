@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import authRoute from "./routes/auth_route";
 import fileRoute from "./routes/files_route";
 import userRoute from "./routes/user_route";
+import edamam_route from "./routes/edamam_route";
 import path from "path";
 import cors from "cors";
 
@@ -22,6 +23,7 @@ const initApp = (): Promise<Express> => {
       app.use(bodyParser.urlencoded({ extended: true }));
       app.use("/auth", authRoute);
       app.use("/user", userRoute);
+      app.use("/nutrition", edamam_route);
       app.use("/public", express.static(path.join(__dirname, "/public")));
       app.use("/file", fileRoute);
 

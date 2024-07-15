@@ -32,6 +32,14 @@ Content-Type: application/json
 "email": "test1@test.com", "password": "1234567890"
 }
 
+###
+POST http://localhost:3000/nutrition/get-nutrition
+Content-Type: application/json
+
+{
+  "ingredients": ["1 cup rice", "200g chicken"]
+}
+
 
 
   
