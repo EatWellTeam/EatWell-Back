@@ -11,6 +11,7 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const auth_route_1 = __importDefault(require("./routes/auth_route"));
 const files_route_1 = __importDefault(require("./routes/files_route"));
 const user_route_1 = __importDefault(require("./routes/user_route"));
+const edamam_route_1 = __importDefault(require("./routes/edamam_route"));
 const path_1 = __importDefault(require("path"));
 const cors_1 = __importDefault(require("cors"));
 const initApp = () => {
@@ -26,6 +27,7 @@ const initApp = () => {
             app.use(body_parser_1.default.urlencoded({ extended: true }));
             app.use("/auth", auth_route_1.default);
             app.use("/user", user_route_1.default);
+            app.use("/nutrition", edamam_route_1.default);
             app.use("/public", express_1.default.static(path_1.default.join(__dirname, "/public")));
             app.use("/file", files_route_1.default);
             resolve(app);
