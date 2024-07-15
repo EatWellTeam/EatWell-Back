@@ -10,6 +10,8 @@ let app: Express;
 let userDocument: IUser;
 const user = {
   email: "kuku@gmail.com",
+  fullName: "kuku",
+  dateOfBirth: "1990-01-01",
   password: "123",
 };
 

@@ -3,8 +3,6 @@ import { Request, Response } from "express";
 import User, { IUser } from "../models/user_model";
 import bcrypt from "bcrypt";
 import UserActivity from "../models/userActivity_model";
-import Post from "../models/Food_model";
-import Comment from "../models/WeightEntry_model";
 import jwt from "jsonwebtoken";
 
 class UserController extends BaseController<IUser> {
@@ -42,8 +40,6 @@ class UserController extends BaseController<IUser> {
       return;
     }
     await UserActivity.deleteMany({ user: user._id });
-    await Post.deleteMany({ user: user._id });
-    await Comment.deleteMany({ user: user._id });
     await User.findByIdAndDelete(req.params.id);
     res.send("User deleted");
   }
@@ -86,6 +82,8 @@ class UserController extends BaseController<IUser> {
     const userInfo = {
       _id: user._id,
       email: user.email,
+      fullName: user.fullName,
+      dateOfBirth: user.dateOfBirth,
       profileImage: user.profileImage,
       // Add more user properties as needed
     };

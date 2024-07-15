@@ -11,6 +11,7 @@
     "testUserDelete": "tsc && jest --detectOpenHandles --forceExit --runInBand ./backend/tests/userDelete.test.ts",
     "testUserPicture": "tsc && jest --detectOpenHandles --forceExit --runInBand ./backend/tests/userPicture.test.ts",
     "testUserInfo": "tsc && jest --detectOpenHandles --forceExit --runInBand ./backend/tests/userInfo.test.ts",
+    "testUserActivity": "tsc && jest --detectOpenHandles --forceExit --runInBand ./backend/tests/userActivity.test.ts",
     "testFiles": "tsc && jest --detectOpenHandles --forceExit --runInBand ./backend/tests/files.test.ts",
     "testOpenAI": "tsc && jest --detectOpenHandles --forceExit --runInBand ./backend/tests/openai.test.ts",
     "start": "tsc && node ./dist/src/server.js",

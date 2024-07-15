@@ -5,13 +5,13 @@ import UserActivity from "../models/userActivity_model";
 import { Express } from "express";
 import { createUser } from "./auth.test";
 import UserModel, { IUser } from "../models/user_model";
-import Post from "../models/Food_model";
-import Comment from "../models/WeightEntry_model";
 
 let app: Express;
 let userToDelete: IUser;
 const user = {
   email: "kuku@gmail.com",
+  fullName: "kuku",
+  dateOfBirth: "1990-01-01",
   password: "123",
 };
 let accessToken: Promise<string>;
@@ -20,8 +20,6 @@ beforeAll(async () => {
   console.log("------ Test Start For Delete User------");
   await UserActivity.deleteMany();
   await UserModel.deleteMany();
-  await Post.deleteMany();
-  await Comment.deleteMany();
   accessToken = await createUser(user);
   userToDelete = await UserModel.findOne({ email: user.email });
 });
@@ -42,14 +40,6 @@ describe("User for delete Tests", () => {
     expect(response.status).toBe(200);
     const deletedUser = await UserModel.findById(userToDelete._id);
     expect(deletedUser).toBeNull();
-  });
-  test("verify posts of user deleted", async () => {
-    const posts = await Post.find({ user: userToDelete._id });
-    expect(posts.length).toBe(0);
-  });
-  test("verify comments of user deleted", async () => {
-    const comments = await Comment.find({ user: userToDelete._id });
-    expect(comments.length).toBe(0);
   });
   test("verify userActivity of user deleted", async () => {
     const userActivity = await UserActivity.find({ user: userToDelete._id });
