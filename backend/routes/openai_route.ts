@@ -1,14 +1,7 @@
 import express from "express";
+import OpenAIService from "../services/openAI";
 const router = express.Router();
 
-/**
- * @swagger
- * tags:
- *   name: OpenAI
- *   description: The OpenAI API
- */
+router.post("/api", OpenAIService.fetchChatCompletion);
 
-router.post("/openai", async (req, res) => {
-  console.log("openai");
-  res.status(200).send({ message: "OpenAI API" });
-});
+export default router;
