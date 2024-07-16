@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "module": "commonjs",
+    "module": "esnext",
     "esModuleInterop": true,
-    "target": "es6",
+    "target": "es2020",
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist"
