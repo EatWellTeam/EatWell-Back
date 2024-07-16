@@ -39,7 +39,13 @@ Content-Type: application/json
 {
   "ingredients": ["1 cup rice", "200g chicken"]
 }
+###
+POST http://localhost:3000/nutrition/get-recipes
+Content-Type: application/json
 
+{
+  "query": "chicken"
+}
 
 
   
