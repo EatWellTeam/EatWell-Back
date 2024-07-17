@@ -8,17 +8,17 @@ import request from "supertest";
 import { Message, MessageContent } from "../services/openAI";
 env.config();
 
-// const imageURL =
-//   "https://www.diabetesfoodhub.org/system/user_files/Images/1837-diabetic-pecan-crusted-chicken-breast_JulAug20DF_clean-simple_061720.jpg";
+const imageURL =
+  "https://www.diabetesfoodhub.org/system/user_files/Images/1837-diabetic-pecan-crusted-chicken-breast_JulAug20DF_clean-simple_061720.jpg";
 
 // const imageURL =
 //   "https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_1200/hellofresh_s3/image/shawarma-au-poulet-d0f073a1.jpg";
-const imageURL =
-  "https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_1200/hellofresh_s3/image/shawarma-au-poulet-d0f073a1.jpg";
+// const imageURL =
+//   "https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_1200/hellofresh_s3/image/shawarma-au-poulet-d0f073a1.jpg";
 const messageContent: MessageContent[] = [
   {
     type: "text",
-    text: "Please provide the name of each item and the quantity of each item in the image for using it in Edamam API.",
+    text: `Given an image with various food items, list each item followed by its approximate quantity in a simple, structured format suitable for processing by an API. For example, if the image contains 3 tablespoons of hummus, 1/2 cup of shredded red cabbage, and 8 pieces of baked pita chips, format your response as follows: ["3 tablespoons of hummus", "1/2 cup of shredded red cabbage", "8 pieces of baked pita chips"].`,
   },
   {
     type: "image_url",
