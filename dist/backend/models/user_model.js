@@ -1,5 +1,7 @@
-import { Schema, model } from "mongoose";
-const userSchema = new Schema({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose_1 = require("mongoose");
+const userSchema = new mongoose_1.Schema({
     email: {
         type: String,
         required: true,
@@ -29,6 +31,6 @@ const userSchema = new Schema({
         required: false,
     },
 });
-const UserModel = model("User", userSchema);
-export default UserModel;
+const UserModel = (0, mongoose_1.model)("User", userSchema);
+exports.default = UserModel;
 //# sourceMappingURL=user_model.js.map
