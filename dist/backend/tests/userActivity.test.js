@@ -1,10 +1,15 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
 // import request from "supertest";
-import mongoose from "mongoose";
+const mongoose_1 = __importDefault(require("mongoose"));
 // import appPromise from "../app";
-import UserActivity from "../models/userActivity_model";
+const userActivity_model_1 = __importDefault(require("../models/userActivity_model"));
 // import { Express } from "express";
-import { createUser } from "./auth.test";
-import UserModel from "../models/user_model";
+const auth_test_1 = require("./auth.test");
+const user_model_1 = __importDefault(require("../models/user_model"));
 // let app: Express;
 const user = {
     email: "kuku@gmail.com",
@@ -16,13 +21,13 @@ const user = {
 beforeAll(async () => {
     // app = await appPromise();
     console.log("------User Activity Test Start------");
-    await UserActivity.deleteMany();
-    await UserModel.deleteMany();
-    await createUser(user);
+    await userActivity_model_1.default.deleteMany();
+    await user_model_1.default.deleteMany();
+    await (0, auth_test_1.createUser)(user);
     // ObjectId = new mongoose.Types.ObjectId();
 });
 afterAll(async () => {
-    await mongoose.disconnect();
+    await mongoose_1.default.disconnect();
     console.log("------User Activity Test End------");
 });
 describe("User Activity Test", () => {

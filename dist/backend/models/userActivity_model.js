@@ -1,6 +1,8 @@
-import { Schema, model } from "mongoose";
-const userActivitySchema = new Schema({
-    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose_1 = require("mongoose");
+const userActivitySchema = new mongoose_1.Schema({
+    user: { type: mongoose_1.Schema.Types.ObjectId, ref: "User", required: true },
     gender: { type: String, required: true },
     age: { type: Number, required: true },
     weight: { type: Number, required: true },
@@ -16,6 +18,6 @@ const userActivitySchema = new Schema({
     },
     createdAt: { type: Date, default: Date.now },
 });
-const UserActivityModel = model("UserActivity", userActivitySchema);
-export default UserActivityModel;
+const UserActivityModel = (0, mongoose_1.model)("UserActivity", userActivitySchema);
+exports.default = UserActivityModel;
 //# sourceMappingURL=userActivity_model.js.map

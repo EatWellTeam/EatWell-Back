@@ -1,10 +1,15 @@
-import User from "../models/user_model";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
-import UserActivityModel from "../models/userActivity_model";
-import { OAuth2Client } from "google-auth-library";
-import path from "path";
-const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const user_model_1 = __importDefault(require("../models/user_model"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
+const userActivity_model_1 = __importDefault(require("../models/userActivity_model"));
+const google_auth_library_1 = require("google-auth-library");
+const path_1 = __importDefault(require("path"));
+const client = new google_auth_library_1.OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const googleSignin = async (req, res) => {
     console.log(req.body);
     try {
@@ -17,11 +22,11 @@ const googleSignin = async (req, res) => {
         const email = payload?.email;
         console.log("email", email);
         if (email != null) {
-            let user = await User.findOne({ email: email });
+            let user = await user_model_1.default.findOne({ email: email });
             console.log("find user", user);
             console.log("user picture", payload?.picture);
             if (user == null) {
-                user = await User.create({
+                user = await user_model_1.default.create({
                     email: email,
                     fullName: payload?.name,
                     dateOfBirth: new Date(),
@@ -29,7 +34,7 @@ const googleSignin = async (req, res) => {
                     profileImage: payload?.picture,
                 });
                 console.log("create user", user);
-                await UserActivityModel.create({
+                await userActivity_model_1.default.create({
                     user: user._id,
                     gender: "",
                     age: 0,
@@ -70,22 +75,22 @@ const register = async (req, res) => {
         return res.status(400).send("Missing email or password");
     }
     try {
-        const existingUser = await User.findOne({ email: email });
+        const existingUser = await user_model_1.default.findOne({ email: email });
         if (existingUser) {
             return res.status(409).send("Email Already Used");
         }
-        const salt = await bcrypt.genSalt(10);
-        const encryptedPassword = await bcrypt.hash(password, salt);
-        const fileName = path.basename(path.join(__dirname, "default_picture.jpeg"));
+        const salt = await bcrypt_1.default.genSalt(10);
+        const encryptedPassword = await bcrypt_1.default.hash(password, salt);
+        const fileName = path_1.default.basename(path_1.default.join(__dirname, "default_picture.jpeg"));
         console.log("fileName", fileName);
-        const newUser = await User.create({
+        const newUser = await user_model_1.default.create({
             email: email,
             fullName: fullName,
             dateOfBirth: dateOfBirth,
             password: encryptedPassword,
             profileImage: fileName,
         });
-        await UserActivityModel.create({
+        await userActivity_model_1.default.create({
             user: newUser._id,
             gender: "male",
             age: 0,
@@ -119,10 +124,10 @@ const register = async (req, res) => {
     }
 };
 const generateTokens = async (user) => {
-    const accessToken = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+    const accessToken = jsonwebtoken_1.default.sign({ _id: user._id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRATION,
     });
-    const refreshToken = jwt.sign({ _id: user._id }, process.env.JWT_REFRESH_SECRET);
+    const refreshToken = jsonwebtoken_1.default.sign({ _id: user._id }, process.env.JWT_REFRESH_SECRET);
     if (user.refreshTokens == null) {
         user.refreshTokens = [refreshToken];
     }
@@ -142,12 +147,12 @@ const login = async (req, res) => {
         return res.status(400).send("missing email or password");
     }
     try {
-        const user = await User.findOne({ email: email });
+        const user = await user_model_1.default.findOne({ email: email });
         console.log("user Login", user);
         if (!user) {
             return res.status(401).send("email or password incorrect");
         }
-        const match = await bcrypt.compare(password, user.password);
+        const match = await bcrypt_1.default.compare(password, user.password);
         if (!match) {
             return res.status(401).send("email or password incorrect");
         }
@@ -173,14 +178,14 @@ const logout = async (req, res) => {
     const refreshToken = authHeader && authHeader.split(" ")[1]; // Bearer <token>
     if (refreshToken == null)
         return res.sendStatus(401);
-    jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, async (err, user) => {
+    jsonwebtoken_1.default.verify(refreshToken, process.env.JWT_REFRESH_SECRET, async (err, user) => {
         console.log(err);
         if (err) {
             console.log(err);
             return res.status(402).send(err);
         }
         try {
-            const userDb = await User.findOne({ _id: user._id });
+            const userDb = await user_model_1.default.findOne({ _id: user._id });
             if (!userDb.refreshTokens ||
                 !userDb.refreshTokens.includes(refreshToken)) {
                 userDb.refreshTokens = [];
@@ -203,21 +208,21 @@ const refresh = async (req, res) => {
     const refreshToken = authHeader && authHeader.split(" ")[1]; // Bearer <token>
     if (refreshToken == null)
         return res.sendStatus(401);
-    jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, async (err, user) => {
+    jsonwebtoken_1.default.verify(refreshToken, process.env.JWT_REFRESH_SECRET, async (err, user) => {
         if (err) {
             console.log(err);
             return res.sendStatus(401);
         }
         try {
-            const userDb = await User.findOne({ _id: user._id });
+            const userDb = await user_model_1.default.findOne({ _id: user._id });
             if (!userDb.refreshTokens ||
                 !userDb.refreshTokens.includes(refreshToken)) {
                 userDb.refreshTokens = [];
                 await userDb.save();
                 return res.sendStatus(401);
             }
-            const accessToken = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
-            const newRefreshToken = jwt.sign({ _id: user._id }, process.env.JWT_REFRESH_SECRET);
+            const accessToken = jsonwebtoken_1.default.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
+            const newRefreshToken = jsonwebtoken_1.default.sign({ _id: user._id }, process.env.JWT_REFRESH_SECRET);
             userDb.refreshTokens = userDb.refreshTokens.filter((t) => t !== refreshToken);
             userDb.refreshTokens.push(newRefreshToken);
             await userDb.save();
@@ -231,7 +236,7 @@ const refresh = async (req, res) => {
         }
     });
 };
-export default {
+exports.default = {
     register,
     login,
     logout,

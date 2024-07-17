@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "module": "esnext",
+    "module": "commonjs",
     "esModuleInterop": true,
     "target": "es2020",
     "moduleResolution": "node",
