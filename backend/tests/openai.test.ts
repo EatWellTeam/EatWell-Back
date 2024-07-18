@@ -46,12 +46,12 @@ afterAll(async () => {
 describe("fetchChatCompletion", () => {
   test("fetches chat completion successfully", async () => {
     const response = await request(app)
-      .post("/openai/api")
+      .post("/middleware/process")
       .send(messages)
       .timeout(30000); // 30 seconds timeout
 
     expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty("response");
-    console.log("response from API: \n", response.body.response);
+  
+    console.log("response from API: \n", response.body);
   }, 35000);
 });

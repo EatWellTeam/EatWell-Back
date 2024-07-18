@@ -8,6 +8,7 @@ import fileRoute from "./routes/files_route";
 import userRoute from "./routes/user_route";
 import edamam_route from "./routes/edamam_route";
 import openai_route from "./routes/openai_route";
+import middleware_route from "./routes/middleware_route";
 import path from "path";
 import cors from "cors";
 
@@ -25,6 +26,7 @@ const initApp = (): Promise<Express> => {
       app.use("/auth", authRoute);
       app.use("/user", userRoute);
       app.use("/nutrition", edamam_route);
+      app.use("/middleware", middleware_route);
       app.use("/public", express.static(path.join(__dirname, "/public")));
       app.use("/file", fileRoute);
       app.use("/openai", openai_route);

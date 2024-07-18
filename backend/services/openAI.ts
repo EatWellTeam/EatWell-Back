@@ -1,7 +1,7 @@
 // openAI.ts
 import OpenAI from "openai";
 import dotenv from "dotenv";
-import { Request, Response } from "express";
+import { Request, Response,NextFunction} from "express";
 dotenv.config();
 
 const openai = new OpenAI({
@@ -25,7 +25,7 @@ export interface Message {
   content: string | MessageContent[];
 }
 
-async function fetchChatCompletion(req: Request, res: Response) {
+async function fetchChatCompletion(req: Request, res: Response,next: NextFunction) {
   const messages: Message[] = req.body;
 
   console.log("messages: \n", JSON.stringify(messages, null, 2));
@@ -36,7 +36,8 @@ async function fetchChatCompletion(req: Request, res: Response) {
       messages: messages as OpenAI.Chat.ChatCompletionMessage[],
     });
     const latestResponse = response.choices[0].message.content;
-    res.json({ response: latestResponse || "" });
+    res.locals.openaiResponse = latestResponse||"";
+    next();
   } catch (error) {
     console.error("API Error: ", error);
     res.status(500).json({ error: error.message });

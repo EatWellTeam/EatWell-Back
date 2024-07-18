@@ -32,8 +32,8 @@ const getNutritionData = async (ingredients: string[]) => {
 export const setUpNutritionData = async (req: Request, res: Response) => {
   const { ingredients } = req.body;
 
-  if (!ingredients || !Array.isArray(ingredients)) {
-    return res.status(400).json({ error: 'Ingredients must be an array of strings' });
+  if (!ingredients ) {
+    return res.status(400).json({ error: 'Ingredients are empty' });
   }
 
   try {
@@ -75,4 +75,6 @@ export const setUpNutritionData = async (req: Request, res: Response) => {
         res.status(500).json({ error: 'Failed to fetch recipes' });
       }
     }
+
+    export default { setUpNutritionData, setUpRecipes };
 
