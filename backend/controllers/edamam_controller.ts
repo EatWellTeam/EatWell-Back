@@ -4,46 +4,50 @@ import { Request, Response } from "express";
 
 const NUTRITION_APP_ID = '08d95f6a'
 const NUTRITION_APP_KEY = '5df62f05cffe0b54753833a587409e09'
-const NUTRITION_BASE_URL = 'https://api.edamam.com/api/nutrition-data'
+const NUTRITION_BASE_URL = 'https://api.edamam.com/api/nutrition-details'
 const RECIPE_APP_ID = 'b9d6ac00'
 const RECIPE_APP_KEY = 'f45f3a0a172b9d092254a2ba00516eb4'
-const RECIPE_BASE_URL = 'https://api.edamam.com/search'
+const RECIPE_BASE_URL = 'https://api.edamam.com/api/recipes/v2'
 
-const getNutritionData = async (ingredients: string) => {
-    try {
-      const params = {
-        app_id: NUTRITION_APP_ID,
-        app_key: NUTRITION_APP_KEY,
-        ingr: ingredients
-      };
-      
-      const response = await axios.get(NUTRITION_BASE_URL, { params });
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching nutrition data:', error);
-      throw error;
-    }
-  };
+const getNutritionData = async (ingredients: string[]) => {
+  try {
+    const params = {
+      app_id: NUTRITION_APP_ID,
+      app_key: NUTRITION_APP_KEY,
+    };
 
+    const body = {
+      title: 'Recipe',
+      ingr: ingredients,
+    };
 
-   export const setUpNutritionData = async (req: Request, res:Response) => {
-      const { ingredients } = req.body;
-    
-      if (!ingredients || !Array.isArray(ingredients)) {
-        return res.status(400).json({ error: 'Ingredients must be an array of strings' });
-      }
-    
-      try {
-        const nutritionData = await getNutritionData(ingredients.join('\n')); // Join the array into a single string
-        res.json(nutritionData);
-      } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch nutrition data' });
-      }
-    }
+    const response = await axios.post(NUTRITION_BASE_URL, body, { params });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching nutrition data:', error);
+    throw error;
+  }
+};
+
+export const setUpNutritionData = async (req: Request, res: Response) => {
+  const { ingredients } = req.body;
+
+  if (!ingredients || !Array.isArray(ingredients)) {
+    return res.status(400).json({ error: 'Ingredients must be an array of strings' });
+  }
+
+  try {
+    const nutritionData = await getNutritionData(ingredients); // Pass the array directly
+    res.json(nutritionData);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch nutrition data' });
+  }
+};
 
     const getRecipes = async (query: string) => {
       try {
         const params = {
+          type: 'public',
           q: query,
           app_id: RECIPE_APP_ID,
           app_key: RECIPE_APP_KEY,

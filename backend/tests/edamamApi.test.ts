@@ -15,24 +15,31 @@ afterAll(async () => {
 });
 
 const ingredients = {
-  ingredients: ["200g chicken", "100g rice"],
-  //   ingredients: [
-  //     "5 slices of chicken breast",
-  //     "1/2 cup of mixed leafy greens",
-  //     "5 cherry tomatoes",
-  //     "1/4 cup of diced yellow bell pepper",
-  //     "20 pieces of sweet potato fries",
-  //   ],
+  ingredients: ["1 cup of mixed greens", 
+    "6 cherry tomato halves", 
+    "5 pieces of yellow bell pepper",
+    "1 cup ofsweet potato fries",
+    "5 slices of seasoned chicken breast"]
+};
+
+const ingredients2 = {
+  ingredients: ["1 steak",
+     "1 cup of mixed greens",
+     "200 gram potato", 
+     "2 pieces of bread",
+     "1 cup of milk"]
 };
 
 const query = {
   query: "chicken",
 };
+
 describe("Edamam API tests", () => {
   test("test get nutrition", async () => {
     const response = await request(app)
       .post("/nutrition/get-nutrition")
       .send(ingredients);
+
     console.log("response from Edamam API: \n", response.body);
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("calories");
@@ -40,6 +47,30 @@ describe("Edamam API tests", () => {
     expect(response.body).toHaveProperty("totalNutrients");
     expect(response.body).toHaveProperty("totalDaily");
   });
+
+
+  test("another test get nutrition", async () => {
+    const response = await request(app)
+      .post("/nutrition/get-nutrition")
+      .send(ingredients2);
+
+      console.log("response from Edamam API: \n", response.body);
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty("calories");
+    expect(response.body).toHaveProperty("totalWeight");
+    expect(response.body).toHaveProperty("totalNutrients");
+    expect(response.body).toHaveProperty("totalDaily");
+  });
+
+  test("test get nutrition with invalid ingredients", async () => {
+    const response = await request(app)
+      .post("/nutrition/get-nutrition")
+      .send({ ingredients: "invalid ingredients" });
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty("error");
+  });
+
+
 
   test("test get recipe", async () => {
     const response = await request(app)
