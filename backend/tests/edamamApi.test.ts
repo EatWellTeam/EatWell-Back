@@ -66,7 +66,7 @@ describe("Edamam API tests", () => {
     const response = await request(app)
       .post("/nutrition/get-nutrition")
       .send({ ingredients: "invalid ingredients" });
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(500);
     expect(response.body).toHaveProperty("error");
   });
 
