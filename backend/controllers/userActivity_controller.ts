@@ -76,6 +76,55 @@ class UserActivityController extends BaseController<IUserActivity> {
     }
   }
 
+  calculateBMR(gender: string, age: number, weight: number, height: number): number {
+    if (gender.toLowerCase() === 'male') {
+      return 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+    } else {
+      return 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+    }
+  }
+
+  adjustForActivityLevel(bmr: number, activityLevel: string): number {
+    switch (activityLevel) {
+      case 'sedentary':
+        return bmr * 1.2;
+      case 'lightlyActive':
+        return bmr * 1.375;
+      case 'moderatelyActive':
+        return bmr * 1.55;
+      case 'veryActive':
+        return bmr * 1.725;
+      default:
+        return bmr * 1.2; // Default to sedentary if unknown
+    }
+  }
+
+   adjustForGoal(calories: number, goal: string): number {
+    switch (goal) {
+      case 'lose':
+        return calories - 500; // Create a 500 calorie deficit
+      case 'gain':
+        return calories + 500; // Create a 500 calorie surplus
+      case 'maintain':
+      default:
+        return calories;
+    }
+  }
+
+   calculateRecommendedCalories(
+    gender: string,
+    age: number,
+    currentWeight: number,
+    height: number,
+    activityLevel: string,
+    goal: string
+  ): number {
+    const bmr = this.calculateBMR(gender, age, currentWeight, height);
+    const adjustedForActivity =this. adjustForActivityLevel( bmr, activityLevel);
+    const recommendedCalories =this. adjustForGoal( adjustedForActivity, goal);
+    return Math.round( recommendedCalories); // Round to nearest whole number
+  }
+
 
 
 

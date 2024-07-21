@@ -13,6 +13,12 @@ const user = {
   fullName: "kuku",
   dateOfBirth: "1990-01-01",
   password: "123",
+  gender: "female",
+  age: 25,
+  weight: 80,
+  height: 180,
+  activityLevel: "sedentary",
+  goal: "lose",
 };
 
 let accessToken: Promise<string>;

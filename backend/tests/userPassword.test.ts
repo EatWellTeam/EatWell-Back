@@ -14,6 +14,13 @@ const user = {
   fullName: "testUser",
   dateOfBirth: "1990-01-01",
   password: "123",
+  gender: "male",
+  age: 30,
+  weight: 80,
+  height: 180,
+  activityLevel: "sedentary",
+  goal: "lose",
+
 };
 
 let accessToken: Promise<string>;

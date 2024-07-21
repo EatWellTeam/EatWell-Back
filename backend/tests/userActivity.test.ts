@@ -11,13 +11,18 @@ const User ={
   fullName: "kuku",
   dateOfBirth: "1990-01-01",
   password: "123",
+  gender: "male",
+  age: 30,
+  weight: 80,
+  height: 180,
+  activityLevel: "sedentary",
+  goal: "lose",
+
 }
 beforeAll(async () => {
   app = await initApp();
   console.log("beforeAll");
-  await request(app).post("/auth/register").send(User); 
-  const response = await request(app).post("/auth/login").send(User);
-  const user_id= response.body.user_id;
+ 
 });
 
 afterAll(async () => {
@@ -32,7 +37,10 @@ describe("User Activity", () => {
     expect(res.status).toBe(200);
   });
   test("update user weight", async () => {  
-    const res = await request(app).put("/userActivity/updateWeight").send({userId: '669cd2e7a2f16c9f3fc83d17', weight: 70});
+    await request(app).post("/auth/register").send(User); 
+    const response = await request(app).post("/auth/login").send(User);
+    const user_id= response.body._id;
+    const res = await request(app).put("/userActivity/updateWeight").send({userId: user_id, weight: 90});
     expect(res.status).toBe(200);
   });
 
