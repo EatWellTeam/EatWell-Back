@@ -8,7 +8,7 @@ export interface IUser extends Document {
   dateOfBirth?: Date;
   refreshTokens?: string[];
   createdAt: Date;
-  profileImage: string;
+  
 }
 
 const userSchema = new Schema<IUser>({
@@ -37,10 +37,7 @@ const userSchema = new Schema<IUser>({
     type: Date,
     default: Date.now,
   },
-  profileImage: {
-    type: String,
-    required: false,
-  },
+  
 });
 
 const UserModel = model<IUser>("User", userSchema);

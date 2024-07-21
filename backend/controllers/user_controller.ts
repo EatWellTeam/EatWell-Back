@@ -44,25 +44,25 @@ class UserController extends BaseController<IUser> {
     res.send("User deleted");
   }
 
-  async updateProfilePicture(req: Request, res: Response) {
-    if (!req.file) {
-      return res.status(400).send("No picture uploaded");
-    } else {
-      const user = await User.findById(req.params.id);
-      if (!user) {
-        return res.status(404).send("User not found");
-      }
-      console.log("req.file", req.file);
-      console.log("req.file.filename", req.file.filename);
+  // async updateProfilePicture(req: Request, res: Response) {
+  //   if (!req.file) {
+  //     return res.status(400).send("No picture uploaded");
+  //   } else {
+  //     const user = await User.findById(req.params.id);
+  //     if (!user) {
+  //       return res.status(404).send("User not found");
+  //     }
+  //     console.log("req.file", req.file);
+  //     console.log("req.file.filename", req.file.filename);
 
-      user.profileImage = req.file.filename;
-      await user.save();
-      res.json({
-        message: "Profile picture updated",
-        profileImage: user.profileImage,
-      });
-    }
-  }
+  //     user.profileImage = req.file.filename;
+  //     await user.save();
+  //     res.json({
+  //       message: "Profile picture updated",
+  //       profileImage: user.profileImage,
+  //     });
+  //   }
+  // }
   async getById(req: Request, res: Response): Promise<void> {
     const accessToken = req.headers.authorization?.split(" ")[1];
 
@@ -84,7 +84,7 @@ class UserController extends BaseController<IUser> {
       email: user.email,
       fullName: user.fullName,
       dateOfBirth: user.dateOfBirth,
-      profileImage: user.profileImage,
+      // profileImage: user.profileImage,
       // Add more user properties as needed
     };
 
