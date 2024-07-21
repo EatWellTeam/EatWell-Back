@@ -178,13 +178,13 @@ router.put(
  *         description: Internal server error
  */
 
-router.put(
-  "/picture/:id",
-  authenticate,
-  uploadMiddleware,
-  validatePicture,
-  userController.updateProfilePicture.bind(userController)
-);
+// router.put(
+//   "/picture/:id",
+//   authenticate,
+//   uploadMiddleware,
+//   validatePicture,
+//   userController.updateProfilePicture.bind(userController)
+// );
 
 // /**
 //  * @swagger

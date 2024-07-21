@@ -47,7 +47,7 @@ describe("User info Tests", () => {
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("_id");
     expect(response.body).toHaveProperty("email");
-    expect(response.body).toHaveProperty("profileImage");
+    expect(response.body).toHaveProperty("fullName");
   });
   test("unauthorized get user by id", async () => {
     const response = await request(app).get(`/user/${userDocument._id}`);
