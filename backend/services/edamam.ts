@@ -23,7 +23,7 @@ const getNutritionData = async (ingredients: string[]) => {
     const response = await axios.post(NUTRITION_BASE_URL, body, { params });
     return response.data;
   } catch (error) {
-    console.error("Error fetching nutrition data:", error);
+    console.error("Error fetching nutrition data:");
     throw error;
   }
 };

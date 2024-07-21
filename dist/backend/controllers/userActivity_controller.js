@@ -63,6 +63,45 @@ class UserActivityController extends base_controller_1.BaseController {
             res.status(500).json({ message: "Internal Server Error" });
         }
     }
+    calculateBMR(gender, age, weight, height) {
+        if (gender.toLowerCase() === 'male') {
+            return 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+        }
+        else {
+            return 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+        }
+    }
+    adjustForActivityLevel(bmr, activityLevel) {
+        switch (activityLevel) {
+            case 'sedentary':
+                return bmr * 1.2;
+            case 'lightlyActive':
+                return bmr * 1.375;
+            case 'moderatelyActive':
+                return bmr * 1.55;
+            case 'veryActive':
+                return bmr * 1.725;
+            default:
+                return bmr * 1.2; // Default to sedentary if unknown
+        }
+    }
+    adjustForGoal(calories, goal) {
+        switch (goal) {
+            case 'lose':
+                return calories - 500; // Create a 500 calorie deficit
+            case 'gain':
+                return calories + 500; // Create a 500 calorie surplus
+            case 'maintain':
+            default:
+                return calories;
+        }
+    }
+    calculateRecommendedCalories(gender, age, currentWeight, height, activityLevel, goal) {
+        const bmr = this.calculateBMR(gender, age, currentWeight, height);
+        const adjustedForActivity = this.adjustForActivityLevel(bmr, activityLevel);
+        const recommendedCalories = this.adjustForGoal(adjustedForActivity, goal);
+        return Math.round(recommendedCalories); // Round to nearest whole number
+    }
 }
 exports.default = new UserActivityController();
 //# sourceMappingURL=userActivity_controller.js.map

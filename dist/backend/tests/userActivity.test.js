@@ -12,13 +12,16 @@ const User = {
     fullName: "kuku",
     dateOfBirth: "1990-01-01",
     password: "123",
+    gender: "male",
+    age: 30,
+    weight: 80,
+    height: 180,
+    activityLevel: "sedentary",
+    goal: "lose",
 };
 beforeAll(async () => {
     app = await (0, app_1.default)();
     console.log("beforeAll");
-    await (0, supertest_1.default)(app).post("/auth/register").send(User);
-    const response = await (0, supertest_1.default)(app).post("/auth/login").send(User);
-    const user_id = response.body.user_id;
 });
 afterAll(async () => {
     await mongoose_1.default.connection.close();
@@ -29,7 +32,10 @@ describe("User Activity", () => {
         expect(res.status).toBe(200);
     });
     test("update user weight", async () => {
-        const res = await (0, supertest_1.default)(app).put("/userActivity/updateWeight").send({ userId: '669cd2e7a2f16c9f3fc83d17', weight: 70 });
+        await (0, supertest_1.default)(app).post("/auth/register").send(User);
+        const response = await (0, supertest_1.default)(app).post("/auth/login").send(User);
+        const user_id = response.body._id;
+        const res = await (0, supertest_1.default)(app).put("/userActivity/updateWeight").send({ userId: user_id, weight: 90 });
         expect(res.status).toBe(200);
     });
 });
