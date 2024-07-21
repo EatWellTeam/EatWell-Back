@@ -17,10 +17,6 @@ const imageURL =
 //   "https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_1200/hellofresh_s3/image/shawarma-au-poulet-d0f073a1.jpg";
 const messageContent: MessageContent[] = [
   {
-    type: "text",
-    text: `Given an image with various food items, list each item followed by its approximate quantity in a simple, structured format suitable for processing by an API. For example, if the image contains 3 tablespoons of hummus, 1/2 cup of shredded red cabbage, and 8 pieces of baked pita chips, format your response as follows: ["3 tablespoons of hummus", "1/2 cup of shredded red cabbage", "8 pieces of baked pita chips"].`,
-  },
-  {
     type: "image_url",
     image_url: { url: imageURL },
   },
@@ -51,7 +47,7 @@ describe("fetchChatCompletion", () => {
       .timeout(30000); // 30 seconds timeout
 
     expect(response.status).toBe(200);
-  
+
     console.log("response from API: \n", response.body);
   }, 35000);
 });
