@@ -14,7 +14,11 @@ export interface IUserActivity extends Document {
   user: IUser["_id"];
   gender: string;
   age?: number;
-  weight: number;
+  currentWeight: number;
+  weightHistory: {
+    weight: number;
+    date: Date;
+  }[];
   height: number;
   activityLevel: enumActivityLevel;
   goal: goalEnum;
@@ -32,7 +36,11 @@ const userActivitySchema = new Schema<IUserActivity>({
   user: { type: Schema.Types.ObjectId, ref: "User", required: true },
   gender: { type: String, required: true },
   age: { type: Number, required: true },
-  weight: { type: Number, required: true },
+  currentWeight: { type: Number, required: true },
+  weightHistory: [{
+    weight: { type: Number, required: true },
+    date: { type: Date, required: true }
+  }],
   height: { type: Number, required: true },
   activityLevel: { type: String, required: true },
   goal: { type: String, required: true },

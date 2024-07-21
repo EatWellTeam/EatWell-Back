@@ -48,6 +48,16 @@ Content-Type: application/json
 }
 ###
 
+GET http://localhost:3000/userActivity/weightHistory/669cde9a1a1dc26d7a63880d
+Content-Type: application/json
+
+{
+  
+  
+
+}
+
+
 
 
   
