@@ -7,6 +7,7 @@ const user_model_1 = __importDefault(require("../models/user_model"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const userActivity_model_1 = __importDefault(require("../models/userActivity_model"));
+const userActivity_controller_1 = __importDefault(require("../controllers/userActivity_controller"));
 const google_auth_library_1 = require("google-auth-library");
 const path_1 = __importDefault(require("path"));
 const client = new google_auth_library_1.OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -38,7 +39,8 @@ const googleSignin = async (req, res) => {
                     user: user._id,
                     gender: "",
                     age: 0,
-                    weight: 0,
+                    currentWeight: 0,
+                    weightHistory: [],
                     height: 0,
                     activityLevel: "",
                     goal: "",
@@ -70,9 +72,9 @@ const googleSignin = async (req, res) => {
 const register = async (req, res) => {
     // console.log("register");
     console.log("req.body", req.body);
-    const { email, fullName, dateOfBirth, password } = req.body;
-    if (!email || !password) {
-        return res.status(400).send("Missing email or password");
+    const { email, fullName, dateOfBirth, password, gender, age, weight, height, activityLevel, goal } = req.body;
+    if (!email || !password || !gender || !weight || !height || !activityLevel || !goal) {
+        return res.status(400).send("Missing required fields");
     }
     try {
         const existingUser = await user_model_1.default.findOne({ email: email });
@@ -90,15 +92,17 @@ const register = async (req, res) => {
             password: encryptedPassword,
             profileImage: fileName,
         });
+        const recommendedCalories = userActivity_controller_1.default.calculateRecommendedCalories(gender, age, weight, height, activityLevel, goal);
         await userActivity_model_1.default.create({
             user: newUser._id,
-            gender: "male",
-            age: 0,
-            weight: 0,
-            height: 0,
-            activityLevel: "sedentary",
-            goal: "lose",
-            recommendedCalories: 0,
+            gender: gender,
+            age: age,
+            currentWeight: weight,
+            weightHistory: [{ weight, date: new Date() }],
+            height: height,
+            activityLevel: activityLevel,
+            goal: goal,
+            recommendedCalories: recommendedCalories,
             nutritionValues: {
                 calories: 0,
                 protein: 0,
