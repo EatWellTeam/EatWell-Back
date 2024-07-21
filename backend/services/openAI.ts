@@ -26,7 +26,7 @@ export interface Message {
 }
 
 async function fetchChatCompletion(req: Request, res: Response,next: NextFunction) {
-  const messages: Message[] = req.body;
+  const messages: Message[] = req.body
 
   console.log("messages: \n", JSON.stringify(messages, null, 2));
 
