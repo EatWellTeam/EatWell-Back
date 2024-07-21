@@ -22,6 +22,13 @@ const user = {
   fullName: "testAuth",
   dateOfBirth: "1990-01-01",
   password: "1234567890",
+  gender: "male",
+  age: 30,
+  weight: 80,
+  height: 180,
+  activityLevel: "sedentary",
+  goal: "lose",
+
 };
 const user2 = {
   email: "testUser@test.com",
@@ -70,7 +77,7 @@ describe("Auth tests", () => {
   test("TEST 2 test register for missing email / password", async () => {
     const response = await request(app).post("/auth/register").send(user2);
     expect(response.statusCode).toEqual(400);
-    expect(response.text).toEqual("Missing email or password");
+    expect(response.text).toEqual("Missing required fields");
   });
   test("TEST 3: test register for existing email", async () => {
     const response = await request(app).post("/auth/register").send(user);
