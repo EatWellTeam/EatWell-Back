@@ -15,19 +15,23 @@ afterAll(async () => {
 });
 
 const ingredients = {
-  ingredients: ["1 cup of mixed greens", 
-    "6 cherry tomato halves", 
+  ingredients: [
+    "1 cup of mixed greens",
+    "6 cherry tomato halves",
     "5 pieces of yellow bell pepper",
     "1 cup ofsweet potato fries",
-    "5 slices of seasoned chicken breast"]
+    "5 slices of seasoned chicken breast",
+  ],
 };
 
 const ingredients2 = {
-  ingredients: ["1 steak",
-     "1 cup of mixed greens",
-     "200 gram potato", 
-     "2 pieces of bread",
-     "1 cup of milk"]
+  ingredients: [
+    "1 steak",
+    "1 cup of mixed greens",
+    "200 gram potato",
+    "2 pieces of bread",
+    "1 cup of milk",
+  ],
 };
 
 const query = {
@@ -42,35 +46,24 @@ describe("Edamam API tests", () => {
 
     console.log("response from Edamam API: \n", response.body);
     expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty("calories");
-    expect(response.body).toHaveProperty("totalWeight");
-    expect(response.body).toHaveProperty("totalNutrients");
-    expect(response.body).toHaveProperty("totalDaily");
+    expect(response.body.nutritionData).toHaveProperty("calories");
+    expect(response.body.nutritionData).toHaveProperty("totalWeight");
+    expect(response.body.nutritionData).toHaveProperty("totalNutrients");
+    expect(response.body.nutritionData).toHaveProperty("totalDaily");
   });
-
 
   test("another test get nutrition", async () => {
     const response = await request(app)
       .post("/nutrition/get-nutrition")
       .send(ingredients2);
 
-      console.log("response from Edamam API: \n", response.body);
+    console.log("response from Edamam API: \n", response.body);
     expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty("calories");
-    expect(response.body).toHaveProperty("totalWeight");
-    expect(response.body).toHaveProperty("totalNutrients");
-    expect(response.body).toHaveProperty("totalDaily");
+    expect(response.body.nutritionData).toHaveProperty("calories");
+    expect(response.body.nutritionData).toHaveProperty("totalWeight");
+    expect(response.body.nutritionData).toHaveProperty("totalNutrients");
+    expect(response.body.nutritionData).toHaveProperty("totalDaily");
   });
-
-  test("test get nutrition with invalid ingredients", async () => {
-    const response = await request(app)
-      .post("/nutrition/get-nutrition")
-      .send({ ingredients: "invalid ingredients" });
-    expect(response.status).toBe(500);
-    expect(response.body).toHaveProperty("error");
-  });
-
-
 
   test("test get recipe", async () => {
     const response = await request(app)

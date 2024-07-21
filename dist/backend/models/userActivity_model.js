@@ -5,7 +5,11 @@ const userActivitySchema = new mongoose_1.Schema({
     user: { type: mongoose_1.Schema.Types.ObjectId, ref: "User", required: true },
     gender: { type: String, required: true },
     age: { type: Number, required: true },
-    weight: { type: Number, required: true },
+    currentWeight: { type: Number, required: true },
+    weightHistory: [{
+            weight: { type: Number, required: true },
+            date: { type: Date, required: true }
+        }],
     height: { type: Number, required: true },
     activityLevel: { type: String, required: true },
     goal: { type: String, required: true },
