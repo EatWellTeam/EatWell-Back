@@ -74,6 +74,22 @@ Content-Type: application/json
   
 }
 ]
+###
+POST http://localhost:3000/food/save-meal
+Content-Type: application/json
+
+{
+  "name": "Chicken Salad",
+  "calories": 350,
+  "nutritionValues": {
+    "calories": 350,
+    "protein": 30,
+    "carbs": 10,
+    "fat": 20
+  },
+  "userId": "669e0497f315731f156786a0",
+  "imageUrl": "https://example.com/images/chicken-salad.jpg"
+}
 
 
 
