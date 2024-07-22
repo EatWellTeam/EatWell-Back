@@ -3,8 +3,10 @@ import User, { IUser } from "../models/user_model";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import UserActivityModel from "../models/userActivity_model";
+import userActivityController from '../controllers/userActivity_controller';
 import { OAuth2Client } from "google-auth-library";
 import { Document } from "mongoose";
+
 import path from "path";
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const googleSignin = async (req: Request, res: Response) => {
@@ -38,7 +40,8 @@ const googleSignin = async (req: Request, res: Response) => {
           user: user._id,
           gender: "",
           age: 0,
-          weight: 0,
+          currentWeight: 0,
+          weightHistory: [],
           height: 0,
           activityLevel: "",
           goal: "",
@@ -59,7 +62,7 @@ const googleSignin = async (req: Request, res: Response) => {
       res.status(200).send({
         email: user.email,
         _id: user._id,
-        profileImage: user.profileImage,
+        // profileImage: user.profileImage,
         password: user.password,
         ...tokens,
       });
@@ -73,9 +76,14 @@ const register = async (req: Request, res: Response): Promise<Response> => {
   // console.log("register");
   console.log("req.body", req.body);
 
-  const { email, fullName, dateOfBirth, password } = req.body;
-  if (!email || !password) {
-    return res.status(400).send("Missing email or password");
+  const { email, fullName, dateOfBirth, password, gender, 
+    age,
+    weight, 
+    height, 
+    activityLevel, 
+    goal  } = req.body;
+  if (!email || !password || !gender || !weight || !height || !activityLevel || !goal) {
+    return res.status(400).send("Missing required fields");
   }
   try {
     const existingUser = await User.findOne({ email: email });
@@ -90,6 +98,8 @@ const register = async (req: Request, res: Response): Promise<Response> => {
     );
     console.log("fileName", fileName);
 
+    
+
     const newUser = await User.create({
       email: email,
       fullName: fullName,
@@ -98,15 +108,25 @@ const register = async (req: Request, res: Response): Promise<Response> => {
       profileImage: fileName,
     });
 
+     const recommendedCalories = userActivityController.calculateRecommendedCalories(
+      gender,
+      age,
+      weight,
+      height,
+      activityLevel,
+      goal
+    );
+
     await UserActivityModel.create({
       user: newUser._id,
-      gender: "male",
-      age: 0,
-      weight: 0,
-      height: 0,
-      activityLevel: "sedentary",
-      goal: "lose",
-      recommendedCalories: 0,
+      gender: gender,
+      age: age,
+      currentWeight: weight,
+      weightHistory: [{ weight, date: new Date() }],
+      height: height,
+      activityLevel: activityLevel,
+      goal: goal,
+      recommendedCalories: recommendedCalories,
       nutritionValues: {
         calories: 0,
         protein: 0,
@@ -121,7 +141,7 @@ const register = async (req: Request, res: Response): Promise<Response> => {
       fullName: newUser.fullName,
       dateOfBirth: newUser.dateOfBirth,
       _id: newUser._id,
-      profileImage: newUser.profileImage,
+      // profileImage: newUser.profileImage,
       password: newUser.password,
       ...token,
     });
@@ -177,7 +197,7 @@ const login = async (req: Request, res: Response) => {
       fullName: user.fullName,
       dateOfBirth: user.dateOfBirth,
       _id: user._id,
-      profileImage: user.profileImage,
+      // profileImage: user.profileImage,
       password: req.body.password,
       ...tokens,
     });

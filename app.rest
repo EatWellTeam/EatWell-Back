@@ -37,15 +37,47 @@ POST http://localhost:3000/nutrition/get-nutrition
 Content-Type: application/json
 
 {
-  "ingredients": ["1 cup rice", "200g chicken"]
+  "ingredients": [ "200g chicken"]
 }
 ###
 POST http://localhost:3000/nutrition/get-recipes
 Content-Type: application/json
 
 {
-  "query": "chicken"
+  "query": "breakfast avocado"
 }
+###
+
+GET http://localhost:3000/userActivity/weightHistory/669cde9a1a1dc26d7a63880d
+Content-Type: application/json
+
+{
+  
+  
+
+}
+
+###
+POST http://localhost:3000/middleware/process
+Content-Type: application/json
+
+[
+{
+  
+  "role": "user",
+  "content": [
+    {
+      "type": "image_url",
+      "image_url": { "url": "https://www.diabetesfoodhub.org/system/user_files/Images/1837-diabetic-pecan-crusted-chicken-breast_JulAug20DF_clean-simple_061720.jpg" }
+    }
+  ]
+  
+}
+]
+
+
+
+
 
 
   
