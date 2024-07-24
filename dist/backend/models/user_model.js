@@ -26,10 +26,6 @@ const userSchema = new mongoose_1.Schema({
         type: Date,
         default: Date.now,
     },
-    profileImage: {
-        type: String,
-        required: false,
-    },
 });
 const UserModel = (0, mongoose_1.model)("User", userSchema);
 exports.default = UserModel;

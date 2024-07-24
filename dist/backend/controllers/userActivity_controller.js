@@ -21,6 +21,9 @@ class UserActivityController extends base_controller_1.BaseController {
             }
             userActivity.currentWeight = weight;
             userActivity.weightHistory.push({ weight, date: new Date() });
+            const recommendedCalories = this.calculateRecommendedCalories(userActivity.gender, userActivity.age, weight, // Use the new weight
+            userActivity.height, userActivity.activityLevel, userActivity.goal);
+            userActivity.recommendedCalories = recommendedCalories;
             await userActivity.save();
             res.status(200).json(userActivity);
         }

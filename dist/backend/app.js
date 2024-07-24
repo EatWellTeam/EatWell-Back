@@ -15,6 +15,7 @@ const edamam_route_1 = __importDefault(require("./routes/edamam_route"));
 const openai_route_1 = __importDefault(require("./routes/openai_route"));
 const middleware_route_1 = __importDefault(require("./routes/middleware_route"));
 const userActivity_route_1 = __importDefault(require("./routes/userActivity_route"));
+const meals_route_1 = __importDefault(require("./routes/meals_route"));
 const path_1 = __importDefault(require("path"));
 const cors_1 = __importDefault(require("cors"));
 const initApp = () => {
@@ -33,6 +34,7 @@ const initApp = () => {
             app.use("/nutrition", edamam_route_1.default);
             app.use("/middleware", middleware_route_1.default);
             app.use("/userActivity", userActivity_route_1.default);
+            app.use('/food', meals_route_1.default);
             app.use("/public", express_1.default.static(path_1.default.join(__dirname, "/public")));
             app.use("/file", files_route_1.default);
             app.use("/openai", openai_route_1.default);

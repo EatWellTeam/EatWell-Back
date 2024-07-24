@@ -59,7 +59,7 @@ const googleSignin = async (req, res) => {
             res.status(200).send({
                 email: user.email,
                 _id: user._id,
-                profileImage: user.profileImage,
+                // profileImage: user.profileImage,
                 password: user.password,
                 ...tokens,
             });
@@ -117,7 +117,7 @@ const register = async (req, res) => {
             fullName: newUser.fullName,
             dateOfBirth: newUser.dateOfBirth,
             _id: newUser._id,
-            profileImage: newUser.profileImage,
+            // profileImage: newUser.profileImage,
             password: newUser.password,
             ...token,
         });
@@ -166,7 +166,7 @@ const login = async (req, res) => {
             fullName: user.fullName,
             dateOfBirth: user.dateOfBirth,
             _id: user._id,
-            profileImage: user.profileImage,
+            // profileImage: user.profileImage,
             password: req.body.password,
             ...tokens,
         });
