@@ -73,32 +73,24 @@ const googleSignin = async (req: Request, res: Response) => {
 };
 
 const register = async (req: Request, res: Response): Promise<Response> => {
-  // console.log("register");
-  console.log("req.body", req.body);
+  console.log("Register request body:", req.body);
 
-  const { email, fullName, dateOfBirth, password, gender, 
-    age,
-    weight, 
-    height, 
-    activityLevel, 
-    goal  } = req.body;
+  const { email, fullName, dateOfBirth, password, gender, weight, height, activityLevel, goal } = req.body;
   if (!email || !password || !gender || !weight || !height || !activityLevel || !goal) {
     return res.status(400).send("Missing required fields");
   }
+
   try {
     const existingUser = await User.findOne({ email: email });
     if (existingUser) {
       return res.status(409).send("Email Already Used");
     }
+
     const salt = await bcrypt.genSalt(10);
     const encryptedPassword = await bcrypt.hash(password, salt);
 
-    const fileName = path.basename(
-      path.join(__dirname, "default_picture.jpeg")
-    );
-    console.log("fileName", fileName);
-
-    
+    const fileName = path.basename(path.join(__dirname, "default_picture.jpeg"));
+    console.log("Default profile picture filename:", fileName);
 
     const newUser = await User.create({
       email: email,
@@ -108,7 +100,15 @@ const register = async (req: Request, res: Response): Promise<Response> => {
       profileImage: fileName,
     });
 
-     const recommendedCalories = userActivityController.calculateRecommendedCalories(
+    const calculateAge = (dob: string) => {
+      const diff_ms = Date.now() - new Date(dob).getTime();
+      const age_dt = new Date(diff_ms);
+      return Math.abs(age_dt.getUTCFullYear() - 1970);
+    };
+
+    const age = calculateAge(dateOfBirth);
+
+    const recommendedCalories = userActivityController.calculateRecommendedCalories(
       gender,
       age,
       weight,
@@ -117,7 +117,11 @@ const register = async (req: Request, res: Response): Promise<Response> => {
       goal
     );
 
-    await UserActivityModel.create({
+    if (isNaN(recommendedCalories)) {
+      throw new Error("Calculated recommended calories is NaN");
+    }
+
+    const userActivity = await UserActivityModel.create({
       user: newUser._id,
       gender: gender,
       age: age,
@@ -135,19 +139,21 @@ const register = async (req: Request, res: Response): Promise<Response> => {
       },
       createdAt: new Date(),
     });
+
     const token = await generateTokens(newUser);
+    console.log("User registered successfully:", newUser);
     return res.status(201).json({
       email: newUser.email,
       fullName: newUser.fullName,
       dateOfBirth: newUser.dateOfBirth,
       _id: newUser._id,
-      // profileImage: newUser.profileImage,
       password: newUser.password,
+      recommendedCalories: userActivity.recommendedCalories,
       ...token,
     });
   } catch (error) {
-    console.log(error);
-    return res.status(500).send("Internal Error - " + error);
+    console.error("Error during registration:", error);
+    return res.status(500).send("Internal Error - " + error.message);
   }
 };
 
