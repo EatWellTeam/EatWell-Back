@@ -57,7 +57,7 @@ async function saveMeal(req: SaveMealRequest, res: Response) {
       fat: (userActivity.nutritionValues?.fat || 0) + nutritionValues.fat
     };
 
-    userActivity.recommendedCalories = userActivity.recommendedCalories - nutritionValues.calories;
+    userActivity.CalorieEaten = (userActivity.CalorieEaten || 0) + nutritionValues.calories;
     await userActivity.save();
 
     res.status(201).json({
