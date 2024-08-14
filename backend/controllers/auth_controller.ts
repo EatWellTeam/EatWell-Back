@@ -131,6 +131,7 @@ const register = async (req: Request, res: Response): Promise<Response> => {
       activityLevel: activityLevel,
       goal: goal,
       recommendedCalories: recommendedCalories,
+      CalorieEaten: 0,
       nutritionValues: {
         calories: 0,
         protein: 0,

@@ -23,6 +23,7 @@ export interface IUserActivity extends Document {
   activityLevel: enumActivityLevel;
   goal: goalEnum;
   recommendedCalories?: number;
+  CalorieEaten?: number;
   nutritionValues?: {
     calories: number;
     protein: number;
@@ -45,6 +46,7 @@ const userActivitySchema = new Schema<IUserActivity>({
   activityLevel: { type: String, required: true },
   goal: { type: String, required: true },
   recommendedCalories: { type: Number, required: false },
+  CalorieEaten: { type: Number, required: false },
   nutritionValues: {
     calories: { type: Number, required: false },
     protein: { type: Number, required: false },
