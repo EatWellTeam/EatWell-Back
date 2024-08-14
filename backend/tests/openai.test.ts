@@ -9,12 +9,8 @@ import { Message, MessageContent } from "../services/openAI";
 env.config();
 
 const imageURL =
-  "https://www.diabetesfoodhub.org/system/user_files/Images/1837-diabetic-pecan-crusted-chicken-breast_JulAug20DF_clean-simple_061720.jpg";
+  "https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_1200/hellofresh_s3/image/shawarma-au-poulet-d0f073a1.jpg";
 
-// const imageURL =
-//   "https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_1200/hellofresh_s3/image/shawarma-au-poulet-d0f073a1.jpg";
-// const imageURL =
-//   "https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_1200/hellofresh_s3/image/shawarma-au-poulet-d0f073a1.jpg";
 const messageContent: MessageContent[] = [
   {
     type: "image_url",

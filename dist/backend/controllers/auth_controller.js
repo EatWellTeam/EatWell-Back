@@ -70,9 +70,8 @@ const googleSignin = async (req, res) => {
     }
 };
 const register = async (req, res) => {
-    // console.log("register");
-    console.log("req.body", req.body);
-    const { email, fullName, dateOfBirth, password, gender, age, weight, height, activityLevel, goal } = req.body;
+    console.log("Register request body:", req.body);
+    const { email, fullName, dateOfBirth, password, gender, weight, height, activityLevel, goal } = req.body;
     if (!email || !password || !gender || !weight || !height || !activityLevel || !goal) {
         return res.status(400).send("Missing required fields");
     }
@@ -84,7 +83,7 @@ const register = async (req, res) => {
         const salt = await bcrypt_1.default.genSalt(10);
         const encryptedPassword = await bcrypt_1.default.hash(password, salt);
         const fileName = path_1.default.basename(path_1.default.join(__dirname, "default_picture.jpeg"));
-        console.log("fileName", fileName);
+        console.log("Default profile picture filename:", fileName);
         const newUser = await user_model_1.default.create({
             email: email,
             fullName: fullName,
@@ -92,8 +91,17 @@ const register = async (req, res) => {
             password: encryptedPassword,
             profileImage: fileName,
         });
+        const calculateAge = (dob) => {
+            const diff_ms = Date.now() - new Date(dob).getTime();
+            const age_dt = new Date(diff_ms);
+            return Math.abs(age_dt.getUTCFullYear() - 1970);
+        };
+        const age = calculateAge(dateOfBirth);
         const recommendedCalories = userActivity_controller_1.default.calculateRecommendedCalories(gender, age, weight, height, activityLevel, goal);
-        await userActivity_model_1.default.create({
+        if (isNaN(recommendedCalories)) {
+            throw new Error("Calculated recommended calories is NaN");
+        }
+        const userActivity = await userActivity_model_1.default.create({
             user: newUser._id,
             gender: gender,
             age: age,
@@ -103,6 +111,7 @@ const register = async (req, res) => {
             activityLevel: activityLevel,
             goal: goal,
             recommendedCalories: recommendedCalories,
+            CalorieEaten: 0,
             nutritionValues: {
                 calories: 0,
                 protein: 0,
@@ -112,19 +121,20 @@ const register = async (req, res) => {
             createdAt: new Date(),
         });
         const token = await generateTokens(newUser);
+        console.log("User registered successfully:", newUser);
         return res.status(201).json({
             email: newUser.email,
             fullName: newUser.fullName,
             dateOfBirth: newUser.dateOfBirth,
             _id: newUser._id,
-            // profileImage: newUser.profileImage,
             password: newUser.password,
+            recommendedCalories: userActivity.recommendedCalories,
             ...token,
         });
     }
     catch (error) {
-        console.log(error);
-        return res.status(500).send("Internal Error - " + error);
+        console.error("Error during registration:", error);
+        return res.status(500).send("Internal Error - " + error.message);
     }
 };
 const generateTokens = async (user) => {

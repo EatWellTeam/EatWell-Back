@@ -68,7 +68,7 @@ Content-Type: application/json
   "content": [
     {
       "type": "image_url",
-      "image_url": { "url": "https://www.diabetesfoodhub.org/system/user_files/Images/1837-diabetic-pecan-crusted-chicken-breast_JulAug20DF_clean-simple_061720.jpg" }
+      "image_url": { "url": "https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_1200/hellofresh_s3/image/shawarma-au-poulet-d0f073a1.jpg" }
     }
   ]
   

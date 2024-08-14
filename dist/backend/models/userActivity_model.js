@@ -14,6 +14,7 @@ const userActivitySchema = new mongoose_1.Schema({
     activityLevel: { type: String, required: true },
     goal: { type: String, required: true },
     recommendedCalories: { type: Number, required: false },
+    CalorieEaten: { type: Number, required: false },
     nutritionValues: {
         calories: { type: Number, required: false },
         protein: { type: Number, required: false },
