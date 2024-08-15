@@ -296,10 +296,11 @@ router.get("/:id", userController.getById.bind(userController));
 
 router.put(
   "/:id",
-  authenticate,
-  uploadMiddleware,
-  validatePicture,
-  userController.putById.bind(userController)
-);
+// authenticate,
+  // uploadMiddleware,
+  // validatePicture,
+  userController.updateProfile.bind(userController));
+
+
 
 export default router;

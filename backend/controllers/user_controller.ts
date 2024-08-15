@@ -4,6 +4,8 @@ import User, { IUser } from "../models/user_model";
 import UserActivityModel,{IUserActivity} from "../models/userActivity_model";
 import bcrypt from "bcrypt";
 import UserActivity from "../models/userActivity_model";
+import userActivity_controller from "./userActivity_controller";
+
 import jwt from "jsonwebtoken";
 
 class UserController extends BaseController<IUser> {
@@ -99,7 +101,40 @@ class UserController extends BaseController<IUser> {
     }
   }
 
-  a
+  async updateProfile(req: Request, res: Response): Promise<void> {
+
+    try {
+      const user = await User.findById(req.params.id);
+      if (!user) {
+        res.status(404).send("User not found");
+        return;
+      }
+  
+      const userActivity = await UserActivityModel.findOne({ user: req.params.id });
+      if (!userActivity) {
+        res.status(404).send("User activity not found");
+        return;
+      }
+  
+      user.email = req.body.email;
+      user.fullName = req.body.firstName;
+      user.dateOfBirth = req.body.dateOfBirth;
+      userActivity.height = req.body.height;
+      userActivity.activityLevel = req.body.activityLevel;
+      userActivity.gender = req.body.gender;
+      userActivity.goal = req.body.goal;
+
+     
+      await user.save();
+      await userActivity.save();
+
+      res.status(200).send("User updated");
+    } catch (error) {
+      console.error("Error updating user:", error);
+      res.status(500).send("Internal server error");
+    }
+  }
+      
 
 }
 export default new UserController();
