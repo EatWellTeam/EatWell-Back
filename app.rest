@@ -79,7 +79,7 @@ POST http://localhost:3000/food/save-meal
 Content-Type: application/json
 
 {
-  "name": "Chicken Big salad",
+  "name": "Chicken",
   "calories": 350,
   "nutritionValues": {
     "calories": 350,
@@ -87,8 +87,15 @@ Content-Type: application/json
     "carbs": 10,
     "fat": 20
   },
-  "userId": "66bbb845cfdfa6fa4ae40f4a",
+  "userId": "66be20a5af28fd4866211d9d",
   "imageUrl": "https://www.pamperedchef.com/iceberg/com/recipe/2564-lg.jpg"
+}
+###
+GET http://localhost:3000/food/66be20a5af28fd4866211d9d
+Content-Type: application/json
+
+{
+  
 }
 
 

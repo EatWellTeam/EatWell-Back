@@ -71,4 +71,20 @@ async function saveMeal(req: SaveMealRequest, res: Response) {
   }
 }
 
-export { saveMeal };
+async function getAllUserMeals(req: Request, res: Response) {
+  try {
+    const userId = req.params.userId;
+    
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
+
+    const meals = await FoodModel.find({ user: userId });
+    res.status(200).json(meals);
+  } catch (error) {
+    console.error('Error fetching meals:', error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+export { saveMeal, getAllUserMeals };
