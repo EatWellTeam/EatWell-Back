@@ -261,7 +261,7 @@ router.put(
  *         description: Internal server error
  */
 
-router.get("/all", authenticate, userController.get.bind(userController));
+router.get("/all", userController.get.bind(userController));
 
 /**
  * @swagger
@@ -292,7 +292,7 @@ router.get("/all", authenticate, userController.get.bind(userController));
  *       500:
  *         description: Internal server error
  */
-router.get("/:id", authenticate, userController.getById.bind(userController));
+router.get("/:id", userController.getById.bind(userController));
 
 router.put(
   "/:id",

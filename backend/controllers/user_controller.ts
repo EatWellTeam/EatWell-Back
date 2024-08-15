@@ -1,6 +1,7 @@
 import { BaseController } from "./base_controller";
 import { Request, Response } from "express";
 import User, { IUser } from "../models/user_model";
+import UserActivityModel,{IUserActivity} from "../models/userActivity_model";
 import bcrypt from "bcrypt";
 import UserActivity from "../models/userActivity_model";
 import jwt from "jsonwebtoken";
@@ -64,32 +65,41 @@ class UserController extends BaseController<IUser> {
   //   }
   // }
   async getById(req: Request, res: Response): Promise<void> {
-    const accessToken = req.headers.authorization?.split(" ")[1];
-
-    const decodedToken = jwt.verify(accessToken, process.env.JWT_SECRET) as {
-      _id: string;
-    };
-    const user =
-      (await User.findOne({ _id: decodedToken._id })) &&
-      (await User.findById(req.params.id));
-
-    if (!user) {
-      res.status(404).send("User not found");
-      return;
+    try {
+      const user = await User.findById(req.params.id);
+      if (!user) {
+        res.status(404).send("User not found");
+        return;
+      }
+  
+      const userActivity = await UserActivityModel.findOne({ user: req.params.id });
+      if (!userActivity) {
+        res.status(404).send("User activity not found");
+        return;
+      }
+  
+    
+      const userInfo = {
+        _id: user._id,
+        email: user.email,
+        fullName: user.fullName,
+        dateOfBirth: user.dateOfBirth,
+        weight: userActivity.currentWeight,
+        height: userActivity.height,
+        activityLevel: userActivity.activityLevel,
+        gender: userActivity.gender,
+        goal: userActivity.goal,
+      
+      };
+  
+      res.status(200).send(userInfo);
+    } catch (error) {
+      console.error("Error fetching user by ID:", error);
+      res.status(500).send("Internal server error");
     }
-
-    // Customize the user information you want to return
-    const userInfo = {
-      _id: user._id,
-      email: user.email,
-      fullName: user.fullName,
-      dateOfBirth: user.dateOfBirth,
-      // profileImage: user.profileImage,
-      // Add more user properties as needed
-    };
-
-    res.status(200).send(userInfo);
-    return;
   }
+
+  a
+
 }
 export default new UserController();
