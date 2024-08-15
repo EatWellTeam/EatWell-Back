@@ -26,6 +26,7 @@ const user = {
   age: 30,
   weight: 80,
   height: 180,
+  weightGoal: 70,
   activityLevel: "sedentary",
   goal: "lose",
 

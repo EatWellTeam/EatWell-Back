@@ -15,6 +15,7 @@ export interface IUserActivity extends Document {
   gender: string;
   age?: number;
   currentWeight: number;
+  WeightGoal?: number;
   weightHistory: {
     weight: number;
     date: Date;
@@ -38,6 +39,7 @@ const userActivitySchema = new Schema<IUserActivity>({
   gender: { type: String, required: true },
   age: { type: Number, required: true },
   currentWeight: { type: Number, required: true },
+  WeightGoal: { type: Number, required: false },
   weightHistory: [{
     weight: { type: Number, required: true },
     date: { type: Date, required: true }

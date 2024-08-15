@@ -75,7 +75,7 @@ const googleSignin = async (req: Request, res: Response) => {
 const register = async (req: Request, res: Response): Promise<Response> => {
   console.log("Register request body:", req.body);
 
-  const { email, fullName, dateOfBirth, password, gender, weight, height, activityLevel, goal } = req.body;
+  const { email, fullName, dateOfBirth, password, gender, weight, height, activityLevel, goal,weightGoal } = req.body;
   if (!email || !password || !gender || !weight || !height || !activityLevel || !goal) {
     return res.status(400).send("Missing required fields");
   }
@@ -126,6 +126,7 @@ const register = async (req: Request, res: Response): Promise<Response> => {
       gender: gender,
       age: age,
       currentWeight: weight,
+      WeightGoal: weightGoal,
       weightHistory: [{ weight, date: new Date() }],
       height: height,
       activityLevel: activityLevel,
