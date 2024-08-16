@@ -4,7 +4,7 @@ import User, { IUser } from "../models/user_model";
 import UserActivityModel,{IUserActivity} from "../models/userActivity_model";
 import bcrypt from "bcrypt";
 import UserActivity from "../models/userActivity_model";
-import userActivity_controller from "./userActivity_controller";
+import userActivityController from "./userActivity_controller";
 
 import jwt from "jsonwebtoken";
 
@@ -88,6 +88,7 @@ class UserController extends BaseController<IUser> {
         dateOfBirth: user.dateOfBirth,
         weight: userActivity.currentWeight,
         height: userActivity.height,
+        weightGoal: userActivity.WeightGoal,
         activityLevel: userActivity.activityLevel,
         gender: userActivity.gender,
         goal: userActivity.goal,
@@ -102,39 +103,52 @@ class UserController extends BaseController<IUser> {
   }
 
   async updateProfile(req: Request, res: Response): Promise<void> {
-
     try {
       const user = await User.findById(req.params.id);
       if (!user) {
         res.status(404).send("User not found");
         return;
       }
-  
-      const userActivity = await UserActivityModel.findOne({ user: req.params.id });
-      if (!userActivity) {
-        res.status(404).send("User activity not found");
-        return;
-      }
-  
+
       user.email = req.body.email;
-      user.fullName = req.body.firstName;
+      user.fullName = req.body.fullName;
       user.dateOfBirth = req.body.dateOfBirth;
-      userActivity.height = req.body.height;
-      userActivity.activityLevel = req.body.activityLevel;
-      userActivity.gender = req.body.gender;
-      userActivity.goal = req.body.goal;
+      const age = new Date().getFullYear() - new Date(req.body.dateOfBirth).getFullYear();
 
-     
+
       await user.save();
-      await userActivity.save();
 
-      res.status(200).send("User updated");
+      try {
+        const updatedUserActivity = await userActivityController.updateWeight(user._id.toString(), req.body.weight) as IUserActivity;
+        const recommendedCalories = userActivityController.calculateRecommendedCalories(
+          updatedUserActivity.gender.toString(),
+          age,
+          req.body.weight,
+          req.body.height,
+          updatedUserActivity.activityLevel.toString(),
+          updatedUserActivity.goal.toString()
+        );
+        updatedUserActivity.recommendedCalories = recommendedCalories;
+        updatedUserActivity.height = req.body.height;
+        updatedUserActivity.activityLevel = req.body.activityLevel;
+        updatedUserActivity.gender = req.body.gender;
+        updatedUserActivity.goal = req.body.goal;
+        updatedUserActivity.WeightGoal = req.body.weightGoal;
+
+        await updatedUserActivity.save();
+
+        res.status(200).send("User and user activity updated");
+      } catch (error) {
+        console.error("Error updating user activity:", error);
+        res.status(500).send("Error updating user activity");
+      }
     } catch (error) {
       console.error("Error updating user:", error);
       res.status(500).send("Internal server error");
     }
   }
+}
+
       
 
-}
 export default new UserController();

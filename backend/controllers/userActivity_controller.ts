@@ -7,41 +7,30 @@ class UserActivityController extends BaseController<IUserActivity> {
     super(UserActivity);
   }
 
-  async updateWeight(req: Request, res: Response) {
-    try {
-      const { userId, weight } = req.body;
+  async updateWeight(userId: string, weight: number): Promise<IUserActivity> {
+    const userActivity = await UserActivity.findOne({ user: userId });
 
-      if (!userId || !weight) {
-        return res.status(400).json({ message: "User ID and weight are required" });
-      }
-
-      const userActivity = await UserActivity.findOne({ user: userId });
-
-      if (!userActivity) {
-        return res.status(404).json({ message: "User activity not found" });
-      }
-
-      userActivity.currentWeight = weight;
-      userActivity.weightHistory.push({ weight, date: new Date() });
-
-      const recommendedCalories = this.calculateRecommendedCalories(
-        userActivity.gender,
-        userActivity.age,
-        weight, // Use the new weight
-        userActivity.height,
-        userActivity.activityLevel,
-        userActivity.goal
-      );
-
-      userActivity.recommendedCalories = recommendedCalories;
-
-      await userActivity.save();
-
-      res.status(200).json(userActivity);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: "Internal Server Error" });
+    if (!userActivity) {
+      throw new Error("User activity not found");
     }
+
+    userActivity.currentWeight = weight;
+    userActivity.weightHistory.push({ weight, date: new Date() });
+
+    const recommendedCalories = this.calculateRecommendedCalories(
+      userActivity.gender,
+      userActivity.age,
+      weight,
+      userActivity.height,
+      userActivity.activityLevel,
+      userActivity.goal
+    );
+
+    userActivity.recommendedCalories = recommendedCalories;
+
+    await userActivity.save();
+
+    return userActivity;
   }
 
   async getWeightHistory(req: Request, res: Response) {
@@ -143,4 +132,5 @@ class UserActivityController extends BaseController<IUserActivity> {
 
 
 
-export default new UserActivityController();
+const userActivityController = new UserActivityController();
+export default userActivityController;
