@@ -114,29 +114,37 @@ class UserController extends BaseController<IUser> {
       user.fullName = req.body.fullName;
       user.dateOfBirth = req.body.dateOfBirth;
       const age = new Date().getFullYear() - new Date(req.body.dateOfBirth).getFullYear();
-
-
       await user.save();
 
       try {
-        const updatedUserActivity = await userActivityController.updateWeight(user._id.toString(), req.body.weight) as IUserActivity;
+        const userActivity = await UserActivity.findOne({ user: user._id });
+        if (!userActivity) {
+          res.status(404).send("User activity not found");
+          return;
+        }
+        userActivity.height = req.body.height;
+        userActivity.activityLevel = req.body.activityLevel;
+        userActivity.gender = req.body.gender;
+        userActivity.goal = req.body.goal;
+        userActivity.WeightGoal = req.body.weightGoal;
+
         const recommendedCalories = userActivityController.calculateRecommendedCalories(
-          updatedUserActivity.gender.toString(),
+          userActivity.gender.toString(),
           age,
           req.body.weight,
           req.body.height,
-          updatedUserActivity.activityLevel.toString(),
-          updatedUserActivity.goal.toString()
+          userActivity.activityLevel.toString(),
+          userActivity.goal.toString(),
         );
-        updatedUserActivity.recommendedCalories = recommendedCalories;
-        updatedUserActivity.height = req.body.height;
-        updatedUserActivity.activityLevel = req.body.activityLevel;
-        updatedUserActivity.gender = req.body.gender;
-        updatedUserActivity.goal = req.body.goal;
-        updatedUserActivity.WeightGoal = req.body.weightGoal;
+        userActivity.recommendedCalories = recommendedCalories;
 
-        await updatedUserActivity.save();
+        if(req.body.weight!=userActivity.currentWeight){
 
+         await userActivityController.updateWeight(user._id.toString(), req.body.weight) as IUserActivity;
+        }
+
+        await userActivity.save();
+        
         res.status(200).send("User and user activity updated");
       } catch (error) {
         console.error("Error updating user activity:", error);

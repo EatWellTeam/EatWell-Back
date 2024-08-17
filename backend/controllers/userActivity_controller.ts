@@ -17,16 +17,6 @@ class UserActivityController extends BaseController<IUserActivity> {
     userActivity.currentWeight = weight;
     userActivity.weightHistory.push({ weight, date: new Date() });
 
-    const recommendedCalories = this.calculateRecommendedCalories(
-      userActivity.gender,
-      userActivity.age,
-      weight,
-      userActivity.height,
-      userActivity.activityLevel,
-      userActivity.goal
-    );
-
-    userActivity.recommendedCalories = recommendedCalories;
 
     await userActivity.save();
 
@@ -88,11 +78,11 @@ class UserActivityController extends BaseController<IUserActivity> {
     switch (activityLevel) {
       case 'sedentary':
         return bmr * 1.2;
-      case 'lightlyActive':
+      case 'Low':
         return bmr * 1.375;
-      case 'moderatelyActive':
+      case 'Medium':
         return bmr * 1.55;
-      case 'veryActive':
+      case 'High':
         return bmr * 1.725;
       default:
         return bmr * 1.2; // Default to sedentary if unknown
