@@ -22,7 +22,7 @@ async function saveMeal(req: SaveMealRequest, res: Response) {
   try {
     const { name, calories, nutritionValues,imageUrl, userId } = req.body;
 
-    if (!name || !calories || !nutritionValues || !userId || !imageUrl) {
+    if (!name || !calories || !nutritionValues || !userId) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
