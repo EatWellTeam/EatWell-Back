@@ -92,6 +92,8 @@ class UserController extends BaseController<IUser> {
         activityLevel: userActivity.activityLevel,
         gender: userActivity.gender,
         goal: userActivity.goal,
+        recommendedCalories: userActivity.recommendedCalories,
+        eatanCalories: userActivity.CalorieEaten
       
       };
   

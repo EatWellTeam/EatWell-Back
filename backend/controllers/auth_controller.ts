@@ -199,6 +199,8 @@ const login = async (req: Request, res: Response) => {
     }
 
     const tokens = await generateTokens(user);
+    const userActivity = await UserActivityModel.findOne({ user: user._id });
+
 
     return res.status(200).json({
       email: user.email,
@@ -208,6 +210,9 @@ const login = async (req: Request, res: Response) => {
       // profileImage: user.profileImage,
       password: req.body.password,
       ...tokens,
+      recommendedCalories: userActivity.recommendedCalories,
+      CalorieEaten: userActivity.CalorieEaten,
+      
     });
   } catch (error) {
     console.log(error);
