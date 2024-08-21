@@ -37,14 +37,14 @@ POST http://localhost:3000/nutrition/get-nutrition
 Content-Type: application/json
 
 {
-  "ingredients": [ "200g chicken"]
+  "ingredients":  ["1 cheeseburger,20 pieces of  french fries"]
 }
 ###
 POST http://localhost:3000/nutrition/get-recipes
 Content-Type: application/json
 
 {
-  "query": "breakfast avocado"
+  "query": "calories=30"
 }
 ###
 

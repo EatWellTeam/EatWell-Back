@@ -5,6 +5,7 @@ import UserActivityModel,{IUserActivity} from "../models/userActivity_model";
 import bcrypt from "bcrypt";
 import UserActivity from "../models/userActivity_model";
 import userActivityController from "./userActivity_controller";
+import { getAllUserMeals } from "./meals_controller";
 
 import jwt from "jsonwebtoken";
 
@@ -79,8 +80,7 @@ class UserController extends BaseController<IUser> {
         res.status(404).send("User activity not found");
         return;
       }
-  
-    
+
       const userInfo = {
         _id: user._id,
         email: user.email,
@@ -93,7 +93,10 @@ class UserController extends BaseController<IUser> {
         gender: userActivity.gender,
         goal: userActivity.goal,
         recommendedCalories: userActivity.recommendedCalories,
-        eatanCalories: userActivity.CalorieEaten
+        eatanCalories: userActivity.CalorieEaten,
+        weightHistory: userActivity.weightHistory,
+        nutritions: userActivity.nutritionValues,
+       
       
       };
   

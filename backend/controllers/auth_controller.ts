@@ -207,7 +207,6 @@ const login = async (req: Request, res: Response) => {
       fullName: user.fullName,
       dateOfBirth: user.dateOfBirth,
       _id: user._id,
-      // profileImage: user.profileImage,
       password: req.body.password,
       ...tokens,
       recommendedCalories: userActivity.recommendedCalories,
@@ -221,7 +220,7 @@ const login = async (req: Request, res: Response) => {
 };
 
 const logout = async (req: Request, res: Response) => {
-  // console.log("logout");
+ 
 
   const authHeader = req.headers["authorization"];
 
@@ -250,6 +249,7 @@ const logout = async (req: Request, res: Response) => {
             (t) => t !== refreshToken
           );
           await userDb.save();
+          console.log("logout success");
           return res.sendStatus(200);
         }
       } catch (err) {
