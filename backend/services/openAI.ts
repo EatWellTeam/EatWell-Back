@@ -38,7 +38,13 @@ async function fetchChatCompletion(
       content: [
         {
           type: "text",
-          text: `Given an image with various food items, list each item followed by its approximate grams or quantity in a simple, structured format suitable for processing by an API. For example, if the image contains 100 gram tablespoons of hummus, 200 gram of shredded red cabbage, and 8 pieces of baked pita chips, format your response as follows: ["100 gram tablespoons of hummus", "200 gram of shredded red cabbage", "8 pieces of baked pita chips"].`,
+          text: `Given an image with various food items, list each item followed by its approximate grams or quantity in a simple, 
+          structured format suitable for processing by an API. 
+          For example, if the image contains 100 gram tablespoons of hummus, 
+          200 gram of shredded red cabbage, and 400 gram of baked pita chips,
+           format your response as follows:
+            ["100 gram tablespoons of hummus", "200 gram of shredded red cabbage", "400 gram of baked pita chips"].
+            Try to return correct and accurate spelling of the ingredients without abbreviations.`,
         },
         {
           type: "image_url",
