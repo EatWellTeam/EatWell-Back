@@ -11,7 +11,13 @@ async function forwardToNutrition(
     return res.status(400).json({ error: "No response from OpenAI" });
   }
 
-  const products = JSON.parse(openaiResponse);
+  let products: any;
+  try {
+    products = JSON.parse(openaiResponse);
+  } catch (error) {
+    console.error("Error parsing OpenAI response: ", error);
+    return res.status(500).json({ error: error.message });
+  }
   const nutritionRequest = {
     ingredients: products,
   };
