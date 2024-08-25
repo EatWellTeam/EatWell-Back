@@ -11,11 +11,10 @@
     "testUserDelete": "tsc && jest --detectOpenHandles --forceExit --runInBand ./backend/tests/userDelete.test.ts",
     "testUserPicture": "tsc && jest --detectOpenHandles --forceExit --runInBand ./backend/tests/userPicture.test.ts",
     "testUserInfo": "tsc && jest --detectOpenHandles --forceExit --runInBand ./backend/tests/userInfo.test.ts",
-   "testActivity": "tsc && jest --detectOpenHandles --forceExit --runInBand ./backend/tests/userActivity.test.ts",
+    "testActivity": "tsc && jest --detectOpenHandles --forceExit --runInBand ./backend/tests/userActivity.test.ts",
     "testFiles": "tsc && jest --detectOpenHandles --forceExit --runInBand ./backend/tests/files.test.ts",
     "testOpenAI": "tsc && jest --detectOpenHandles --forceExit --runInBand ./backend/tests/openai.test.ts",
     "testEdamam": "tsc && jest --detectOpenHandles --forceExit --runInBand ./backend/tests/edamamApi.test.ts",
-
     "start": "tsc && node ./dist/backend/server.js",
     "dev": "nodemon ./backend/server.ts",
     "prod": "cp .envprod .env && tsc -p tsconfig_prod.json && pm2 restart ecosystem.config.js --env production"
@@ -47,6 +46,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.2",
     "multer": "^1.4.5-lts.1",
+    "node-cron": "^3.0.3",
     "openai": "^4.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.0",
@@ -58,6 +58,7 @@
     "@types/jest": "^29.5.11",
     "@types/multer": "^1.4.11",
     "@types/node": "^20.13.0",
+    "@types/node-cron": "^3.0.11",
     "@types/supertest": "^2.0.16",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.6",

@@ -4,6 +4,7 @@ import http from "http";
 import fs from "fs";
 import swaggerUI from "swagger-ui-express";
 import swaggerJsDoc from "swagger-jsdoc";
+import { scheduleCalorieReset } from './services/scheduledTasks';
 
 const clientKey = process.cwd() + "/client-key.pem";
 const clientCert = process.cwd() + "/client-cert.pem";
@@ -35,4 +36,7 @@ initApp().then((app) => {
     cert: fs.readFileSync(clientCert),
   };
   https.createServer(options, app).listen(portHttps);
+
+  scheduleCalorieReset();
+  console.log('Calorie reset task scheduled');
 });
